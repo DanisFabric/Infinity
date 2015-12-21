@@ -29,10 +29,11 @@ public func == (left: PullToRefreshState, right: PullToRefreshState) -> Bool {
 
 class PullToRefresher: NSObject {
     weak var scrollView: UIScrollView? {
-        didSet {
-            removeScrollViewObserving(oldValue)
+        willSet {
+            removeScrollViewObserving(scrollView)
             self.containerView.removeFromSuperview()
-            
+        }
+        didSet {
             addScrollViewObserving(scrollView)
             if let scrollView = scrollView {
                 defaultContentInset = scrollView.contentInset
@@ -67,12 +68,12 @@ class PullToRefresher: NSObject {
         scrollView?.removeObserver(self, forKeyPath: "contentOffset", context: &KVOContext)
         scrollView?.removeObserver(self, forKeyPath: "contentInset", context: &KVOContext)
     }
+
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if context == &KVOContext {
             if keyPath == "contentOffset" {
                 let point = change!["new"]!.CGPointValue
                 let offsetY = point.y + defaultContentInset.top
-                print(offsetY)
                 switch offsetY {
                 case 0 where state != .Loading:
                     state = .None
@@ -85,7 +86,6 @@ class PullToRefresher: NSObject {
                 }
             }
             else if keyPath == "contentInset" && !lockInset {
-                self.state = .None // 需要重置一下
                 self.defaultContentInset = change!["new"]!.UIEdgeInsetsValue()
             }
             
@@ -99,29 +99,35 @@ class PullToRefresher: NSObject {
             
             switch state {
             case .None where oldValue == .Loading:
-                self.scrollView?.bounces = false
-                self.lockInset = true
-
-                UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1.0, options: [.CurveEaseInOut], animations: { () -> Void in
-                    
+                
+//                self.scrollView?.bounces = false
+//                UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: [.CurveEaseInOut,.AllowUserInteraction], animations: { () -> Void in
+//                    
+//                    self.lockInset = true
+//                    self.scrollView?.contentInset = self.defaultContentInset
+//                    
+//                    }, completion: { (finished) -> Void in
+//                        self.scrollView?.bounces = true
+//                })
+                UIView.animateWithDuration(0.5, delay: 0, options: [.AllowUserInteraction,.BeginFromCurrentState], animations: { () -> Void in
+                    self.lockInset = true
                     self.scrollView?.contentInset = self.defaultContentInset
-                    
+
                     }, completion: { (finished) -> Void in
-                        self.scrollView?.bounces = true
-                        self.lockInset = false
+                        
                 })
             case .Loading where oldValue != .Loading:
                 self.scrollView?.bounces = false
-                self.lockInset = true
-                UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1.0, options: [.CurveEaseInOut], animations: { () -> Void in
+                UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: [.CurveEaseInOut,.AllowUserInteraction,.BeginFromCurrentState], animations: { () -> Void in
                     
                     var inset = self.defaultContentInset
                     inset.top += self.defaultHeightToTrigger
+                    
+                    self.lockInset = true
                     self.scrollView?.contentInset = inset
                     
                     }, completion: { (finished) -> Void in
                         self.scrollView?.bounces = true
-                        self.lockInset = false
                 })
                 self.action?()
             default:

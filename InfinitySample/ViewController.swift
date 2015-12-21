@@ -31,13 +31,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView?.addPullToRefresh(animator: testAnimator, action: { () -> Void in
             
             let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                Int64(2 * Double(NSEC_PER_SEC)))
+                Int64(5 * Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue()) {
                 self.tableView?.endRefreshing()
             }
         })
         
-        self.tableView?.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
+//        self.tableView?.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -55,6 +55,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         return cell!
     }
-
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let newVC = UIViewController()
+        newVC.view.backgroundColor = UIColor.blueColor()
+        
+        self.showViewController(newVC, sender: self)
+    }
 }
 
