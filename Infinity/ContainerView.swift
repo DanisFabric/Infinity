@@ -41,7 +41,7 @@ class HeaderFooterContainerView : UIView {
             firstResponderViewController.automaticallyAdjustsScrollViewInsets = false
             
             if let navigationController = firstResponderViewController.navigationController {
-                if navigationController.navigationBar.translucent && firstResponderViewController.edgesForExtendedLayout.contains(.Top) {
+                if firstResponderViewController.automaticallyAdjustsScrollViewInsets && navigationController.navigationBar.translucent && firstResponderViewController.edgesForExtendedLayout.contains(.Top) {
                     if let scrollView = self.scrollView {
                         scrollView.contentInset = UIEdgeInsets(top: navigationController.navigationBar.frame.origin.y + navigationController.navigationBar.frame.height, left: scrollView.contentInset.left, bottom: scrollView.contentInset.bottom, right: scrollView.contentInset.right)
                         scrollView.scrollIndicatorInsets = scrollView.contentInset

@@ -21,7 +21,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
+        self.automaticallyAdjustsScrollViewInsets = false
+        
         tableView = UITableView(frame: self.view.bounds, style: .Plain)
         tableView?.dataSource = self
         tableView?.delegate = self
