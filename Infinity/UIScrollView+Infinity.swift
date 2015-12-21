@@ -8,26 +8,37 @@
 
 import UIKit
 
-private var associatedPullToRefresherKey:UInt8 = 1
+private var associatedPullToRefresherKey:UInt8  = 1
 private var associatedInfinityScrollerKey:UInt8 = 2
 
 // MARK: - PullToRefresh
 extension UIScrollView {
 
-    public func addPullToRefresh(height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator) {
+    public func addPullToRefresh(height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator, action:(()->Void)?) {
+        
+        bindPullToRefresh(height, toAnimator: animator, action: action)
+        
+        if let animatorView = animator as? UIView {
+            self.pullToRefresher?.containerView.addSubview(animatorView)
+        }
         
     }
-    public func bindPullToRefresh(height: CGFloat = 60.0, toAnimator: CustomPullToRefreshAnimator) {
+    public func bindPullToRefresh(height: CGFloat = 60.0, toAnimator: CustomPullToRefreshAnimator, action:(()->Void)?) {
+        removePullToRefresh()
         
+        self.pullToRefresher = PullToRefresher(height: height, animator: toAnimator)
+        self.pullToRefresher?.scrollView = self
+        self.pullToRefresher?.action = action
     }
     public func removePullToRefresh() {
-        
+        self.pullToRefresher?.scrollView = nil
+        self.pullToRefresher = nil
     }
     public func beginRefreshing() {
-        
+        self.pullToRefresher?.beginRefreshing()
     }
     public func endRefreshing() {
-        
+        self.pullToRefresher?.endRefreshing()
     }
     
     //MARK: - Properties
@@ -67,6 +78,22 @@ extension UIScrollView {
         }
         set {
             objc_setAssociatedObject(self, &associatedInfinityScrollerKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+}
+
+class HeaderFooterContainerView : UIView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        for view in subviews {
+            view.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
         }
     }
 }
