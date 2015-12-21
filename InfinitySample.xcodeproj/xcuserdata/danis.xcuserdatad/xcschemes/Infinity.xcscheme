@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "12EFE0E11C27BD5800242079"
-               BuildableName = "InfinitySample.app"
-               BlueprintName = "InfinitySample"
+               BlueprintIdentifier = "12EFE1091C27BD6A00242079"
+               BuildableName = "Infinity.framework"
+               BlueprintName = "Infinity"
                ReferencedContainer = "container:InfinitySample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,36 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "12EFE0F51C27BD5900242079"
-               BuildableName = "InfinitySampleTests.xctest"
-               BlueprintName = "InfinitySampleTests"
-               ReferencedContainer = "container:InfinitySample.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "12EFE1121C27BD6A00242079"
-               BuildableName = "InfinityTests.xctest"
-               BlueprintName = "InfinityTests"
-               ReferencedContainer = "container:InfinitySample.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "12EFE0E11C27BD5800242079"
-            BuildableName = "InfinitySample.app"
-            BlueprintName = "InfinitySample"
-            ReferencedContainer = "container:InfinitySample.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -71,16 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "12EFE0E11C27BD5800242079"
-            BuildableName = "InfinitySample.app"
-            BlueprintName = "InfinitySample"
+            BlueprintIdentifier = "12EFE1091C27BD6A00242079"
+            BuildableName = "Infinity.framework"
+            BlueprintName = "Infinity"
             ReferencedContainer = "container:InfinitySample.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -90,16 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "12EFE0E11C27BD5800242079"
-            BuildableName = "InfinitySample.app"
-            BlueprintName = "InfinitySample"
+            BlueprintIdentifier = "12EFE1091C27BD6A00242079"
+            BuildableName = "Infinity.framework"
+            BlueprintName = "Infinity"
             ReferencedContainer = "container:InfinitySample.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

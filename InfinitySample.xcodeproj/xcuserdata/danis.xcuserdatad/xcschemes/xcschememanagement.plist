@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Infinity.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>InfinitySample.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -18,6 +23,16 @@
 			<true/>
 		</dict>
 		<key>12EFE0F51C27BD5900242079</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>12EFE1091C27BD6A00242079</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>12EFE1121C27BD6A00242079</key>
 		<dict>
 			<key>primary</key>
 			<true/>

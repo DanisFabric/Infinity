@@ -13,6 +13,14 @@
 		12EFE0ED1C27BD5800242079 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12EFE0EC1C27BD5800242079 /* Assets.xcassets */; };
 		12EFE0F01C27BD5900242079 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12EFE0EE1C27BD5900242079 /* LaunchScreen.storyboard */; };
 		12EFE0FB1C27BD5900242079 /* InfinitySampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EFE0FA1C27BD5900242079 /* InfinitySampleTests.swift */; };
+		12EFE10D1C27BD6A00242079 /* Infinity.h in Headers */ = {isa = PBXBuildFile; fileRef = 12EFE10C1C27BD6A00242079 /* Infinity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		12EFE1141C27BD6A00242079 /* Infinity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12EFE10A1C27BD6A00242079 /* Infinity.framework */; };
+		12EFE11B1C27BD6A00242079 /* InfinityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EFE11A1C27BD6A00242079 /* InfinityTests.swift */; };
+		12EFE11F1C27BD6A00242079 /* Infinity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12EFE10A1C27BD6A00242079 /* Infinity.framework */; };
+		12EFE1201C27BD6A00242079 /* Infinity.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 12EFE10A1C27BD6A00242079 /* Infinity.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		12EFE1291C27BD7A00242079 /* UIScrollView+Infinity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EFE1281C27BD7A00242079 /* UIScrollView+Infinity.swift */; };
+		12EFE12B1C27BDE300242079 /* PullToRefresher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EFE12A1C27BDE300242079 /* PullToRefresher.swift */; };
+		12EFE12D1C27BDED00242079 /* InfinityScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EFE12C1C27BDED00242079 /* InfinityScroller.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,7 +31,42 @@
 			remoteGlobalIDString = 12EFE0E11C27BD5800242079;
 			remoteInfo = InfinitySample;
 		};
+		12EFE1151C27BD6A00242079 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12EFE0DA1C27BD5800242079 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 12EFE1091C27BD6A00242079;
+			remoteInfo = Infinity;
+		};
+		12EFE1171C27BD6A00242079 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12EFE0DA1C27BD5800242079 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 12EFE0E11C27BD5800242079;
+			remoteInfo = InfinitySample;
+		};
+		12EFE11D1C27BD6A00242079 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12EFE0DA1C27BD5800242079 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 12EFE1091C27BD6A00242079;
+			remoteInfo = Infinity;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		12EFE1241C27BD6A00242079 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				12EFE1201C27BD6A00242079 /* Infinity.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		12EFE0E21C27BD5800242079 /* InfinitySample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InfinitySample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,6 +79,15 @@
 		12EFE0F61C27BD5900242079 /* InfinitySampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InfinitySampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		12EFE0FA1C27BD5900242079 /* InfinitySampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfinitySampleTests.swift; sourceTree = "<group>"; };
 		12EFE0FC1C27BD5900242079 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		12EFE10A1C27BD6A00242079 /* Infinity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Infinity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		12EFE10C1C27BD6A00242079 /* Infinity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Infinity.h; sourceTree = "<group>"; };
+		12EFE10E1C27BD6A00242079 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		12EFE1131C27BD6A00242079 /* InfinityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InfinityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		12EFE11A1C27BD6A00242079 /* InfinityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfinityTests.swift; sourceTree = "<group>"; };
+		12EFE11C1C27BD6A00242079 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		12EFE1281C27BD7A00242079 /* UIScrollView+Infinity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Infinity.swift"; sourceTree = "<group>"; };
+		12EFE12A1C27BDE300242079 /* PullToRefresher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefresher.swift; sourceTree = "<group>"; };
+		12EFE12C1C27BDED00242079 /* InfinityScroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfinityScroller.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12EFE11F1C27BD6A00242079 /* Infinity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +103,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		12EFE1061C27BD6A00242079 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		12EFE1101C27BD6A00242079 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12EFE1141C27BD6A00242079 /* Infinity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +129,8 @@
 			children = (
 				12EFE0E41C27BD5800242079 /* InfinitySample */,
 				12EFE0F91C27BD5900242079 /* InfinitySampleTests */,
+				12EFE10B1C27BD6A00242079 /* Infinity */,
+				12EFE1191C27BD6A00242079 /* InfinityTests */,
 				12EFE0E31C27BD5800242079 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,6 +140,8 @@
 			children = (
 				12EFE0E21C27BD5800242079 /* InfinitySample.app */,
 				12EFE0F61C27BD5900242079 /* InfinitySampleTests.xctest */,
+				12EFE10A1C27BD6A00242079 /* Infinity.framework */,
+				12EFE1131C27BD6A00242079 /* InfinityTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,7 +168,39 @@
 			path = InfinitySampleTests;
 			sourceTree = "<group>";
 		};
+		12EFE10B1C27BD6A00242079 /* Infinity */ = {
+			isa = PBXGroup;
+			children = (
+				12EFE10C1C27BD6A00242079 /* Infinity.h */,
+				12EFE10E1C27BD6A00242079 /* Info.plist */,
+				12EFE1281C27BD7A00242079 /* UIScrollView+Infinity.swift */,
+				12EFE12A1C27BDE300242079 /* PullToRefresher.swift */,
+				12EFE12C1C27BDED00242079 /* InfinityScroller.swift */,
+			);
+			path = Infinity;
+			sourceTree = "<group>";
+		};
+		12EFE1191C27BD6A00242079 /* InfinityTests */ = {
+			isa = PBXGroup;
+			children = (
+				12EFE11A1C27BD6A00242079 /* InfinityTests.swift */,
+				12EFE11C1C27BD6A00242079 /* Info.plist */,
+			);
+			path = InfinityTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		12EFE1071C27BD6A00242079 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12EFE10D1C27BD6A00242079 /* Infinity.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		12EFE0E11C27BD5800242079 /* InfinitySample */ = {
@@ -106,10 +210,12 @@
 				12EFE0DE1C27BD5800242079 /* Sources */,
 				12EFE0DF1C27BD5800242079 /* Frameworks */,
 				12EFE0E01C27BD5800242079 /* Resources */,
+				12EFE1241C27BD6A00242079 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				12EFE11E1C27BD6A00242079 /* PBXTargetDependency */,
 			);
 			name = InfinitySample;
 			productName = InfinitySample;
@@ -134,6 +240,43 @@
 			productReference = 12EFE0F61C27BD5900242079 /* InfinitySampleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		12EFE1091C27BD6A00242079 /* Infinity */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 12EFE1211C27BD6A00242079 /* Build configuration list for PBXNativeTarget "Infinity" */;
+			buildPhases = (
+				12EFE1051C27BD6A00242079 /* Sources */,
+				12EFE1061C27BD6A00242079 /* Frameworks */,
+				12EFE1071C27BD6A00242079 /* Headers */,
+				12EFE1081C27BD6A00242079 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Infinity;
+			productName = Infinity;
+			productReference = 12EFE10A1C27BD6A00242079 /* Infinity.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		12EFE1121C27BD6A00242079 /* InfinityTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 12EFE1251C27BD6A00242079 /* Build configuration list for PBXNativeTarget "InfinityTests" */;
+			buildPhases = (
+				12EFE10F1C27BD6A00242079 /* Sources */,
+				12EFE1101C27BD6A00242079 /* Frameworks */,
+				12EFE1111C27BD6A00242079 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				12EFE1161C27BD6A00242079 /* PBXTargetDependency */,
+				12EFE1181C27BD6A00242079 /* PBXTargetDependency */,
+			);
+			name = InfinityTests;
+			productName = InfinityTests;
+			productReference = 12EFE1131C27BD6A00242079 /* InfinityTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -148,6 +291,13 @@
 						CreatedOnToolsVersion = 7.2;
 					};
 					12EFE0F51C27BD5900242079 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 12EFE0E11C27BD5800242079;
+					};
+					12EFE1091C27BD6A00242079 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					12EFE1121C27BD6A00242079 = {
 						CreatedOnToolsVersion = 7.2;
 						TestTargetID = 12EFE0E11C27BD5800242079;
 					};
@@ -168,6 +318,8 @@
 			targets = (
 				12EFE0E11C27BD5800242079 /* InfinitySample */,
 				12EFE0F51C27BD5900242079 /* InfinitySampleTests */,
+				12EFE1091C27BD6A00242079 /* Infinity */,
+				12EFE1121C27BD6A00242079 /* InfinityTests */,
 			);
 		};
 /* End PBXProject section */
@@ -184,6 +336,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		12EFE0F41C27BD5900242079 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		12EFE1081C27BD6A00242079 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		12EFE1111C27BD6A00242079 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -210,6 +376,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		12EFE1051C27BD6A00242079 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12EFE12D1C27BDED00242079 /* InfinityScroller.swift in Sources */,
+				12EFE12B1C27BDE300242079 /* PullToRefresher.swift in Sources */,
+				12EFE1291C27BD7A00242079 /* UIScrollView+Infinity.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		12EFE10F1C27BD6A00242079 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12EFE11B1C27BD6A00242079 /* InfinityTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -217,6 +401,21 @@
 			isa = PBXTargetDependency;
 			target = 12EFE0E11C27BD5800242079 /* InfinitySample */;
 			targetProxy = 12EFE0F71C27BD5900242079 /* PBXContainerItemProxy */;
+		};
+		12EFE1161C27BD6A00242079 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 12EFE1091C27BD6A00242079 /* Infinity */;
+			targetProxy = 12EFE1151C27BD6A00242079 /* PBXContainerItemProxy */;
+		};
+		12EFE1181C27BD6A00242079 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 12EFE0E11C27BD5800242079 /* InfinitySample */;
+			targetProxy = 12EFE1171C27BD6A00242079 /* PBXContainerItemProxy */;
+		};
+		12EFE11E1C27BD6A00242079 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 12EFE1091C27BD6A00242079 /* Infinity */;
+			targetProxy = 12EFE11D1C27BD6A00242079 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -325,6 +524,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = InfinitySample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.danis.InfinitySample;
@@ -336,6 +536,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = InfinitySample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.danis.InfinitySample;
@@ -367,6 +568,71 @@
 			};
 			name = Release;
 		};
+		12EFE1221C27BD6A00242079 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Infinity/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.danis.Infinity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		12EFE1231C27BD6A00242079 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Infinity/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.danis.Infinity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		12EFE1261C27BD6A00242079 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = InfinityTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.danis.InfinityTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InfinitySample.app/InfinitySample";
+			};
+			name = Debug;
+		};
+		12EFE1271C27BD6A00242079 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = InfinityTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.danis.InfinityTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InfinitySample.app/InfinitySample";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -392,6 +658,22 @@
 			buildConfigurations = (
 				12EFE1031C27BD5900242079 /* Debug */,
 				12EFE1041C27BD5900242079 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		12EFE1211C27BD6A00242079 /* Build configuration list for PBXNativeTarget "Infinity" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				12EFE1221C27BD6A00242079 /* Debug */,
+				12EFE1231C27BD6A00242079 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		12EFE1251C27BD6A00242079 /* Build configuration list for PBXNativeTarget "InfinityTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				12EFE1261C27BD6A00242079 /* Debug */,
+				12EFE1271C27BD6A00242079 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
