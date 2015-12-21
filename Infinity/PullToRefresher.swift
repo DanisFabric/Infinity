@@ -37,6 +37,8 @@ class PullToRefresher: NSObject {
             addScrollViewObserving(scrollView)
             if let scrollView = scrollView {
                 defaultContentInset = scrollView.contentInset
+                containerView.scrollView = scrollView
+                
                 scrollView.addSubview(containerView)
                 containerView.frame = CGRect(x: 0, y: -defaultHeightToTrigger, width: scrollView.frame.width, height: defaultHeightToTrigger)
             }
@@ -54,8 +56,8 @@ class PullToRefresher: NSObject {
     init(height: CGFloat, animator: CustomPullToRefreshAnimator) {
         self.defaultHeightToTrigger = height
         self.animator = animator
-        self.containerView = HeaderFooterContainerView()
-        self.containerView.backgroundColor = UIColor.redColor()
+        self.containerView = HeaderFooterContainerView(type: HeaderFooterType.Header)
+        self.containerView.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.5)
     }
     // MARK: - Observe Scroll View
     var KVOContext = "PullToRefreshKVOContext"
@@ -99,23 +101,18 @@ class PullToRefresher: NSObject {
             
             switch state {
             case .None where oldValue == .Loading:
-                
-//                self.scrollView?.bounces = false
-//                UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: [.CurveEaseInOut,.AllowUserInteraction], animations: { () -> Void in
-//                    
-//                    self.lockInset = true
-//                    self.scrollView?.contentInset = self.defaultContentInset
-//                    
-//                    }, completion: { (finished) -> Void in
-//                        self.scrollView?.bounces = true
-//                })
-                UIView.animateWithDuration(0.5, delay: 0, options: [.AllowUserInteraction,.BeginFromCurrentState], animations: { () -> Void in
+                self.scrollView?.bounces = false
+                UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: [.CurveEaseInOut,.AllowUserInteraction], animations: { () -> Void in
+                    
                     self.lockInset = true
                     self.scrollView?.contentInset = self.defaultContentInset
-
+                    // insets 的0和64区别在于参照物的不同，弹出新的VC之后，参照物变了，所以弹回的距离需要一个改变
+                    
                     }, completion: { (finished) -> Void in
-                        
+                        self.scrollView?.bounces = true
+                        print(self.scrollView?.contentInset)
                 })
+                
             case .Loading where oldValue != .Loading:
                 self.scrollView?.bounces = false
                 UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: [.CurveEaseInOut,.AllowUserInteraction,.BeginFromCurrentState], animations: { () -> Void in

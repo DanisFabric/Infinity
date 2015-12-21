@@ -81,19 +81,3 @@ extension UIScrollView {
         }
     }
 }
-
-class HeaderFooterContainerView : UIView {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        for view in subviews {
-            view.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
-        }
-    }
-}
