@@ -55,20 +55,30 @@ extension UIScrollView {
 // MARK: - InfinityScroll
 extension UIScrollView {
     
-    public func addInfinityScroll(height: CGFloat = 60.0, animator: CustomInfinityScrollAnimator) {
+    public func addInfinityScroll(height: CGFloat = 60.0, animator: CustomInfinityScrollAnimator, action: (() -> Void)?) {
         
+        bindInfinityScroll(height, toAnimator: animator, action: action)
+        
+        if let animatorView = animator as? UIView {
+            self.infinityScroller?.containerView.addSubview(animatorView)
+        }
     }
-    public func bindInfinityScroll(height: CGFloat = 60.0, toAnimator: CustomInfinityScrollAnimator) {
+    public func bindInfinityScroll(height: CGFloat = 60.0, toAnimator: CustomInfinityScrollAnimator, action: (() -> Void)?) {
+        removeInfinityScroll()
         
+        self.infinityScroller = InfinityScroller(height: height, animator: toAnimator)
+        self.infinityScroller?.scrollView = self
+        self.infinityScroller?.action = action
     }
     public func removeInfinityScroll() {
-        
+        self.infinityScroller?.scrollView = nil
+        self.infinityScroller = nil
     }
     public func beginInfinityScrolling() {
-        
+        self.infinityScroller?.beginInfinityScrolling()
     }
     public func endInfinityScrolling() {
-        
+        self.infinityScroller?.endInfinityScrolling()
     }
     
     //MARK: - Properties

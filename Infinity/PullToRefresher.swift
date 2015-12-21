@@ -132,7 +132,7 @@ class PullToRefresher: NSObject {
             }
         }
     }
-    
+    // MARK: - Refresh
     func beginRefreshing() {
         
     }
