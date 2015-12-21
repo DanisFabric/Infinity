@@ -21,7 +21,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.automaticallyAdjustsScrollViewInsets = false
+        self.automaticallyAdjustsScrollViewInsets = true
         
         tableView = UITableView(frame: self.view.bounds, style: .Plain)
         tableView?.dataSource = self
@@ -33,7 +33,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView?.addPullToRefresh(animator: testAnimator, action: { () -> Void in
             
             let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                Int64(3 * Double(NSEC_PER_SEC)))
+                Int64(1.5 * Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue()) {
                 self.tableView?.endRefreshing()
             }

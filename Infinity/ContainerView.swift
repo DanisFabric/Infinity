@@ -38,14 +38,15 @@ class HeaderFooterContainerView : UIView {
         
         if type == .Header {
             let firstResponderViewController = self.firstResponderViewController()
-            firstResponderViewController.automaticallyAdjustsScrollViewInsets = false
             
             if let navigationController = firstResponderViewController.navigationController {
                 if firstResponderViewController.automaticallyAdjustsScrollViewInsets && navigationController.navigationBar.translucent && firstResponderViewController.edgesForExtendedLayout.contains(.Top) {
+                    
                     if let scrollView = self.scrollView {
                         scrollView.contentInset = UIEdgeInsets(top: navigationController.navigationBar.frame.origin.y + navigationController.navigationBar.frame.height, left: scrollView.contentInset.left, bottom: scrollView.contentInset.bottom, right: scrollView.contentInset.right)
                         scrollView.scrollIndicatorInsets = scrollView.contentInset
                     }
+                    firstResponderViewController.automaticallyAdjustsScrollViewInsets = false
                 }
             }
         }
