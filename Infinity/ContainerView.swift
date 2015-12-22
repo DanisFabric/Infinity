@@ -33,40 +33,45 @@ class HeaderFooterContainerView : UIView {
             view.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
         }
     }
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview()
+    override func willMoveToSuperview(newSuperview: UIView?) {
+        super.willMoveToSuperview(newSuperview)
         
-        if type == .Header {
-            let firstResponderViewController = self.firstResponderViewController()
-            
-            if let navigationController = firstResponderViewController.navigationController {
 
-                if firstResponderViewController.automaticallyAdjustsScrollViewInsets {
-                    
-                    if navigationController.navigationBar.hidden {
-                        if let scrollView = scrollView {
-                            var inset = scrollView.contentInset
-                            if navigationController.prefersStatusBarHidden() {
-                                inset.top = 0
-                            }else {
-                                inset.top = 20
-                            }
-                            scrollView.contentInset = inset
-                            scrollView.scrollIndicatorInsets = inset
-                        }
-                    }
-                    else if navigationController.navigationBar.translucent && firstResponderViewController.edgesForExtendedLayout.contains(.Top) {
-                        if let scrollView = self.scrollView {
-                            scrollView.contentInset = UIEdgeInsets(top: navigationController.navigationBar.frame.origin.y + navigationController.navigationBar.frame.height, left: scrollView.contentInset.left, bottom: scrollView.contentInset.bottom, right: scrollView.contentInset.right)
-                            scrollView.scrollIndicatorInsets = scrollView.contentInset
-                        }
-                    }
-                    firstResponderViewController.automaticallyAdjustsScrollViewInsets = false
-                }
-            }
-        }
-        
     }
+//    override func didMoveToSuperview() {
+//        super.didMoveToSuperview()
+//        
+//        if type == .Header {
+//            let firstResponderViewController = self.firstResponderViewController()
+//            
+//            if let navigationController = firstResponderViewController.navigationController {
+//
+//                if firstResponderViewController.automaticallyAdjustsScrollViewInsets {
+//                    
+//                    if navigationController.navigationBar.hidden {
+//                        if let scrollView = scrollView {
+//                            var inset = scrollView.contentInset
+//                            if navigationController.prefersStatusBarHidden() {
+//                                inset.top = 0
+//                            }else {
+//                                inset.top = 20
+//                            }
+//                            scrollView.contentInset = inset
+//                            scrollView.scrollIndicatorInsets = inset
+//                        }
+//                    }
+//                    else if navigationController.navigationBar.translucent && firstResponderViewController.edgesForExtendedLayout.contains(.Top) {
+//                        if let scrollView = self.scrollView {
+//                            scrollView.contentInset = UIEdgeInsets(top: navigationController.navigationBar.frame.origin.y + navigationController.navigationBar.frame.height, left: scrollView.contentInset.left, bottom: scrollView.contentInset.bottom, right: scrollView.contentInset.right)
+//                            scrollView.scrollIndicatorInsets = scrollView.contentInset
+//                        }
+//                    }
+//                    firstResponderViewController.automaticallyAdjustsScrollViewInsets = false
+//                }
+//            }
+//        }
+//        
+//    }
 }
 
 extension UIView {

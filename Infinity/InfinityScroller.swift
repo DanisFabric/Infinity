@@ -12,9 +12,16 @@ public protocol CustomInfinityScrollAnimator {
     func animateState(state: InfinityScrollState)
 }
 
-public enum InfinityScrollState: Equatable {
+public enum InfinityScrollState: Equatable, CustomStringConvertible {
     case None
     case Loading
+    
+    public var description: String {
+        switch self {
+        case .None: return "None"
+        case .Loading: return "Loading"
+        }
+    }
 }
 public func == (left: InfinityScrollState, right: InfinityScrollState) -> Bool {
     switch (left, right) {
@@ -42,7 +49,7 @@ class InfinityScroller: NSObject {
         }
     }
     var animator: CustomInfinityScrollAnimator
-    var containerView: HeaderFooterContainerView
+    var containerView: FooterContainerView
     var action: (() -> Void)?
     
     // Values
@@ -52,7 +59,7 @@ class InfinityScroller: NSObject {
     init(height: CGFloat, animator: CustomInfinityScrollAnimator) {
         self.defaultHeightToTrigger = height
         self.animator = animator
-        self.containerView = HeaderFooterContainerView(type: HeaderFooterType.Footer)
+        self.containerView = FooterContainerView()
         self.containerView.backgroundColor = UIColor.blueColor().colorWithAlphaComponent(0.5)
     }
     
@@ -141,5 +148,16 @@ class InfinityScroller: NSObject {
     }
     func endInfinityScrolling() {
         self.state = .None
+    }
+}
+
+class FooterContainerView: UIView {
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        for view in subviews {
+            view.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
+        }
     }
 }

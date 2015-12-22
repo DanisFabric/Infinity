@@ -12,10 +12,18 @@ public protocol CustomPullToRefreshAnimator {
     func animateState(state: PullToRefreshState)
 }
 
-public enum PullToRefreshState: Equatable {
+public enum PullToRefreshState: Equatable, CustomStringConvertible {
     case None
     case Releasing(progress:CGFloat)
     case Loading
+    
+    public var description: String {
+        switch self {
+        case .None: return "None"
+        case .Releasing(let progress): return "Releasing: \(progress)"
+        case .Loading: return "Loading"
+        }
+    }
 }
 public func == (left: PullToRefreshState, right: PullToRefreshState) -> Bool {
     switch (left, right) {
@@ -37,7 +45,6 @@ class PullToRefresher: NSObject {
             addScrollViewObserving(scrollView)
             if let scrollView = scrollView {
                 defaultContentInset = scrollView.contentInset
-                containerView.scrollView = scrollView
                 
                 scrollView.addSubview(containerView)
                 containerView.frame = CGRect(x: 0, y: -defaultHeightToTrigger, width: scrollView.frame.width, height: defaultHeightToTrigger)
@@ -45,7 +52,7 @@ class PullToRefresher: NSObject {
         }
     }
     var animator: CustomPullToRefreshAnimator
-    var containerView: HeaderFooterContainerView
+    var containerView: HeaderContainerView
     var action:(()->Void)?
     
     // Values
@@ -56,7 +63,7 @@ class PullToRefresher: NSObject {
     init(height: CGFloat, animator: CustomPullToRefreshAnimator) {
         self.defaultHeightToTrigger = height
         self.animator = animator
-        self.containerView = HeaderFooterContainerView(type: HeaderFooterType.Header)
+        self.containerView = HeaderContainerView()
         self.containerView.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.5)
     }
     // MARK: - Observe Scroll View
@@ -147,6 +154,18 @@ class PullToRefresher: NSObject {
     }
     func endRefreshing() {
         self.state = .None
+    }
+}
+
+
+class HeaderContainerView: UIView {
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        for view in subviews {
+            view.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
+        }
     }
 }
 
