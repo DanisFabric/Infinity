@@ -40,11 +40,26 @@ class HeaderFooterContainerView : UIView {
             let firstResponderViewController = self.firstResponderViewController()
             
             if let navigationController = firstResponderViewController.navigationController {
-                if firstResponderViewController.automaticallyAdjustsScrollViewInsets && navigationController.navigationBar.translucent && firstResponderViewController.edgesForExtendedLayout.contains(.Top) {
+
+                if firstResponderViewController.automaticallyAdjustsScrollViewInsets {
                     
-                    if let scrollView = self.scrollView {
-                        scrollView.contentInset = UIEdgeInsets(top: navigationController.navigationBar.frame.origin.y + navigationController.navigationBar.frame.height, left: scrollView.contentInset.left, bottom: scrollView.contentInset.bottom, right: scrollView.contentInset.right)
-                        scrollView.scrollIndicatorInsets = scrollView.contentInset
+                    if navigationController.navigationBar.hidden {
+                        if let scrollView = scrollView {
+                            var inset = scrollView.contentInset
+                            if navigationController.prefersStatusBarHidden() {
+                                inset.top = 0
+                            }else {
+                                inset.top = 20
+                            }
+                            scrollView.contentInset = inset
+                            scrollView.scrollIndicatorInsets = inset
+                        }
+                    }
+                    else if navigationController.navigationBar.translucent && firstResponderViewController.edgesForExtendedLayout.contains(.Top) {
+                        if let scrollView = self.scrollView {
+                            scrollView.contentInset = UIEdgeInsets(top: navigationController.navigationBar.frame.origin.y + navigationController.navigationBar.frame.height, left: scrollView.contentInset.left, bottom: scrollView.contentInset.bottom, right: scrollView.contentInset.right)
+                            scrollView.scrollIndicatorInsets = scrollView.contentInset
+                        }
                     }
                     firstResponderViewController.automaticallyAdjustsScrollViewInsets = false
                 }

@@ -21,7 +21,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.automaticallyAdjustsScrollViewInsets = true
+        
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.navigationController?.navigationBar.hidden = true
         
         tableView = UITableView(frame: self.view.bounds, style: .Plain)
         tableView?.dataSource = self
@@ -30,6 +32,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.view.addSubview(tableView!)
         
         let testAnimator = TestAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        
+        
         self.tableView?.addPullToRefresh(animator: testAnimator, action: { () -> Void in
             
             let delayTime = dispatch_time(DISPATCH_TIME_NOW,
@@ -38,6 +42,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.tableView?.endRefreshing()
             }
         })
+        self.tableView?.contentInset = UIEdgeInsets(top: 160, left: 0, bottom: 0, right: 0)
+        
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -56,9 +62,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell!
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let newVC = UIViewController()
-        newVC.view.backgroundColor = UIColor.blueColor()
-        newVC.automaticallyAdjustsScrollViewInsets = true
+        let newVC = NewViewController()
+
         self.showViewController(newVC, sender: self)
     }
 }
