@@ -25,7 +25,6 @@
 		12EFE1291C27BD7A00242079 /* UIScrollView+Infinity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EFE1281C27BD7A00242079 /* UIScrollView+Infinity.swift */; };
 		12EFE12B1C27BDE300242079 /* PullToRefresher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EFE12A1C27BDE300242079 /* PullToRefresher.swift */; };
 		12EFE12D1C27BDED00242079 /* InfinityScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EFE12C1C27BDED00242079 /* InfinityScroller.swift */; };
-		12EFE1311C28244500242079 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EFE1301C28244500242079 /* ContainerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,7 +96,6 @@
 		12EFE1281C27BD7A00242079 /* UIScrollView+Infinity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Infinity.swift"; sourceTree = "<group>"; };
 		12EFE12A1C27BDE300242079 /* PullToRefresher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefresher.swift; sourceTree = "<group>"; };
 		12EFE12C1C27BDED00242079 /* InfinityScroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfinityScroller.swift; sourceTree = "<group>"; };
-		12EFE1301C28244500242079 /* ContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,7 +195,6 @@
 				12EFE1281C27BD7A00242079 /* UIScrollView+Infinity.swift */,
 				12EFE12A1C27BDE300242079 /* PullToRefresher.swift */,
 				12EFE12C1C27BDED00242079 /* InfinityScroller.swift */,
-				12EFE1301C28244500242079 /* ContainerView.swift */,
 				12EA495C1C29331500FDD8F4 /* sample */,
 			);
 			path = Infinity;
@@ -405,7 +402,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12EFE1311C28244500242079 /* ContainerView.swift in Sources */,
 				12EA49601C29339A00FDD8F4 /* NormalInfinityAnimator.swift in Sources */,
 				12EA495E1C29335700FDD8F4 /* NormalRefreshAnimator.swift in Sources */,
 				12EFE12D1C27BDED00242079 /* InfinityScroller.swift in Sources */,

@@ -46,6 +46,7 @@ class PullToRefresher: NSObject {
             if let scrollView = scrollView {
                 defaultContentInset = scrollView.contentInset
                 
+                containerView.scrollView = scrollView
                 scrollView.addSubview(containerView)
                 containerView.frame = CGRect(x: 0, y: -defaultHeightToTrigger, width: scrollView.frame.width, height: defaultHeightToTrigger)
             }
@@ -149,12 +150,58 @@ class PullToRefresher: NSObject {
 
 class HeaderContainerView: UIView {
     
+    var scrollView: UIScrollView?
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
         for view in subviews {
             view.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
         }
+    }
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        
+        let firstResponderViewController = self.firstResponderViewController()
+//        print(self.scrollView?.contentInset)
+        print(firstResponderViewController.automaticallyAdjustsScrollViewInsets)
+        
+        if let navigationController = firstResponderViewController.navigationController {
+            
+            if firstResponderViewController.automaticallyAdjustsScrollViewInsets {
+                
+                if navigationController.navigationBar.hidden {
+                    if let scrollView = scrollView {
+                        var inset = scrollView.contentInset
+                        if navigationController.prefersStatusBarHidden() {
+                            inset.top = 0
+                        }else {
+                            inset.top = 20
+                        }
+                        scrollView.contentInset = inset
+                        scrollView.scrollIndicatorInsets = inset
+                    }
+                }
+                else if navigationController.navigationBar.translucent && firstResponderViewController.edgesForExtendedLayout.contains(.Top) {
+                    if let scrollView = self.scrollView {
+                        scrollView.contentInset = UIEdgeInsets(top: navigationController.navigationBar.frame.origin.y + navigationController.navigationBar.frame.height, left: scrollView.contentInset.left, bottom: scrollView.contentInset.bottom, right: scrollView.contentInset.right)
+                        scrollView.scrollIndicatorInsets = scrollView.contentInset
+                        firstResponderViewController.automaticallyAdjustsScrollViewInsets = false
+                    }
+                }
+                firstResponderViewController.automaticallyAdjustsScrollViewInsets = false
+            }
+        }
+    }
+}
+
+extension UIView {
+    func firstResponderViewController() -> UIViewController {
+        var responder = self as UIResponder
+        while responder.isKindOfClass(UIView.self) {
+            responder = responder.nextResponder()!
+        }
+        return responder as! UIViewController
     }
 }
 

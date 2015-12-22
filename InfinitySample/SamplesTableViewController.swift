@@ -12,6 +12,11 @@ import Infinity
 class SamplesTableViewController: UITableViewController {
 
     var type = 0
+    var items = 15
+    /**
+     *  automaticallyAdjustsScrollViewInsets 需要在addPullToRefresh和addInfinity之前设定好
+     */
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +28,12 @@ class SamplesTableViewController: UITableViewController {
         
         self.addPullToRefresh(type)
         self.addInfinityScroll(type)
+        
+        self.tableView.infinityStickToContent = true
+    }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    
     }
     
     deinit {
@@ -53,6 +64,8 @@ class SamplesTableViewController: UITableViewController {
                 let delayTime = dispatch_time(DISPATCH_TIME_NOW,
                     Int64(1.5 * Double(NSEC_PER_SEC)))
                 dispatch_after(delayTime, dispatch_get_main_queue()) {
+                    self.items += 15
+                    self.tableView.reloadData()
                     self.tableView?.endInfinityScrolling()
                 }
             })
@@ -74,7 +87,7 @@ class SamplesTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return self.items
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -84,7 +97,12 @@ class SamplesTableViewController: UITableViewController {
 
         return cell
     }
-
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let newVC = UIViewController()
+        newVC.view.backgroundColor = UIColor.redColor()
+        
+        self.showViewController(newVC, sender: self)
+    }
 
     /*
     // MARK: - Navigation

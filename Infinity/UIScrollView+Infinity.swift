@@ -144,15 +144,16 @@ extension UIScrollView {
                 }, completion: completion)
             
         }else {
-            print("animation")
             UIView.animateWithDuration(0.3, delay: 0, options: [.CurveEaseInOut,.AllowUserInteraction,.BeginFromCurrentState], animations: { () -> Void in
                 
                 self.lockInset = true
                 self.contentInset = inset
                 self.lockInset = false
-                
-                }, completion: completion)
-            
+
+                }, completion: { (finished) -> Void in
+                    
+                    completion?(finished)
+            })
         }
     }
 }
