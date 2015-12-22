@@ -28,7 +28,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Do any additional setup after loading the view, typically from a nib.
         
         self.automaticallyAdjustsScrollViewInsets = true
-//        self.navigationController?.navigationBar.hidden = true
         
         tableView = UITableView(frame: self.view.bounds, style: .Plain)
         tableView?.dataSource = self
@@ -54,9 +53,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.tableView?.endInfinityScrolling()
             }
         })
+        self.tableView?.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 100, right: 0)
         
-//        self.tableView?.contentInset = UIEdgeInsets(top: 100, left: 0, bottom: 100, right: 0)
+        let rightItem = UIBarButtonItem(title: "refresh", style: .Bordered, target: self, action: "onRefresh:")
+        self.navigationItem.rightBarButtonItem = rightItem
         
+        let leftItem = UIBarButtonItem(title: "load", style: .Bordered, target: self, action: "onLoadMore:")
+        self.navigationItem.leftBarButtonItem = leftItem    
+    }
+    func onRefresh(sender: AnyObject) {
+        self.tableView?.beginRefreshing()
+    }
+    func onLoadMore(sender: AnyObject) {
+        self.tableView?.beginInfinityScrolling()
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

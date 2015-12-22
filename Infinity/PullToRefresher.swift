@@ -88,8 +88,11 @@ class PullToRefresher: NSObject {
                 }
             }
             else if keyPath == "contentInset" && !lockInset {
+                guard !lockInset else {
+                    return
+                }
                 if let outLockInset = self.scrollView?.infinityScroller?.lockInset {
-                    if outLockInset || lockInset {
+                    guard !outLockInset else {
                         return
                     }
                 }
@@ -140,7 +143,7 @@ class PullToRefresher: NSObject {
     }
     // MARK: - Refresh
     func beginRefreshing() {
-        
+        self.scrollView?.setContentOffset(CGPointMake(0, -(defaultHeightToTrigger + defaultContentInset.top + 1)), animated: true)
     }
     func endRefreshing() {
         self.state = .None
