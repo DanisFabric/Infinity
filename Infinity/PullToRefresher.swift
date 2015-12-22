@@ -88,6 +88,11 @@ class PullToRefresher: NSObject {
                 }
             }
             else if keyPath == "contentInset" && !lockInset {
+                if let outLockInset = self.scrollView?.infinityScroller?.lockInset {
+                    if outLockInset || lockInset {
+                        return
+                    }
+                }
                 self.defaultContentInset = change!["new"]!.UIEdgeInsetsValue()
             }
             
@@ -106,7 +111,7 @@ class PullToRefresher: NSObject {
                     
                     self.lockInset = true
                     self.scrollView?.contentInset = self.defaultContentInset
-                    // insets 的0和64区别在于参照物的不同，弹出新的VC之后，参照物变了，所以弹回的距离需要一个改变
+                    self.lockInset = false
                     
                     }, completion: { (finished) -> Void in
                         self.scrollView?.bounces = true
@@ -122,6 +127,7 @@ class PullToRefresher: NSObject {
                     
                     self.lockInset = true
                     self.scrollView?.contentInset = inset
+                    self.lockInset = false
                     
                     }, completion: { (finished) -> Void in
                         self.scrollView?.bounces = true

@@ -9,8 +9,13 @@
 import UIKit
 import Infinity
 
-class TestAnimator: UIView, CustomPullToRefreshAnimator {
+class HeaderAnimator: UIView, CustomPullToRefreshAnimator {
     func animateState(state: PullToRefreshState) {
+        print(state)
+    }
+}
+class FooterAnimator: UIView, CustomInfinityScrollAnimator {
+    func animateState(state: InfinityScrollState) {
         print(state)
     }
 }
@@ -22,8 +27,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.automaticallyAdjustsScrollViewInsets = false
-        self.navigationController?.navigationBar.hidden = true
+        self.automaticallyAdjustsScrollViewInsets = true
+//        self.navigationController?.navigationBar.hidden = true
         
         tableView = UITableView(frame: self.view.bounds, style: .Plain)
         tableView?.dataSource = self
@@ -31,10 +36,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         self.view.addSubview(tableView!)
         
-        let testAnimator = TestAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        let headerAnimator = HeaderAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        let footerAnimator = FooterAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         
-        
-        self.tableView?.addPullToRefresh(animator: testAnimator, action: { () -> Void in
+        self.tableView?.addPullToRefresh(animator: headerAnimator, action: { () -> Void in
             
             let delayTime = dispatch_time(DISPATCH_TIME_NOW,
                 Int64(1.5 * Double(NSEC_PER_SEC)))
@@ -42,7 +47,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.tableView?.endRefreshing()
             }
         })
-        self.tableView?.contentInset = UIEdgeInsets(top: 160, left: 0, bottom: 0, right: 0)
+        self.tableView?.addInfinityScroll(animator: footerAnimator, action: { () -> Void in
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+                Int64(1.5 * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                self.tableView?.endInfinityScrolling()
+            }
+        })
+        
+//        self.tableView?.contentInset = UIEdgeInsets(top: 100, left: 0, bottom: 100, right: 0)
         
     }
 
@@ -50,7 +63,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return 1
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        return 30
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("Cell")
