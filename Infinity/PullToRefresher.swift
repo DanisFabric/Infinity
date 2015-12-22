@@ -56,7 +56,6 @@ class PullToRefresher: NSObject {
     var action:(()->Void)?
     
     // Values
-    var lockInset = false
     var defaultContentInset: UIEdgeInsets = UIEdgeInsets()
     var defaultHeightToTrigger: CGFloat = 0
     
@@ -81,6 +80,10 @@ class PullToRefresher: NSObject {
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if context == &KVOContext {
             if keyPath == "contentOffset" {
+                guard !updatingState else {
+                    return
+                }
+                
                 let point = change!["new"]!.CGPointValue
                 let offsetY = point.y + defaultContentInset.top
                 switch offsetY {
@@ -110,6 +113,8 @@ class PullToRefresher: NSObject {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
         }
     }
+    var lockInset = false
+    var updatingState = false
     var state: PullToRefreshState = .None {
         didSet {
             self.animator.animateState(state)
@@ -117,6 +122,7 @@ class PullToRefresher: NSObject {
             switch state {
             case .None where oldValue == .Loading:
                 self.scrollView?.bounces = false
+                self.updatingState = true
                 UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: [.CurveEaseInOut,.AllowUserInteraction], animations: { () -> Void in
                     
                     self.lockInset = true
@@ -125,11 +131,12 @@ class PullToRefresher: NSObject {
                     
                     }, completion: { (finished) -> Void in
                         self.scrollView?.bounces = true
-                        print(self.scrollView?.contentInset)
+                        self.updatingState = false
                 })
                 
             case .Loading where oldValue != .Loading:
                 self.scrollView?.bounces = false
+                self.updatingState = true
                 UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: [.CurveEaseInOut,.AllowUserInteraction,.BeginFromCurrentState], animations: { () -> Void in
                     
                     var inset = self.defaultContentInset
@@ -140,6 +147,7 @@ class PullToRefresher: NSObject {
                     self.lockInset = false
                     
                     }, completion: { (finished) -> Void in
+                        self.updatingState = false
                         self.scrollView?.bounces = true
                 })
                 self.action?()

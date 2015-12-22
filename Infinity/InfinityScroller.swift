@@ -55,6 +55,12 @@ class InfinityScroller: NSObject {
     // Values
     var defaultContentInset = UIEdgeInsets()
     var defaultHeightToTrigger: CGFloat = 0
+    // 是否在底部留出bottom inset，还是直接黏着内容，紧跟contentSize
+    var stickToContent = true {
+        didSet {
+            adjustFooterFrame()
+        }
+    }
     
     init(height: CGFloat, animator: CustomInfinityScrollAnimator) {
         self.defaultHeightToTrigger = height
@@ -75,6 +81,7 @@ class InfinityScroller: NSObject {
         scrollView?.removeObserver(self, forKeyPath: "contentInset", context: &KVOContext)
         scrollView?.removeObserver(self, forKeyPath: "contentSize", context: &KVOContext)
     }
+    private var lastOffset = CGPoint()
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if context == &KVOContext {
             if keyPath == "contentSize" {
@@ -94,12 +101,26 @@ class InfinityScroller: NSObject {
             }
             else if keyPath == "contentOffset" {
                 let point = change!["new"]!.CGPointValue
+                
+                guard lastOffset.y != point.y else {
+                    return
+                }
+                guard !updatingState else {
+                    return
+                }
 
-                let distance = scrollView!.contentSize.height + self.defaultContentInset.bottom - point.y - scrollView!.frame.height
+                var distance: CGFloat = 0
+                if stickToContent {
+                    distance = scrollView!.contentSize.height - point.y - scrollView!.frame.height
+                }else {
+                    distance = scrollView!.contentSize.height + self.defaultContentInset.bottom - point.y - scrollView!.frame.height
+                }
                 // 要保证scrollView里面是有内容的
-                if distance < 0 && self.state != .Loading && scrollView!.contentSize.height > 0 {
+                if distance < 0 && self.state != .Loading && scrollView!.contentSize.height > 0{
                     self.state = .Loading
                 }
+                
+                lastOffset = point
             }
         }
         else {
@@ -107,29 +128,40 @@ class InfinityScroller: NSObject {
         }
     }
     var lockInset = false
+    var updatingState = false
     var state: InfinityScrollState = .None {
         didSet {
             self.animator.animateState(state)
-            
             switch state {
             case .Loading where oldValue == .None:
+                
+                updatingState = true
                 UIView.animateWithDuration(0.3, animations: { () -> Void in
                     
+                    var jumpToBottom: CGFloat = 0
+                    if self.stickToContent {
+                        jumpToBottom = self.defaultHeightToTrigger
+                    }else {
+                        jumpToBottom = self.defaultHeightToTrigger + self.defaultContentInset.bottom
+                    }
                     self.lockInset = true
-                    self.scrollView?.contentInset = UIEdgeInsets(top: self.defaultContentInset.top, left: self.defaultContentInset.left, bottom: self.defaultHeightToTrigger + self.defaultContentInset.bottom, right: self.defaultContentInset.right)
+                    self.scrollView?.contentInset = UIEdgeInsets(top: self.defaultContentInset.top, left: self.defaultContentInset.left, bottom: jumpToBottom, right: self.defaultContentInset.right)
                     self.lockInset = false
                     
                     }, completion: { (finished) -> Void in
-                        
+                        self.updatingState = false
                 })
                 action?()
             case .None where oldValue == .Loading:
+                self.updatingState = true
                 UIView.animateWithDuration(0.3, animations: { () -> Void in
+                    print("begin - \(self.defaultContentInset)")
                     self.lockInset = true
                     self.scrollView?.contentInset = self.defaultContentInset
                     self.lockInset = false
+                    print("end - \(self.defaultContentInset)")
                     }, completion: { (finished) -> Void in
-                        
+                        self.updatingState = false
                 })
             default:
                 break
@@ -139,7 +171,11 @@ class InfinityScroller: NSObject {
     
     func adjustFooterFrame() {
         if let scrollView = scrollView {
-            containerView.frame = CGRect(x: 0, y: scrollView.contentSize.height + self.defaultContentInset.bottom, width: scrollView.bounds.width, height: defaultHeightToTrigger)
+            if stickToContent {
+                containerView.frame = CGRect(x: 0, y: scrollView.contentSize.height, width: scrollView.bounds.width, height: defaultHeightToTrigger)
+            }else {
+                containerView.frame = CGRect(x: 0, y: scrollView.contentSize.height + self.defaultContentInset.bottom, width: scrollView.bounds.width, height: defaultHeightToTrigger)
+            }
         }
     }
     // MARK: - Infinity Scroll

@@ -24,9 +24,7 @@ class SamplesTableViewController: UITableViewController {
         self.addInfinityScroll(type)
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        
+    deinit {
         self.tableView.removePullToRefresh()
         self.tableView.removeInfinityScroll()
     }
@@ -57,6 +55,7 @@ class SamplesTableViewController: UITableViewController {
                     self.tableView?.endInfinityScrolling()
                 }
             })
+            self.tableView.infinityStickToContent = false
         default:
             break
         }

@@ -90,4 +90,14 @@ extension UIScrollView {
             objc_setAssociatedObject(self, &associatedInfinityScrollerKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
+    public var infinityStickToContent: Bool? {
+        get {
+            return self.infinityScroller?.stickToContent
+        }
+        set {
+            if let newValue = newValue {
+                self.infinityScroller?.stickToContent = newValue
+            }
+        }
+    }
 }
