@@ -88,13 +88,8 @@ class InfinityScroller: NSObject {
                 adjustFooterFrame()
             }
             else if keyPath == "contentInset" {
-                guard !lockInset else {
+                guard !self.scrollView!.lockInset else {
                     return
-                }
-                if let outLockInset = scrollView?.pullToRefresher?.lockInset {
-                    guard !outLockInset else {
-                        return
-                    }
                 }
                 defaultContentInset = change!["new"]!.UIEdgeInsetsValue()
                 adjustFooterFrame()
@@ -136,32 +131,21 @@ class InfinityScroller: NSObject {
             case .Loading where oldValue == .None:
                 
                 updatingState = true
-                UIView.animateWithDuration(0.3, animations: { () -> Void in
-                    
-                    var jumpToBottom: CGFloat = 0
-                    if self.stickToContent {
-                        jumpToBottom = self.defaultHeightToTrigger
-                    }else {
-                        jumpToBottom = self.defaultHeightToTrigger + self.defaultContentInset.bottom
-                    }
-                    self.lockInset = true
-                    self.scrollView?.contentInset = UIEdgeInsets(top: self.defaultContentInset.top, left: self.defaultContentInset.left, bottom: jumpToBottom, right: self.defaultContentInset.right)
-                    self.lockInset = false
-                    
-                    }, completion: { (finished) -> Void in
-                        self.updatingState = false
+                var jumpToBottom: CGFloat = 0
+                if self.stickToContent {
+                    jumpToBottom = self.defaultHeightToTrigger
+                }else {
+                    jumpToBottom = self.defaultHeightToTrigger + self.defaultContentInset.bottom
+                }
+                let inset = UIEdgeInsets(top: self.defaultContentInset.top, left: self.defaultContentInset.left, bottom: jumpToBottom, right: self.defaultContentInset.right)
+                self.scrollView?.setContentInset(inset, completion: { (finished) -> Void in
+                    self.updatingState = false
                 })
                 action?()
             case .None where oldValue == .Loading:
                 self.updatingState = true
-                UIView.animateWithDuration(0.3, animations: { () -> Void in
-                    print("begin - \(self.defaultContentInset)")
-                    self.lockInset = true
-                    self.scrollView?.contentInset = self.defaultContentInset
-                    self.lockInset = false
-                    print("end - \(self.defaultContentInset)")
-                    }, completion: { (finished) -> Void in
-                        self.updatingState = false
+                self.scrollView?.setContentInset(self.defaultContentInset, completion: { (finished) -> Void in
+                    self.updatingState = false
                 })
             default:
                 break

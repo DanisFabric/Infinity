@@ -98,13 +98,8 @@ class PullToRefresher: NSObject {
                 }
             }
             else if keyPath == "contentInset" && !lockInset {
-                guard !lockInset else {
+                guard !self.scrollView!.lockInset else {
                     return
-                }
-                if let outLockInset = self.scrollView?.infinityScroller?.lockInset {
-                    guard !outLockInset else {
-                        return
-                    }
                 }
                 self.defaultContentInset = change!["new"]!.UIEdgeInsetsValue()
             }
@@ -121,34 +116,20 @@ class PullToRefresher: NSObject {
             
             switch state {
             case .None where oldValue == .Loading:
-                self.scrollView?.bounces = false
                 self.updatingState = true
-                UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: [.CurveEaseInOut,.AllowUserInteraction], animations: { () -> Void in
-                    
-                    self.lockInset = true
-                    self.scrollView?.contentInset = self.defaultContentInset
-                    self.lockInset = false
-                    
-                    }, completion: { (finished) -> Void in
-                        self.scrollView?.bounces = true
-                        self.updatingState = false
+                self.scrollView?.setContentInset(self.defaultContentInset, completion: { (finished) -> Void in
+                    self.updatingState = false
                 })
                 
             case .Loading where oldValue != .Loading:
                 self.scrollView?.bounces = false
                 self.updatingState = true
-                UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: [.CurveEaseInOut,.AllowUserInteraction,.BeginFromCurrentState], animations: { () -> Void in
-                    
-                    var inset = self.defaultContentInset
-                    inset.top += self.defaultHeightToTrigger
-                    
-                    self.lockInset = true
-                    self.scrollView?.contentInset = inset
-                    self.lockInset = false
-                    
-                    }, completion: { (finished) -> Void in
-                        self.updatingState = false
-                        self.scrollView?.bounces = true
+                
+                var inset = self.defaultContentInset
+                inset.top += self.defaultHeightToTrigger
+                self.scrollView?.setContentInset(inset, completion: { (finished) -> Void in
+                    self.updatingState = false
+                    self.scrollView?.bounces = true
                 })
                 self.action?()
             default:
