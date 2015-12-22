@@ -19,7 +19,7 @@ class SamplesTableViewController: UITableViewController {
         self.automaticallyAdjustsScrollViewInsets = true
         
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
-//        self.tableView.supportSpringBounces = true
+        self.tableView.supportSpringBounces = true
         
         self.addPullToRefresh(type)
         self.addInfinityScroll(type)
