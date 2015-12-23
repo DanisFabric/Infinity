@@ -10,6 +10,8 @@ import UIKit
 
 class Main1TableViewController: UITableViewController {
 
+    var samples = ["Default","Circle"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,13 +30,13 @@ class Main1TableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return samples.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SampleCell", forIndexPath: indexPath)
 
-        cell.textLabel?.text = "Cell"
+        cell.textLabel?.text = samples[indexPath.row]
 
         return cell
     }

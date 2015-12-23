@@ -9,7 +9,7 @@
 import UIKit
 
 class Main2TableViewController: UITableViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -17,7 +17,6 @@ class SamplesTableViewController: UITableViewController {
      *  automaticallyAdjustsScrollViewInsets 需要在addPullToRefresh和addInfinity之前设定好
      */
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,6 +27,13 @@ class SamplesTableViewController: UITableViewController {
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
         self.tableView.supportSpringBounces = true
         
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 100))
+        footerView.backgroundColor = UIColor.redColor()
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 100))
+        headerView.backgroundColor = UIColor.greenColor()
+        self.tableView.tableHeaderView = headerView
+        self.tableView.tableFooterView = footerView
+        
         self.addPullToRefresh(type)
         self.addInfinityScroll(type)
         
@@ -36,6 +42,7 @@ class SamplesTableViewController: UITableViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
     
+        print(self.tableView.contentInset)
     }
     
     deinit {
@@ -54,6 +61,15 @@ class SamplesTableViewController: UITableViewController {
                     self.tableView?.endRefreshing()
                 }
             })
+        case 1:
+            let animator = CircleRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+            self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
+                let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+                    Int64(1.5 * Double(NSEC_PER_SEC)))
+                dispatch_after(delayTime, dispatch_get_main_queue()) {
+                    self.tableView?.endRefreshing()
+                }
+            })
         default:
             break
         }
@@ -61,7 +77,7 @@ class SamplesTableViewController: UITableViewController {
     func addInfinityScroll(type: Int) {
         switch type {
         case 0:
-            let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+            let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
             self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in
                 let delayTime = dispatch_time(DISPATCH_TIME_NOW,
                     Int64(1.5 * Double(NSEC_PER_SEC)))
@@ -71,7 +87,18 @@ class SamplesTableViewController: UITableViewController {
                     self.tableView?.endInfinityScrolling()
                 }
             })
-            self.tableView.infinityStickToContent = true
+//            self.tableView.infinityStickToContent = true
+        case 1:
+            let animator = CircleInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+            self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in
+                let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+                    Int64(1.5 * Double(NSEC_PER_SEC)))
+                dispatch_after(delayTime, dispatch_get_main_queue()) {
+                    self.items += 15
+                    self.tableView.reloadData()
+                    self.tableView?.endInfinityScrolling()
+                }
+            })
         default:
             break
         }
