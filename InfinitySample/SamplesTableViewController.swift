@@ -15,6 +15,9 @@ class SamplesTableViewController: UITableViewController {
     var items = 15
     /**
      *  automaticallyAdjustsScrollViewInsets 需要在addPullToRefresh和addInfinity之前设定好
+     *  contentInset 也要在addPullToRefresh之前就设置好
+     *  如果automaticallyAdjustsScrollViewInsets = true，则contentInset.top 会被覆盖掉
+     *  当希望自己设置contentInst时，让autoInset设置为false才行
      */
     
     override func viewDidLoad() {
@@ -34,6 +37,8 @@ class SamplesTableViewController: UITableViewController {
         self.tableView.tableHeaderView = headerView
         self.tableView.tableFooterView = footerView
         
+        self.tableView.contentInset = UIEdgeInsets(top: 120, left: 0, bottom: 0, right: 0)
+        
         self.addPullToRefresh(type)
         self.addInfinityScroll(type)
         
@@ -42,7 +47,7 @@ class SamplesTableViewController: UITableViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
     
-        print(self.tableView.contentInset)
+
     }
     
     deinit {
@@ -87,7 +92,6 @@ class SamplesTableViewController: UITableViewController {
                     self.tableView?.endInfinityScrolling()
                 }
             })
-//            self.tableView.infinityStickToContent = true
         case 1:
             let animator = CircleInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
             self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in
