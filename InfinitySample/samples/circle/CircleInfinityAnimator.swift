@@ -1,5 +1,5 @@
 //
-//  CircleRefreshAnimator.swift
+//  CircleInfinityAnimator.swift
 //  InfinitySample
 //
 //  Created by Danis on 15/12/23.
@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import Infinity
 
-public class CircleRefreshAnimator: UIView, CustomPullToRefreshAnimator {
+public class CircleInfinityAnimator: UIView, CustomInfinityScrollAnimator {
 
-    public var circle = CAShapeLayer()
-    public private(set) var animating = false
+    var circle: CAShapeLayer = CAShapeLayer()
+    private(set) var animating = false
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,24 +26,26 @@ public class CircleRefreshAnimator: UIView, CustomPullToRefreshAnimator {
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     public override func layoutSubviews() {
         super.layoutSubviews()
         
         circle.frame = self.bounds
     }
-    public func animateState(state: PullToRefreshState) {
-        switch state {
-        case .None:
-            stopAnimating()
-        case .Releasing(let progress):
-            updateCircle(progress)
-        case .Loading:
+    public override func didMoveToWindow() {
+        super.didMoveToWindow()
+        
+        if window != nil && animating {
             startAnimating()
         }
     }
-    func updateCircle(progress: CGFloat) {
-        circle.transform = CATransform3DMakeScale(progress, progress, progress)
+    
+    public func animateState(state: InfinityScrollState) {
+        switch state {
+        case .None:
+            stopAnimating()
+        case .Loading:
+            startAnimating()
+        }
     }
     
     private let CircleAnimationKey = "CircleAnimationKey"
@@ -76,7 +79,6 @@ public class CircleRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         self.circle.transform = CATransform3DMakeScale(0, 0, 0)
         self.circle.opacity = 1.0
     }
-    
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

@@ -32,7 +32,6 @@ class SamplesTableViewController: UITableViewController {
         self.automaticallyAdjustsScrollViewInsets = true
 //        self.tableView.contentInset = UIEdgeInsets(top: 120, left: 0, bottom: 0, right: 0)
 //        self.tableView.contentOffset = CGPoint(x: 0, y: -120) // 需要进行对齐一下
-        
         self.addPullToRefresh(type)
         self.addInfinityScroll(type)
         

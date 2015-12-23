@@ -15,7 +15,7 @@ class Main1TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "TableViews"
+
     }
 
     override func didReceiveMemoryWarning() {
