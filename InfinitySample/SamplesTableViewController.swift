@@ -18,6 +18,7 @@ class SamplesTableViewController: UITableViewController {
      *  contentInset 也要在addPullToRefresh之前就设置好
      *  如果automaticallyAdjustsScrollViewInsets = true，则contentInset.top 会被覆盖掉
      *  当希望自己设置contentInst时，让autoInset设置为false才行
+     *  在autoInset为false的情况下，如果想自己设置inset，最好连offset一起设置一下
      */
     
     override func viewDidLoad() {
@@ -28,17 +29,9 @@ class SamplesTableViewController: UITableViewController {
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
         self.tableView.supportSpringBounces = true
         
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 100))
-        footerView.backgroundColor = UIColor.redColor()
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 100))
-        headerView.backgroundColor = UIColor.greenColor()
-        self.tableView.tableHeaderView = headerView
-        self.tableView.tableFooterView = footerView
-        
-        
         self.automaticallyAdjustsScrollViewInsets = true
-        self.tableView.contentInset = UIEdgeInsets(top: 120, left: 0, bottom: 0, right: 0)
-        self.tableView.contentOffset = CGPoint(x: 0, y: -120) // 需要进行对齐一下
+//        self.tableView.contentInset = UIEdgeInsets(top: 120, left: 0, bottom: 0, right: 0)
+//        self.tableView.contentOffset = CGPoint(x: 0, y: -120) // 需要进行对齐一下
         
         self.addPullToRefresh(type)
         self.addInfinityScroll(type)
@@ -48,7 +41,6 @@ class SamplesTableViewController: UITableViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
     
-
     }
     
     deinit {
@@ -56,57 +48,51 @@ class SamplesTableViewController: UITableViewController {
         self.tableView.removeInfinityScroll()
     }
     
+    // MARK: - Add PullToRefresh
     func addPullToRefresh(type: Int) {
         switch type {
         case 0:
             let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-            self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
-                let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                    Int64(1.5 * Double(NSEC_PER_SEC)))
-                dispatch_after(delayTime, dispatch_get_main_queue()) {
-                    self.tableView?.endRefreshing()
-                }
-            })
+            addPullToRefreshWithAnimator(animator)
         case 1:
             let animator = CircleRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-            self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
-                let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                    Int64(1.5 * Double(NSEC_PER_SEC)))
-                dispatch_after(delayTime, dispatch_get_main_queue()) {
-                    self.tableView?.endRefreshing()
-                }
-            })
+            addPullToRefreshWithAnimator(animator)
         default:
             break
         }
     }
+    func addPullToRefreshWithAnimator(animator: CustomPullToRefreshAnimator) {
+        self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+                Int64(1.5 * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                self.tableView?.endRefreshing()
+            }
+        })
+    }
+    // MARK: - Add InfinityScroll
     func addInfinityScroll(type: Int) {
         switch type {
         case 0:
             let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-            self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in
-                let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                    Int64(1.5 * Double(NSEC_PER_SEC)))
-                dispatch_after(delayTime, dispatch_get_main_queue()) {
-                    self.items += 15
-                    self.tableView.reloadData()
-                    self.tableView?.endInfinityScrolling()
-                }
-            })
+            addInfinityScrollWithAnimator(animator)
         case 1:
             let animator = CircleInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-            self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in
-                let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                    Int64(1.5 * Double(NSEC_PER_SEC)))
-                dispatch_after(delayTime, dispatch_get_main_queue()) {
-                    self.items += 15
-                    self.tableView.reloadData()
-                    self.tableView?.endInfinityScrolling()
-                }
-            })
+            addInfinityScrollWithAnimator(animator)
         default:
             break
         }
+    }
+    func addInfinityScrollWithAnimator(animator: CustomInfinityScrollAnimator) {
+        self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+                Int64(1.5 * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue()) {
+                self.items += 15
+                self.tableView.reloadData()
+                self.tableView?.endInfinityScrolling()
+            }
+        })
     }
 
     override func didReceiveMemoryWarning() {
