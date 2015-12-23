@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		129972921C2A44FA0093828B /* DefaultInfinityAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1299728E1C2A44FA0093828B /* DefaultInfinityAnimator.swift */; };
+		129972931C2A44FA0093828B /* DefaultRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1299728F1C2A44FA0093828B /* DefaultRefreshAnimator.swift */; };
+		129972941C2A44FA0093828B /* NormalInfinityAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129972901C2A44FA0093828B /* NormalInfinityAnimator.swift */; };
+		129972951C2A44FA0093828B /* NormalRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129972911C2A44FA0093828B /* NormalRefreshAnimator.swift */; };
 		12EA49511C292FA900FDD8F4 /* Main1TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EA49501C292FA900FDD8F4 /* Main1TableViewController.swift */; };
 		12EA49591C29322300FDD8F4 /* Main2TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EA49581C29322300FDD8F4 /* Main2TableViewController.swift */; };
 		12EA495B1C29323100FDD8F4 /* SamplesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EA495A1C29323100FDD8F4 /* SamplesTableViewController.swift */; };
-		12EA495E1C29335700FDD8F4 /* NormalRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EA495D1C29335700FDD8F4 /* NormalRefreshAnimator.swift */; };
-		12EA49601C29339A00FDD8F4 /* NormalInfinityAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EA495F1C29339A00FDD8F4 /* NormalInfinityAnimator.swift */; };
 		12EFE0E61C27BD5800242079 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EFE0E51C27BD5800242079 /* AppDelegate.swift */; };
 		12EFE0EB1C27BD5800242079 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12EFE0E91C27BD5800242079 /* Main.storyboard */; };
 		12EFE0ED1C27BD5800242079 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12EFE0EC1C27BD5800242079 /* Assets.xcassets */; };
@@ -73,11 +75,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1299728E1C2A44FA0093828B /* DefaultInfinityAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultInfinityAnimator.swift; sourceTree = "<group>"; };
+		1299728F1C2A44FA0093828B /* DefaultRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultRefreshAnimator.swift; sourceTree = "<group>"; };
+		129972901C2A44FA0093828B /* NormalInfinityAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalInfinityAnimator.swift; sourceTree = "<group>"; };
+		129972911C2A44FA0093828B /* NormalRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalRefreshAnimator.swift; sourceTree = "<group>"; };
 		12EA49501C292FA900FDD8F4 /* Main1TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main1TableViewController.swift; sourceTree = "<group>"; };
 		12EA49581C29322300FDD8F4 /* Main2TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main2TableViewController.swift; sourceTree = "<group>"; };
 		12EA495A1C29323100FDD8F4 /* SamplesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SamplesTableViewController.swift; sourceTree = "<group>"; };
-		12EA495D1C29335700FDD8F4 /* NormalRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NormalRefreshAnimator.swift; path = sample/NormalRefreshAnimator.swift; sourceTree = "<group>"; };
-		12EA495F1C29339A00FDD8F4 /* NormalInfinityAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NormalInfinityAnimator.swift; path = sample/NormalInfinityAnimator.swift; sourceTree = "<group>"; };
 		12EFE0E21C27BD5800242079 /* InfinitySample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InfinitySample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12EFE0E51C27BD5800242079 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		12EFE0EA1C27BD5800242079 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -132,13 +136,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		12EA495C1C29331500FDD8F4 /* sample */ = {
+		1299728C1C2A44FA0093828B /* samples */ = {
 			isa = PBXGroup;
 			children = (
-				12EA495D1C29335700FDD8F4 /* NormalRefreshAnimator.swift */,
-				12EA495F1C29339A00FDD8F4 /* NormalInfinityAnimator.swift */,
+				1299728D1C2A44FA0093828B /* default */,
+				129972901C2A44FA0093828B /* NormalInfinityAnimator.swift */,
+				129972911C2A44FA0093828B /* NormalRefreshAnimator.swift */,
 			);
-			name = sample;
+			path = samples;
+			sourceTree = "<group>";
+		};
+		1299728D1C2A44FA0093828B /* default */ = {
+			isa = PBXGroup;
+			children = (
+				1299728F1C2A44FA0093828B /* DefaultRefreshAnimator.swift */,
+				1299728E1C2A44FA0093828B /* DefaultInfinityAnimator.swift */,
+			);
+			path = default;
 			sourceTree = "<group>";
 		};
 		12EFE0D91C27BD5800242079 = {
@@ -195,7 +209,7 @@
 				12EFE1281C27BD7A00242079 /* UIScrollView+Infinity.swift */,
 				12EFE12A1C27BDE300242079 /* PullToRefresher.swift */,
 				12EFE12C1C27BDED00242079 /* InfinityScroller.swift */,
-				12EA495C1C29331500FDD8F4 /* sample */,
+				1299728C1C2A44FA0093828B /* samples */,
 			);
 			path = Infinity;
 			sourceTree = "<group>";
@@ -402,10 +416,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12EA49601C29339A00FDD8F4 /* NormalInfinityAnimator.swift in Sources */,
-				12EA495E1C29335700FDD8F4 /* NormalRefreshAnimator.swift in Sources */,
+				129972921C2A44FA0093828B /* DefaultInfinityAnimator.swift in Sources */,
 				12EFE12D1C27BDED00242079 /* InfinityScroller.swift in Sources */,
 				12EFE12B1C27BDE300242079 /* PullToRefresher.swift in Sources */,
+				129972951C2A44FA0093828B /* NormalRefreshAnimator.swift in Sources */,
+				129972941C2A44FA0093828B /* NormalInfinityAnimator.swift in Sources */,
+				129972931C2A44FA0093828B /* DefaultRefreshAnimator.swift in Sources */,
 				12EFE1291C27BD7A00242079 /* UIScrollView+Infinity.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

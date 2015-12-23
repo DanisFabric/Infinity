@@ -44,7 +44,7 @@ class SamplesTableViewController: UITableViewController {
     func addPullToRefresh(type: Int) {
         switch type {
         case 0:
-            let animator = NormalRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+            let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
             self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
                 let delayTime = dispatch_time(DISPATCH_TIME_NOW,
                     Int64(1.5 * Double(NSEC_PER_SEC)))
@@ -59,7 +59,7 @@ class SamplesTableViewController: UITableViewController {
     func addInfinityScroll(type: Int) {
         switch type {
         case 0:
-            let animator = NormalInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+            let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
             self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in
                 let delayTime = dispatch_time(DISPATCH_TIME_NOW,
                     Int64(1.5 * Double(NSEC_PER_SEC)))

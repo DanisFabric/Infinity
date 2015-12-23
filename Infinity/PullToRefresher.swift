@@ -65,7 +65,6 @@ class PullToRefresher: NSObject {
         self.defaultHeightToTrigger = height
         self.animator = animator
         self.containerView = HeaderContainerView()
-        self.containerView.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.5)
     }
     // MARK: - Observe Scroll View
     var KVOContext = "PullToRefreshKVOContext"
@@ -93,8 +92,12 @@ class PullToRefresher: NSObject {
                     state = .None
                 case -defaultHeightToTrigger...0 where state != .Loading:
                     state = .Releasing(progress: min(-offsetY / defaultHeightToTrigger, 1.0))
-                case (-CGFloat.max)...(-defaultHeightToTrigger) where state == .Releasing(progress:1) && scrollView?.dragging == false:
-                    state = .Loading
+                case (-CGFloat.max)...(-defaultHeightToTrigger) where state == .Releasing(progress:1):
+                    if scrollView!.dragging {
+                        state = .Releasing(progress: 1.0)
+                    }else {
+                        state = .Loading
+                    }
                 default:
                     break
                 }

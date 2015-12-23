@@ -66,7 +66,6 @@ class InfinityScroller: NSObject {
         self.defaultHeightToTrigger = height
         self.animator = animator
         self.containerView = FooterContainerView()
-        self.containerView.backgroundColor = UIColor.blueColor().colorWithAlphaComponent(0.5)
     }
     
     // MARK: - Observe Scroll View

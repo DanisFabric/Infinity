@@ -14,7 +14,7 @@ private var associatedInfinityScrollerKey:String = "InfinityInfinityScrollerKey"
 // MARK: - PullToRefresh
 extension UIScrollView {
 
-    public func addPullToRefresh(height: CGFloat = 80.0, animator: CustomPullToRefreshAnimator, action:(()->Void)?) {
+    public func addPullToRefresh(height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator, action:(()->Void)?) {
         
         bindPullToRefresh(height, toAnimator: animator, action: action)
         self.pullToRefresher?.scrollbackImmediately = false
@@ -24,7 +24,7 @@ extension UIScrollView {
         }
         
     }
-    public func bindPullToRefresh(height: CGFloat = 80.0, toAnimator: CustomPullToRefreshAnimator, action:(()->Void)?) {
+    public func bindPullToRefresh(height: CGFloat = 60.0, toAnimator: CustomPullToRefreshAnimator, action:(()->Void)?) {
         removePullToRefresh()
         
         self.pullToRefresher = PullToRefresher(height: height, animator: toAnimator)
