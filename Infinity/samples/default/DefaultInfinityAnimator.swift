@@ -10,8 +10,8 @@ import UIKit
 
 public class DefaultInfinityAnimator: UIView, CustomInfinityScrollAnimator {
 
-    var activityIndicatorView: UIActivityIndicatorView
-    var animating: Bool = false
+    public var activityIndicatorView: UIActivityIndicatorView
+    public private(set) var animating: Bool = false
     
     public override init(frame: CGRect) {
         activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)

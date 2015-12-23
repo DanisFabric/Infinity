@@ -10,8 +10,8 @@ import UIKit
 
 public class DefaultRefreshAnimator: UIView, CustomPullToRefreshAnimator {
 
-    var activityIndicatorView: UIActivityIndicatorView
-    var circleLayer: CAShapeLayer
+    public var activityIndicatorView: UIActivityIndicatorView
+    public var circleLayer: CAShapeLayer
     
     public override init(frame: CGRect) {
         activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
