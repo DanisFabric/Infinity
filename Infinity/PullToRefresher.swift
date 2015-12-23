@@ -171,33 +171,34 @@ class HeaderContainerView: UIView {
         let firstResponderViewController = self.firstResponderViewController()
         
         if let firstResponderViewController = firstResponderViewController {
+            guard firstResponderViewController.automaticallyAdjustsScrollViewInsets else {
+                return
+            }
+            
             if let navigationController = firstResponderViewController.navigationController {
-                if firstResponderViewController.automaticallyAdjustsScrollViewInsets {
-                    
-                    if navigationController.navigationBar.hidden {
-                        if let scrollView = scrollView {
-                            var inset = scrollView.contentInset
-                            if navigationController.prefersStatusBarHidden() {
-                                inset.top = 0
-                            }else {
-                                inset.top = 20
-                            }
-                            scrollView.contentInset = inset
-                            scrollView.scrollIndicatorInsets = inset
-                            scrollView.setContentOffset(CGPoint(x: 0, y: -inset.top), animated: false)
+                if navigationController.navigationBar.hidden {
+                    if let scrollView = scrollView {
+                        var inset = scrollView.contentInset
+                        if navigationController.prefersStatusBarHidden() {
+                            inset.top = 0
+                        }else {
+                            inset.top = 20
                         }
+                        scrollView.contentInset = inset
+                        scrollView.scrollIndicatorInsets = inset
+                        scrollView.setContentOffset(CGPoint(x: 0, y: -inset.top), animated: false)
                     }
-                    else if navigationController.navigationBar.translucent && firstResponderViewController.edgesForExtendedLayout.contains(.Top) {
-                        if let scrollView = self.scrollView {
-                            scrollView.contentInset = UIEdgeInsets(top: navigationController.navigationBar.frame.origin.y + navigationController.navigationBar.frame.height, left: scrollView.contentInset.left, bottom: scrollView.contentInset.bottom, right: scrollView.contentInset.right)
-                            scrollView.scrollIndicatorInsets = scrollView.contentInset
-                            scrollView.setContentOffset(CGPoint(x: 0, y: -scrollView.contentInset.top), animated: false)
-                            
-                            firstResponderViewController.automaticallyAdjustsScrollViewInsets = false
-                        }
-                    }
-                    firstResponderViewController.automaticallyAdjustsScrollViewInsets = false
                 }
+                else if navigationController.navigationBar.translucent && firstResponderViewController.edgesForExtendedLayout.contains(.Top) {
+                    if let scrollView = self.scrollView {
+                        scrollView.contentInset = UIEdgeInsets(top: navigationController.navigationBar.frame.origin.y + navigationController.navigationBar.frame.height, left: scrollView.contentInset.left, bottom: scrollView.contentInset.bottom, right: scrollView.contentInset.right)
+                        scrollView.scrollIndicatorInsets = scrollView.contentInset
+                        scrollView.setContentOffset(CGPoint(x: 0, y: -scrollView.contentInset.top), animated: false)
+                        
+                        firstResponderViewController.automaticallyAdjustsScrollViewInsets = false
+                    }
+                }
+                firstResponderViewController.automaticallyAdjustsScrollViewInsets = false
             }
         }
     }
