@@ -19,10 +19,13 @@ public class DefaultRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         activityIndicatorView.hidesWhenStopped = true
         
         circleLayer = CAShapeLayer()
-        circleLayer.path = UIBezierPath(ovalInRect: frame).CGPath
+        circleLayer.path = UIBezierPath(ovalInRect: CGRect(x: 0, y: 0, width: frame.width, height: frame.height)).CGPath
         circleLayer.strokeColor = UIColor.grayColor().CGColor
         circleLayer.fillColor = UIColor.clearColor().CGColor
-        circleLayer.lineWidth = 2
+        circleLayer.lineWidth = 3
+        circleLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(CGFloat(-M_PI/2)))
+        circleLayer.strokeStart = 0
+        circleLayer.strokeEnd = 0
         
         super.init(frame: frame)
         
@@ -41,29 +44,33 @@ public class DefaultRefreshAnimator: UIView, CustomPullToRefreshAnimator {
     public func animateState(state: PullToRefreshState) {
         switch state {
         case .None:
-            circleLayer.hidden = true
-            activityIndicatorView.hidden = true
-            activityIndicatorView.stopAnimating()
+            stopAnimating()
         case .Releasing(let progress):
-            circleLayer.hidden = false
-            activityIndicatorView.hidden = true
-            activityIndicatorView.stopAnimating()
-            
             CATransaction.begin()
             self.updateCircle(progress)
             CATransaction.commit()
         case .Loading:
-            circleLayer.hidden = true
-            activityIndicatorView.hidden = false
-            activityIndicatorView.startAnimating()
-            
-            break
+            startAnimating()
         }
+    }
+    func startAnimating() {
+        circleLayer.hidden = true
+        circleLayer.strokeEnd = 0
+        
+        activityIndicatorView.hidden = false
+        activityIndicatorView.startAnimating()
+    }
+    func stopAnimating() {
+        circleLayer.hidden = false
+        
+        activityIndicatorView.hidden = true
+        activityIndicatorView.stopAnimating()
     }
     
     func updateCircle(progress: CGFloat) {
         circleLayer.strokeStart = 0
-        circleLayer.strokeEnd = progress
+        // 为了让circle增长速度在开始时比较慢，后来加快，这样更好看
+        circleLayer.strokeEnd = progress * progress
     }
     /*
     // Only override drawRect: if you perform custom drawing.

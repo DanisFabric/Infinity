@@ -51,17 +51,6 @@ extension UIScrollView {
             objc_setAssociatedObject(self, &associatedPullToRefresherKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-    // 当并未addPullToRefresh的时候，返回值为nil，表示并不支持这种配置
-    public var pullToRefreshScrollbackImmediately: Bool? {
-        get {
-            return self.pullToRefresher?.scrollbackImmediately
-        }
-        set {
-            if let newValue = newValue {
-                self.pullToRefresher?.scrollbackImmediately = newValue
-            }
-        }
-    }
 }
 
 // MARK: - InfinityScroll

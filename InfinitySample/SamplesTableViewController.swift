@@ -23,6 +23,8 @@ class SamplesTableViewController: UITableViewController {
         
         self.automaticallyAdjustsScrollViewInsets = true
         
+        self.view.backgroundColor = UIColor.whiteColor()
+        
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
         self.tableView.supportSpringBounces = true
         
@@ -44,7 +46,7 @@ class SamplesTableViewController: UITableViewController {
     func addPullToRefresh(type: Int) {
         switch type {
         case 0:
-            let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+            let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
                 let delayTime = dispatch_time(DISPATCH_TIME_NOW,
                     Int64(1.5 * Double(NSEC_PER_SEC)))
