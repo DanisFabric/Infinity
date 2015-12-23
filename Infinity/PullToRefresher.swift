@@ -163,45 +163,47 @@ class HeaderContainerView: UIView {
         super.didMoveToSuperview()
         
         let firstResponderViewController = self.firstResponderViewController()
-//        print(self.scrollView?.contentInset)
-        print(firstResponderViewController.automaticallyAdjustsScrollViewInsets)
         
-        if let navigationController = firstResponderViewController.navigationController {
-            
-            if firstResponderViewController.automaticallyAdjustsScrollViewInsets {
-                
-                if navigationController.navigationBar.hidden {
-                    if let scrollView = scrollView {
-                        var inset = scrollView.contentInset
-                        if navigationController.prefersStatusBarHidden() {
-                            inset.top = 0
-                        }else {
-                            inset.top = 20
+        if let firstResponderViewController = firstResponderViewController {
+            if let navigationController = firstResponderViewController.navigationController {
+                if firstResponderViewController.automaticallyAdjustsScrollViewInsets {
+                    
+                    if navigationController.navigationBar.hidden {
+                        if let scrollView = scrollView {
+                            var inset = scrollView.contentInset
+                            if navigationController.prefersStatusBarHidden() {
+                                inset.top = 0
+                            }else {
+                                inset.top = 20
+                            }
+                            scrollView.contentInset = inset
+                            scrollView.scrollIndicatorInsets = inset
                         }
-                        scrollView.contentInset = inset
-                        scrollView.scrollIndicatorInsets = inset
                     }
-                }
-                else if navigationController.navigationBar.translucent && firstResponderViewController.edgesForExtendedLayout.contains(.Top) {
-                    if let scrollView = self.scrollView {
-                        scrollView.contentInset = UIEdgeInsets(top: navigationController.navigationBar.frame.origin.y + navigationController.navigationBar.frame.height, left: scrollView.contentInset.left, bottom: scrollView.contentInset.bottom, right: scrollView.contentInset.right)
-                        scrollView.scrollIndicatorInsets = scrollView.contentInset
-                        firstResponderViewController.automaticallyAdjustsScrollViewInsets = false
+                    else if navigationController.navigationBar.translucent && firstResponderViewController.edgesForExtendedLayout.contains(.Top) {
+                        if let scrollView = self.scrollView {
+                            scrollView.contentInset = UIEdgeInsets(top: navigationController.navigationBar.frame.origin.y + navigationController.navigationBar.frame.height, left: scrollView.contentInset.left, bottom: scrollView.contentInset.bottom, right: scrollView.contentInset.right)
+                            scrollView.scrollIndicatorInsets = scrollView.contentInset
+                            firstResponderViewController.automaticallyAdjustsScrollViewInsets = false
+                        }
                     }
+                    firstResponderViewController.automaticallyAdjustsScrollViewInsets = false
                 }
-                firstResponderViewController.automaticallyAdjustsScrollViewInsets = false
             }
         }
     }
 }
 
 extension UIView {
-    func firstResponderViewController() -> UIViewController {
-        var responder = self as UIResponder
-        while responder.isKindOfClass(UIView.self) {
-            responder = responder.nextResponder()!
+    func firstResponderViewController() -> UIViewController? {
+        var responder: UIResponder? = self as UIResponder
+        while responder != nil {
+            if responder!.isKindOfClass(UIViewController.self) {
+                return responder as? UIViewController
+            }
+            responder = responder?.nextResponder()
         }
-        return responder as! UIViewController
+        return nil
     }
 }
 
