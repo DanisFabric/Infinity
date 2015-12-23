@@ -59,6 +59,7 @@ class PullToRefresher: NSObject {
     // Values
     var defaultContentInset: UIEdgeInsets = UIEdgeInsets()
     var defaultHeightToTrigger: CGFloat = 0
+    var scrollbackImmediately = true
     
     init(height: CGFloat, animator: CustomPullToRefreshAnimator) {
         self.defaultHeightToTrigger = height
@@ -117,21 +118,23 @@ class PullToRefresher: NSObject {
             
             switch state {
             case .None where oldValue == .Loading:
-                self.updatingState = true
-                self.scrollView?.setContentInset(self.defaultContentInset, completion: { (finished) -> Void in
-                    self.updatingState = false
-                })
+                if !self.scrollbackImmediately {
+                    self.updatingState = true
+                    self.scrollView?.setContentInset(self.defaultContentInset, completion: { (finished) -> Void in
+                        self.updatingState = false
+                    })
+                }
                 
             case .Loading where oldValue != .Loading:
-                self.scrollView?.bounces = false
-                self.updatingState = true
                 
-                var inset = self.defaultContentInset
-                inset.top += self.defaultHeightToTrigger
-                self.scrollView?.setContentInset(inset, completion: { (finished) -> Void in
-                    self.updatingState = false
-                    self.scrollView?.bounces = true
-                })
+                if !self.scrollbackImmediately {
+                    self.updatingState = true
+                    var inset = self.defaultContentInset
+                    inset.top += self.defaultHeightToTrigger
+                    self.scrollView?.setContentInset(inset, completion: { (finished) -> Void in
+                        self.updatingState = false
+                    })
+                }
                 self.action?()
             default:
                 break

@@ -8,22 +8,23 @@
 
 import UIKit
 
-private var associatedPullToRefresherKey:UInt8  = 1
-private var associatedInfinityScrollerKey:UInt8 = 2
+private var associatedPullToRefresherKey:String  = "InfinityPullToRefresherKey"
+private var associatedInfinityScrollerKey:String = "InfinityInfinityScrollerKey"
 
 // MARK: - PullToRefresh
 extension UIScrollView {
 
-    public func addPullToRefresh(height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator, action:(()->Void)?) {
+    public func addPullToRefresh(height: CGFloat = 80.0, animator: CustomPullToRefreshAnimator, action:(()->Void)?) {
         
         bindPullToRefresh(height, toAnimator: animator, action: action)
+        self.pullToRefresher?.scrollbackImmediately = false
         
         if let animatorView = animator as? UIView {
             self.pullToRefresher?.containerView.addSubview(animatorView)
         }
         
     }
-    public func bindPullToRefresh(height: CGFloat = 60.0, toAnimator: CustomPullToRefreshAnimator, action:(()->Void)?) {
+    public func bindPullToRefresh(height: CGFloat = 80.0, toAnimator: CustomPullToRefreshAnimator, action:(()->Void)?) {
         removePullToRefresh()
         
         self.pullToRefresher = PullToRefresher(height: height, animator: toAnimator)
@@ -50,12 +51,23 @@ extension UIScrollView {
             objc_setAssociatedObject(self, &associatedPullToRefresherKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
+    // 当并未addPullToRefresh的时候，返回值为nil，表示并不支持这种配置
+    public var pullToRefreshScrollbackImmediately: Bool? {
+        get {
+            return self.pullToRefresher?.scrollbackImmediately
+        }
+        set {
+            if let newValue = newValue {
+                self.pullToRefresher?.scrollbackImmediately = newValue
+            }
+        }
+    }
 }
 
 // MARK: - InfinityScroll
 extension UIScrollView {
     
-    public func addInfinityScroll(height: CGFloat = 60.0, animator: CustomInfinityScrollAnimator, action: (() -> Void)?) {
+    public func addInfinityScroll(height: CGFloat = 80.0, animator: CustomInfinityScrollAnimator, action: (() -> Void)?) {
         
         bindInfinityScroll(height, toAnimator: animator, action: action)
         
@@ -63,7 +75,7 @@ extension UIScrollView {
             self.infinityScroller?.containerView.addSubview(animatorView)
         }
     }
-    public func bindInfinityScroll(height: CGFloat = 60.0, toAnimator: CustomInfinityScrollAnimator, action: (() -> Void)?) {
+    public func bindInfinityScroll(height: CGFloat = 80.0, toAnimator: CustomInfinityScrollAnimator, action: (() -> Void)?) {
         removeInfinityScroll()
         
         self.infinityScroller = InfinityScroller(height: height, animator: toAnimator)
@@ -90,6 +102,7 @@ extension UIScrollView {
             objc_setAssociatedObject(self, &associatedInfinityScrollerKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
+    // 当并未添加infinityScroll时返回的为nil，表示并不支持这种配置
     public var infinityStickToContent: Bool? {
         get {
             return self.infinityScroller?.stickToContent
@@ -103,8 +116,8 @@ extension UIScrollView {
 }
 
 
-private var associatedSupportSpringBouncesKey:String = "UIScrollViewSupportSpringBouncesKey"
-private var associatedLockInsetKey: String = "associatedLockInsetKey"
+private var associatedSupportSpringBouncesKey:String = "InfinitySupportSpringBouncesKey"
+private var associatedLockInsetKey: String           = "InfinityLockInsetKey"
 
 
 extension UIScrollView {
