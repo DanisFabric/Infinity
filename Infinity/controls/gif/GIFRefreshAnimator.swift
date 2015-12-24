@@ -51,6 +51,7 @@ public class GIFRefreshAnimator: UIView, CustomPullToRefreshAnimator {
     }
     func stopAnimating() {
         imageView.stopAnimating()
+        imageView.image = refreshImages?.first
     }
     /*
     // Only override drawRect: if you perform custom drawing.

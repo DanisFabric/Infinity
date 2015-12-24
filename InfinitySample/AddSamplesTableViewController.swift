@@ -72,7 +72,6 @@ class AddSamplesTableViewController: UITableViewController {
             animator.refreshImages = refreshImages
             animator.animatedImages = animatedImages
             addPullToRefreshWithAnimator(animator)
-            break // gif
         case 3:
             let animator = ArrowRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             addPullToRefreshWithAnimator(animator)

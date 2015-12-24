@@ -28,7 +28,8 @@ class BindSamplesTableViewController: UITableViewController {
         self.tableView.contentInset = InfinityContentInset.NavigationBar
         
         bindPullToRefresh(type)
-        bindInfinityScroll(type)
+        addInfinityScroll(type)
+        
         self.tableView.infinityStickToContent = true // Default
     }
     
@@ -49,7 +50,32 @@ class BindSamplesTableViewController: UITableViewController {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: animator)
             bindPullToRefreshWithAnimator(animator)
         case 2:
-            break // gif
+            let animator = GIFRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+            // Add Images for Animator
+            var refreshImages = [UIImage]()
+            for var index = 0; index <= 21; index++ {
+                let image = UIImage(named: "hud_\(index)")
+                if let image = image {
+                    refreshImages.append(image)
+                }
+            }
+            var animatedImages = [UIImage]()
+            for var index = 21; index <= 29; index++ {
+                let image = UIImage(named: "hud_\(index)")
+                if let image = image {
+                    animatedImages.append(image)
+                }
+            }
+            for var index = 0; index < 21; index++ {
+                let image = UIImage(named: "hud_\(index)")
+                if let image = image {
+                    animatedImages.append(image)
+                }
+            }
+            animator.refreshImages = refreshImages
+            animator.animatedImages = animatedImages
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: animator)
+            bindPullToRefreshWithAnimator(animator)
         case 3:
             let animator = ArrowRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: animator)
@@ -68,7 +94,7 @@ class BindSamplesTableViewController: UITableViewController {
         })
     }
     // MARK: - Add InfinityScroll
-    func bindInfinityScroll(type: Int) {
+    func addInfinityScroll(type: Int) {
         switch type {
         case 0:
             let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
@@ -76,6 +102,18 @@ class BindSamplesTableViewController: UITableViewController {
         case 1:
             let animator = CircleInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
             addInfinityScrollWithAnimator(animator)
+        case 2:
+            let animator = GIFInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+            var animatedImages = [UIImage]()
+            for var index = 0; index <= 29; index++ {
+                let image = UIImage(named: "hud_\(index)")
+                if let image = image {
+                    animatedImages.append(image)
+                }
+            }
+            animator.animatedImages = animatedImages
+            addInfinityScrollWithAnimator(animator)
+
         default:
             break
         }
