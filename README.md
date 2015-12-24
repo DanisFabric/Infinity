@@ -24,11 +24,12 @@ github "DanisFabric/Infninity"
 
 ### 手动添加
 
-下载工程文件，然后将Infinity文件夹里所有的Swift文件添加到你的项目里就OK了。
+1. 下载工程文件
+2. 将Infinity文件夹添加到你的工程里就OK了
 
 ## 使用
 
-需要导入框架
+导入框架
 
 ```
 import Infinity

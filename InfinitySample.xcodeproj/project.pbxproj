@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1249A1031C2B9CFB00212C5D /* ArrowRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1249A1021C2B9CFB00212C5D /* ArrowRefreshAnimator.swift */; };
 		1249A1071C2BBFA100212C5D /* BindSamplesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1249A1061C2BBFA100212C5D /* BindSamplesTableViewController.swift */; };
+		1249A1091C2BE5EB00212C5D /* sample-gif.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1249A1081C2BE5EB00212C5D /* sample-gif.xcassets */; };
 		126ABE081C2AD8CF004F3E48 /* GIFRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126ABE071C2AD8CF004F3E48 /* GIFRefreshAnimator.swift */; };
 		126ABE0A1C2AD8DD004F3E48 /* GIFInfinityAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126ABE091C2AD8DD004F3E48 /* GIFInfinityAnimator.swift */; };
 		126ABE0E1C2AD934004F3E48 /* NormalRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126ABE0D1C2AD934004F3E48 /* NormalRefreshAnimator.swift */; };
@@ -83,6 +84,7 @@
 /* Begin PBXFileReference section */
 		1249A1021C2B9CFB00212C5D /* ArrowRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowRefreshAnimator.swift; sourceTree = "<group>"; };
 		1249A1061C2BBFA100212C5D /* BindSamplesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindSamplesTableViewController.swift; sourceTree = "<group>"; };
+		1249A1081C2BE5EB00212C5D /* sample-gif.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "sample-gif.xcassets"; sourceTree = "<group>"; };
 		126ABE071C2AD8CF004F3E48 /* GIFRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFRefreshAnimator.swift; sourceTree = "<group>"; };
 		126ABE091C2AD8DD004F3E48 /* GIFInfinityAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFInfinityAnimator.swift; sourceTree = "<group>"; };
 		126ABE0D1C2AD934004F3E48 /* NormalRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalRefreshAnimator.swift; sourceTree = "<group>"; };
@@ -177,8 +179,8 @@
 		126ABE111C2AD961004F3E48 /* circle */ = {
 			isa = PBXGroup;
 			children = (
-				126ABE121C2AD961004F3E48 /* CircleInfinityAnimator.swift */,
 				126ABE131C2AD961004F3E48 /* CircleRefreshAnimator.swift */,
+				126ABE121C2AD961004F3E48 /* CircleInfinityAnimator.swift */,
 			);
 			path = circle;
 			sourceTree = "<group>";
@@ -205,8 +207,8 @@
 		129972A11C2A77C80093828B /* default */ = {
 			isa = PBXGroup;
 			children = (
-				129972A21C2A77C80093828B /* DefaultInfinityAnimator.swift */,
 				129972A31C2A77C80093828B /* DefaultRefreshAnimator.swift */,
+				129972A21C2A77C80093828B /* DefaultInfinityAnimator.swift */,
 			);
 			path = default;
 			sourceTree = "<group>";
@@ -241,6 +243,7 @@
 				12EA49581C29322300FDD8F4 /* Main2TableViewController.swift */,
 				12EA495A1C29323100FDD8F4 /* AddSamplesTableViewController.swift */,
 				1249A1061C2BBFA100212C5D /* BindSamplesTableViewController.swift */,
+				1249A1081C2BE5EB00212C5D /* sample-gif.xcassets */,
 				1299729F1C2A77A60093828B /* samples */,
 				12EFE0E91C27BD5800242079 /* Main.storyboard */,
 				12EFE0EC1C27BD5800242079 /* Assets.xcassets */,
@@ -421,6 +424,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1249A1091C2BE5EB00212C5D /* sample-gif.xcassets in Resources */,
 				12EFE0F01C27BD5900242079 /* LaunchScreen.storyboard in Resources */,
 				12EFE0ED1C27BD5800242079 /* Assets.xcassets in Resources */,
 				12EFE0EB1C27BD5800242079 /* Main.storyboard in Resources */,
