@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1249A1031C2B9CFB00212C5D /* ArrowRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1249A1021C2B9CFB00212C5D /* ArrowRefreshAnimator.swift */; };
 		126ABE081C2AD8CF004F3E48 /* GIFRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126ABE071C2AD8CF004F3E48 /* GIFRefreshAnimator.swift */; };
 		126ABE0A1C2AD8DD004F3E48 /* GIFInfinityAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126ABE091C2AD8DD004F3E48 /* GIFInfinityAnimator.swift */; };
 		126ABE0E1C2AD934004F3E48 /* NormalRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126ABE0D1C2AD934004F3E48 /* NormalRefreshAnimator.swift */; };
@@ -79,6 +80,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1249A1021C2B9CFB00212C5D /* ArrowRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowRefreshAnimator.swift; sourceTree = "<group>"; };
 		126ABE071C2AD8CF004F3E48 /* GIFRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFRefreshAnimator.swift; sourceTree = "<group>"; };
 		126ABE091C2AD8DD004F3E48 /* GIFInfinityAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFInfinityAnimator.swift; sourceTree = "<group>"; };
 		126ABE0D1C2AD934004F3E48 /* NormalRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalRefreshAnimator.swift; sourceTree = "<group>"; };
@@ -144,6 +146,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1249A1011C2B9CEA00212C5D /* arrow */ = {
+			isa = PBXGroup;
+			children = (
+				1249A1021C2B9CFB00212C5D /* ArrowRefreshAnimator.swift */,
+			);
+			path = arrow;
+			sourceTree = "<group>";
+		};
 		126ABE061C2AD8BC004F3E48 /* gif */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +184,7 @@
 		1299729F1C2A77A60093828B /* samples */ = {
 			isa = PBXGroup;
 			children = (
+				1249A1011C2B9CEA00212C5D /* arrow */,
 				126ABE111C2AD961004F3E48 /* circle */,
 			);
 			path = samples;
@@ -441,6 +452,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1249A1031C2B9CFB00212C5D /* ArrowRefreshAnimator.swift in Sources */,
 				12EA49591C29322300FDD8F4 /* Main2TableViewController.swift in Sources */,
 				12EFE0E61C27BD5800242079 /* AppDelegate.swift in Sources */,
 				126ABE151C2AD961004F3E48 /* CircleRefreshAnimator.swift in Sources */,

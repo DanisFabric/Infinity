@@ -10,7 +10,7 @@ import UIKit
 
 class Main1TableViewController: UITableViewController {
 
-    var samples = ["Default","Circle"]
+    var samples = ["Default","Circle","GIF","Arrow"]
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -49,6 +49,11 @@ class SamplesTableViewController: UITableViewController {
         case 1:
             let animator = CircleRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             addPullToRefreshWithAnimator(animator)
+        case 2:
+            break // gif
+        case 3:
+            let animator = ArrowRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+            addPullToRefreshWithAnimator(animator)
         default:
             break
         }
