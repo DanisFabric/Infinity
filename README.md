@@ -4,6 +4,12 @@
 
 ## 运行图片
 
+![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/add-default.gif)
+![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/add-arrow.gif)
+![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/add-gif.gif)
+![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/bind-default.gif)
+![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/bind-arrow.gif)
+
 ## 介绍
 
 `Infinity`是一个为`UIScrollView`快速集成`下拉刷新`和`上拉加载更多`的框架。`Infinity`设计的核心是易用性、灵活性以及非入侵性。
