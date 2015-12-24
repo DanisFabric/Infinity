@@ -24,7 +24,7 @@
 
 将下面代码添加到你的Cartfile里面
 
-```
+```ruby
 github "DanisFabric/Infninity"
 ```
 
@@ -45,7 +45,7 @@ import Infinity
 
 集成下拉刷新
 
-```
+```swift
 let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
 tableView.addPullToRefresh(animator: animator, action: { () -> Void 
 	// ... 异步操作，在回调中调用下一句代码
@@ -54,7 +54,7 @@ tableView.addPullToRefresh(animator: animator, action: { () -> Void
 ```
 移除下拉刷新
 
-```
+```swift
 tableView.removePullToRefresh()
 ```
 
@@ -62,7 +62,7 @@ tableView.removePullToRefresh()
 
 集成上拉加载更多
 
-```
+```swift
 let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
 tableView.addInfinityScroll(animator: animator, action: { () -> Void in
 	// ... 异步操作，在回调中调用下一句代码
@@ -72,7 +72,7 @@ tableView.addInfinityScroll(animator: animator, action: { () -> Void in
 
 移除上拉加载更多
 
-```
+```swift
 tableView.removeInfinityScroll()
 ```
 
@@ -88,7 +88,7 @@ tableView.removeInfinityScroll()
 
 为了更便捷的设置`contentInset`，`Infinity`提供了以下的方法：
 
-```
+```swift
 self.tableView.contentInset = InfinityContentInset.NavigationBar // 表示顶部空出导航栏的高度
 // 	InfinityContentInset分别有三个属性 
 //	NavigationBar			顶部空出NavigationBar的高度
@@ -121,20 +121,20 @@ self.tableView.contentInset = InfinityContentInset.NavigationBar // 表示顶部
 
 `Infinity`除了内置动画，你还能够定义自己的动画。动画的实现是依赖于协议：
 
-```
+```swift
 public protocol CustomPullToRefreshAnimator {
     func animateState(state: PullToRefreshState)
 }
 ```
 
-```
+```swift
 public protocol CustomInfinityScrollAnimator {
     func animateState(state: InfinityScrollState)
 }
 ```
 你的类根据自己需要选择实现这两个协议之一。然后通过animateState方法，你就可以自定义动画了。
 
-```
+```swift
     public func animateState(state: PullToRefreshState) {
         switch state {
         case .None:
@@ -156,7 +156,7 @@ public protocol CustomInfinityScrollAnimator {
 
 绑定操作的流程和集成操作基本相同：
 
-```
+```swift
 let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
 self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: animator)
 tableView.bindPullToRefresh(animator: animator, action: { () -> Void 
@@ -167,7 +167,7 @@ tableView.bindPullToRefresh(animator: animator, action: { () -> Void
 
 因为这种设计，我们的animator可以是任意对象，最简单的就是一个Object，然后打印状态出来看看：
 
-```
+```swift
 class PrintAnimator: CustomPullToRefreshAnimator {
     func animateState(state: PullToRefreshState) {
         print(state)
