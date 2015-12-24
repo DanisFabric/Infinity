@@ -13,13 +13,6 @@ class SamplesTableViewController: UITableViewController {
 
     var type = 0
     var items = 20
-    /**
-     *  automaticallyAdjustsScrollViewInsets 需要在addPullToRefresh和addInfinity之前设定好
-     *  contentInset 也要在addPullToRefresh之前就设置好
-     *  如果automaticallyAdjustsScrollViewInsets = true，则contentInset.top 会被覆盖掉
-     *  当希望自己设置contentInst时，让autoInset设置为false才行
-     *  在autoInset为false的情况下，如果想自己设置inset，最好连offset一起设置一下
-     */
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,19 +22,19 @@ class SamplesTableViewController: UITableViewController {
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
         self.tableView.supportSpringBounces = true
         
+        //automaticallyAdjustsScrollViewInsets 一定要为false，inset的值自己设定
         self.automaticallyAdjustsScrollViewInsets = false
-//        self.tableView.contentInset = UIEdgeInsets(top: 120, left: 0, bottom: 0, right: 0)
-//        self.tableView.contentOffset = CGPoint(x: 0, y: -120) // 需要进行对齐一下
-        self.addPullToRefresh(type)
-        self.addInfinityScroll(type)
-        
+        self.tableView.contentInset = InfinityContentInset.NavigationBar
+        addPullToRefresh(type)
+        addInfinityScroll(type)
         self.tableView.infinityStickToContent = true
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-    
+        
+        
     }
-    
+
     deinit {
         self.tableView.removePullToRefresh()
         self.tableView.removeInfinityScroll()

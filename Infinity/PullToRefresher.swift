@@ -102,7 +102,7 @@ class PullToRefresher: NSObject {
                     break
                 }
             }
-            else if keyPath == "contentInset" && !lockInset {
+            else if keyPath == "contentInset" {
                 guard !self.scrollView!.lockInset else {
                     return
                 }
@@ -113,7 +113,6 @@ class PullToRefresher: NSObject {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
         }
     }
-    var lockInset = false
     var updatingState = false
     var state: PullToRefreshState = .None {
         didSet {

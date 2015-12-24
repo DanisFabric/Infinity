@@ -8,6 +8,12 @@
 
 import UIKit
 
+public struct InfinityContentInset {
+    public static var NavigationBar = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
+    public static var TabBar = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
+    public static var NavigationBarTabBar = UIEdgeInsets(top: 64, left: 0, bottom: 49, right: 0)
+}
+
 private var associatedPullToRefresherKey:String  = "InfinityPullToRefresherKey"
 private var associatedInfinityScrollerKey:String = "InfinityInfinityScrollerKey"
 
