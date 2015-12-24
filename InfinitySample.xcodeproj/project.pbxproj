@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1249A1031C2B9CFB00212C5D /* ArrowRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1249A1021C2B9CFB00212C5D /* ArrowRefreshAnimator.swift */; };
+		1249A1071C2BBFA100212C5D /* BindSamplesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1249A1061C2BBFA100212C5D /* BindSamplesTableViewController.swift */; };
 		126ABE081C2AD8CF004F3E48 /* GIFRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126ABE071C2AD8CF004F3E48 /* GIFRefreshAnimator.swift */; };
 		126ABE0A1C2AD8DD004F3E48 /* GIFInfinityAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126ABE091C2AD8DD004F3E48 /* GIFInfinityAnimator.swift */; };
 		126ABE0E1C2AD934004F3E48 /* NormalRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126ABE0D1C2AD934004F3E48 /* NormalRefreshAnimator.swift */; };
@@ -18,7 +19,7 @@
 		129972A51C2A77C80093828B /* DefaultRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129972A31C2A77C80093828B /* DefaultRefreshAnimator.swift */; };
 		12EA49511C292FA900FDD8F4 /* Main1TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EA49501C292FA900FDD8F4 /* Main1TableViewController.swift */; };
 		12EA49591C29322300FDD8F4 /* Main2TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EA49581C29322300FDD8F4 /* Main2TableViewController.swift */; };
-		12EA495B1C29323100FDD8F4 /* SamplesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EA495A1C29323100FDD8F4 /* SamplesTableViewController.swift */; };
+		12EA495B1C29323100FDD8F4 /* AddSamplesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EA495A1C29323100FDD8F4 /* AddSamplesTableViewController.swift */; };
 		12EFE0E61C27BD5800242079 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EFE0E51C27BD5800242079 /* AppDelegate.swift */; };
 		12EFE0EB1C27BD5800242079 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12EFE0E91C27BD5800242079 /* Main.storyboard */; };
 		12EFE0ED1C27BD5800242079 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12EFE0EC1C27BD5800242079 /* Assets.xcassets */; };
@@ -81,6 +82,7 @@
 
 /* Begin PBXFileReference section */
 		1249A1021C2B9CFB00212C5D /* ArrowRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowRefreshAnimator.swift; sourceTree = "<group>"; };
+		1249A1061C2BBFA100212C5D /* BindSamplesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindSamplesTableViewController.swift; sourceTree = "<group>"; };
 		126ABE071C2AD8CF004F3E48 /* GIFRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFRefreshAnimator.swift; sourceTree = "<group>"; };
 		126ABE091C2AD8DD004F3E48 /* GIFInfinityAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFInfinityAnimator.swift; sourceTree = "<group>"; };
 		126ABE0D1C2AD934004F3E48 /* NormalRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalRefreshAnimator.swift; sourceTree = "<group>"; };
@@ -91,7 +93,7 @@
 		129972A31C2A77C80093828B /* DefaultRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultRefreshAnimator.swift; sourceTree = "<group>"; };
 		12EA49501C292FA900FDD8F4 /* Main1TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main1TableViewController.swift; sourceTree = "<group>"; };
 		12EA49581C29322300FDD8F4 /* Main2TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main2TableViewController.swift; sourceTree = "<group>"; };
-		12EA495A1C29323100FDD8F4 /* SamplesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SamplesTableViewController.swift; sourceTree = "<group>"; };
+		12EA495A1C29323100FDD8F4 /* AddSamplesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSamplesTableViewController.swift; sourceTree = "<group>"; };
 		12EFE0E21C27BD5800242079 /* InfinitySample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InfinitySample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12EFE0E51C27BD5800242079 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		12EFE0EA1C27BD5800242079 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -237,7 +239,8 @@
 				12EFE0E51C27BD5800242079 /* AppDelegate.swift */,
 				12EA49501C292FA900FDD8F4 /* Main1TableViewController.swift */,
 				12EA49581C29322300FDD8F4 /* Main2TableViewController.swift */,
-				12EA495A1C29323100FDD8F4 /* SamplesTableViewController.swift */,
+				12EA495A1C29323100FDD8F4 /* AddSamplesTableViewController.swift */,
+				1249A1061C2BBFA100212C5D /* BindSamplesTableViewController.swift */,
 				1299729F1C2A77A60093828B /* samples */,
 				12EFE0E91C27BD5800242079 /* Main.storyboard */,
 				12EFE0EC1C27BD5800242079 /* Assets.xcassets */,
@@ -452,11 +455,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1249A1071C2BBFA100212C5D /* BindSamplesTableViewController.swift in Sources */,
 				1249A1031C2B9CFB00212C5D /* ArrowRefreshAnimator.swift in Sources */,
 				12EA49591C29322300FDD8F4 /* Main2TableViewController.swift in Sources */,
 				12EFE0E61C27BD5800242079 /* AppDelegate.swift in Sources */,
 				126ABE151C2AD961004F3E48 /* CircleRefreshAnimator.swift in Sources */,
-				12EA495B1C29323100FDD8F4 /* SamplesTableViewController.swift in Sources */,
+				12EA495B1C29323100FDD8F4 /* AddSamplesTableViewController.swift in Sources */,
 				126ABE141C2AD961004F3E48 /* CircleInfinityAnimator.swift in Sources */,
 				12EA49511C292FA900FDD8F4 /* Main1TableViewController.swift in Sources */,
 			);

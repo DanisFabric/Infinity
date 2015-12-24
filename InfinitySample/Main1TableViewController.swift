@@ -37,12 +37,17 @@ class Main1TableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("SampleCell", forIndexPath: indexPath)
 
         cell.textLabel?.text = samples[indexPath.row]
-
+        if indexPath.row <= 2 {
+            cell.detailTextLabel?.text = "Built-In"
+        }else {
+            cell.detailTextLabel?.text = nil
+        }
+        
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let sampleVC = SamplesTableViewController()
+        let sampleVC = AddSamplesTableViewController()
         sampleVC.hidesBottomBarWhenPushed = true
         sampleVC.type = indexPath.row
         

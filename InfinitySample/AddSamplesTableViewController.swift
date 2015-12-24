@@ -9,7 +9,7 @@
 import UIKit
 import Infinity
 
-class SamplesTableViewController: UITableViewController {
+class AddSamplesTableViewController: UITableViewController {
 
     var type = 0
     var items = 20
@@ -23,16 +23,13 @@ class SamplesTableViewController: UITableViewController {
         self.tableView.supportSpringBounces = true
         
         //automaticallyAdjustsScrollViewInsets 一定要为false，inset的值自己设定
+        
         self.automaticallyAdjustsScrollViewInsets = false
         self.tableView.contentInset = InfinityContentInset.NavigationBar
+        
         addPullToRefresh(type)
         addInfinityScroll(type)
         self.tableView.infinityStickToContent = true
-    }
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
     }
 
     deinit {
