@@ -165,6 +165,7 @@ class HeaderContainerView: UIView {
             view.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
         }
     }
+/**
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         
@@ -202,6 +203,7 @@ class HeaderContainerView: UIView {
             }
         }
     }
+*/
 }
 
 extension UIView {

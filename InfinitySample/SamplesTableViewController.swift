@@ -12,7 +12,7 @@ import Infinity
 class SamplesTableViewController: UITableViewController {
 
     var type = 0
-    var items = 15
+    var items = 20
     /**
      *  automaticallyAdjustsScrollViewInsets 需要在addPullToRefresh和addInfinity之前设定好
      *  contentInset 也要在addPullToRefresh之前就设置好
@@ -29,7 +29,7 @@ class SamplesTableViewController: UITableViewController {
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
         self.tableView.supportSpringBounces = true
         
-        self.automaticallyAdjustsScrollViewInsets = true
+        self.automaticallyAdjustsScrollViewInsets = false
 //        self.tableView.contentInset = UIEdgeInsets(top: 120, left: 0, bottom: 0, right: 0)
 //        self.tableView.contentOffset = CGPoint(x: 0, y: -120) // 需要进行对齐一下
         self.addPullToRefresh(type)

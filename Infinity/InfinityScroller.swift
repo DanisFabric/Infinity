@@ -109,8 +109,8 @@ class InfinityScroller: NSObject {
                 }else {
                     distance = scrollView!.contentSize.height + self.defaultContentInset.bottom - point.y - scrollView!.frame.height
                 }
-                // 要保证scrollView里面是有内容的
-                if distance < 0 && self.state != .Loading && scrollView!.contentSize.height > 0{
+                // 要保证scrollView里面是有内容的, 且保证是在上滑
+                if distance < 0 && self.state != .Loading && scrollView!.contentSize.height > 0 && point.y > lastOffset.y {
                     self.state = .Loading
                 }
                 
