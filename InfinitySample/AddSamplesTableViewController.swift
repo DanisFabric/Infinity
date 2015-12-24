@@ -22,8 +22,6 @@ class AddSamplesTableViewController: UITableViewController {
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
         self.tableView.supportSpringBounces = true
         
-        //automaticallyAdjustsScrollViewInsets 一定要为false，inset的值自己设定
-        
         self.automaticallyAdjustsScrollViewInsets = false
         self.tableView.contentInset = InfinityContentInset.NavigationBar
         
@@ -44,9 +42,6 @@ class AddSamplesTableViewController: UITableViewController {
             let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             addPullToRefreshWithAnimator(animator)
         case 1:
-            let animator = CircleRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-            addPullToRefreshWithAnimator(animator)
-        case 2:
             let animator = GIFRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             // Add Images for Animator
             var refreshImages = [UIImage]()
@@ -72,6 +67,9 @@ class AddSamplesTableViewController: UITableViewController {
             animator.refreshImages = refreshImages
             animator.animatedImages = animatedImages
             addPullToRefreshWithAnimator(animator)
+        case 2:
+            let animator = CircleRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+            addPullToRefreshWithAnimator(animator)
         case 3:
             let animator = ArrowRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             addPullToRefreshWithAnimator(animator)
@@ -95,9 +93,6 @@ class AddSamplesTableViewController: UITableViewController {
             let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
             addInfinityScrollWithAnimator(animator)
         case 1:
-            let animator = CircleInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-            addInfinityScrollWithAnimator(animator)
-        case 2:
             let animator = GIFInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             var animatedImages = [UIImage]()
             for var index = 0; index <= 29; index++ {
@@ -107,6 +102,9 @@ class AddSamplesTableViewController: UITableViewController {
                 }
             }
             animator.animatedImages = animatedImages
+            addInfinityScrollWithAnimator(animator)
+        case 2:
+            let animator = CircleInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
             addInfinityScrollWithAnimator(animator)
         default:
             break

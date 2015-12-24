@@ -10,7 +10,7 @@ import UIKit
 
 class Main2TableViewController: UITableViewController {
     
-    var samples = ["Default","Circle","GIF","Arrow"]
+    var samples = ["Default","GIF","Circle","Arrow"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,7 @@ class Main2TableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("SampleCell", forIndexPath: indexPath)
         
         cell.textLabel?.text = samples[indexPath.row]
-        if indexPath.row <= 2 {
+        if indexPath.row <= 1 {
             cell.detailTextLabel?.text = "Built-In"
         }else {
             cell.detailTextLabel?.text = nil
