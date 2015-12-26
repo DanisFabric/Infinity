@@ -8,13 +8,35 @@
 
 import UIKit
 
+enum AnimatorType: Int, CustomStringConvertible{
+    case Default = 0
+    case GIF
+    case Circle
+    case Arrow
+    case Snake
+    
+    var description:String {
+        switch self {
+        case .Default:
+            return "Default"
+        case .GIF:
+            return "GIF"
+        case .Circle:
+            return "Circle"
+        case .Arrow:
+            return "Arrow"
+        case .Snake:
+            return "Snake"
+        }
+    }
+}
+
 class Main1TableViewController: UITableViewController {
 
-    var samples = ["Default","GIF","Circle","Arrow"]
+    var samples = [AnimatorType.Default,.GIF,.Circle,.Arrow,.Snake]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
 
     }
 
@@ -36,7 +58,7 @@ class Main1TableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SampleCell", forIndexPath: indexPath)
 
-        cell.textLabel?.text = samples[indexPath.row]
+        cell.textLabel?.text = samples[indexPath.row].description
         if indexPath.row <= 1 {
             cell.detailTextLabel?.text = "Built-In"
         }else {
@@ -49,7 +71,7 @@ class Main1TableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let sampleVC = AddSamplesTableViewController()
         sampleVC.hidesBottomBarWhenPushed = true
-        sampleVC.type = indexPath.row
+        sampleVC.type = self.samples[indexPath.row]
         
         self.showViewController(sampleVC, sender: self)
     }

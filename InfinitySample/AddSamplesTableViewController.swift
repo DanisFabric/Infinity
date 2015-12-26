@@ -11,7 +11,7 @@ import Infinity
 
 class AddSamplesTableViewController: UITableViewController {
 
-    var type = 0
+    var type:AnimatorType = .Default
     var items = 20
     
     override func viewDidLoad() {
@@ -36,12 +36,12 @@ class AddSamplesTableViewController: UITableViewController {
     }
     
     // MARK: - Add PullToRefresh
-    func addPullToRefresh(type: Int) {
+    func addPullToRefresh(type: AnimatorType) {
         switch type {
-        case 0:
+        case .Default:
             let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             addPullToRefreshWithAnimator(animator)
-        case 1:
+        case .GIF:
             let animator = GIFRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             // Add Images for Animator
             var refreshImages = [UIImage]()
@@ -67,12 +67,14 @@ class AddSamplesTableViewController: UITableViewController {
             animator.refreshImages = refreshImages
             animator.animatedImages = animatedImages
             addPullToRefreshWithAnimator(animator)
-        case 2:
+        case .Circle:
             let animator = CircleRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             addPullToRefreshWithAnimator(animator)
-        case 3:
+        case .Arrow:
             let animator = ArrowRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             addPullToRefreshWithAnimator(animator)
+//        case .Snake:
+//            let animator = SnakeInfinityAnimator
         default:
             break
         }
@@ -87,12 +89,12 @@ class AddSamplesTableViewController: UITableViewController {
         })
     }
     // MARK: - Add InfinityScroll
-    func addInfinityScroll(type: Int) {
+    func addInfinityScroll(type: AnimatorType) {
         switch type {
-        case 0:
+        case .Default:
             let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
             addInfinityScrollWithAnimator(animator)
-        case 1:
+        case .GIF:
             let animator = GIFInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             var animatedImages = [UIImage]()
             for var index = 0; index <= 29; index++ {
@@ -103,8 +105,11 @@ class AddSamplesTableViewController: UITableViewController {
             }
             animator.animatedImages = animatedImages
             addInfinityScrollWithAnimator(animator)
-        case 2:
+        case .Circle:
             let animator = CircleInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+            addInfinityScrollWithAnimator(animator)
+        case .Snake:
+            let animator = SnakeInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 18))
             addInfinityScrollWithAnimator(animator)
         default:
             break
@@ -113,7 +118,7 @@ class AddSamplesTableViewController: UITableViewController {
     func addInfinityScrollWithAnimator(animator: CustomInfinityScrollAnimator) {
         self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in
             let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                Int64(1.5 * Double(NSEC_PER_SEC)))
+                Int64(20 * Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue()) {
                 self.items += 15
                 self.tableView.reloadData()

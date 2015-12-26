@@ -8,9 +8,30 @@
 
 import UIKit
 
+enum BindAnimatorType: Int, CustomStringConvertible{
+    case Default = 0
+    case GIF
+    case Circle
+    case Arrow
+    
+    var description:String {
+        switch self {
+        case .Default:
+            return "Default"
+        case .GIF:
+            return "GIF"
+        case .Circle:
+            return "Circle"
+        case .Arrow:
+            return "Arrow"
+        }
+    }
+}
+
+
 class Main2TableViewController: UITableViewController {
     
-    var samples = ["Default","GIF","Circle","Arrow"]
+    var samples = [BindAnimatorType.Default,.GIF,.Circle,.Arrow]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +57,7 @@ class Main2TableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SampleCell", forIndexPath: indexPath)
         
-        cell.textLabel?.text = samples[indexPath.row]
+        cell.textLabel?.text = samples[indexPath.row].description
         if indexPath.row <= 1 {
             cell.detailTextLabel?.text = "Built-In"
         }else {
@@ -49,7 +70,7 @@ class Main2TableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let sampleVC = BindSamplesTableViewController()
         sampleVC.hidesBottomBarWhenPushed = true
-        sampleVC.type = indexPath.row
+        sampleVC.type = samples[indexPath.row]
         
         self.showViewController(sampleVC, sender: self)
     }
