@@ -63,7 +63,7 @@
                             <outlet property="delegate" destination="Qoq-Vx-zNt" id="qQY-QM-ONu"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="ocw-2J-KXb"/>
+                    <navigationItem key="navigationItem" title="Add" id="ocw-2J-KXb"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NxI-Fa-nLJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -103,7 +103,7 @@
             </objects>
             <point key="canvasLocation" x="434" y="-660"/>
         </scene>
-        <!--Main2 Table View Controller-->
+        <!--Bind-->
         <scene sceneID="TxW-RS-uy0">
             <objects>
                 <tableViewController id="gKN-GS-YAD" customClass="Main2TableViewController" customModule="InfinitySample" customModuleProvider="target" sceneMemberID="viewController">
@@ -142,7 +142,7 @@
                             <outlet property="delegate" destination="gKN-GS-YAD" id="YUx-be-M7i"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="hXX-Oi-bal"/>
+                    <navigationItem key="navigationItem" title="Bind" id="hXX-Oi-bal"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="68D-z3-afD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

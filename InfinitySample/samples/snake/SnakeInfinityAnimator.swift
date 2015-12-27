@@ -9,11 +9,19 @@
 import UIKit
 import Infinity
 
+extension UIColor {
+    static var SnakeBlue: UIColor {
+        return UIColor(red: 76/255.0, green: 143/255.0, blue: 1.0, alpha: 1.0)
+    }
+}
+
 public class SnakeInfinityAnimator: UIView, CustomInfinityScrollAnimator {
     
     private var snakeLayer = CAShapeLayer()
-    private var snakeLengthForCycle:CGFloat = 0 // 占的周期数
-    private var cycleCount = 100
+    private var snakeLengthByCycle:CGFloat = 0 // 占的周期数
+    private var cycleCount = 1000
+    
+    private var pathLength:CGFloat = 0
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,7 +29,8 @@ public class SnakeInfinityAnimator: UIView, CustomInfinityScrollAnimator {
         let ovalDiametor = frame.width / 4
         let lineHeight = frame.height - ovalDiametor
         
-        snakeLengthForCycle = 2 - (ovalDiametor/2 * CGFloat(M_PI)) / ((lineHeight + ovalDiametor/2 * CGFloat(M_PI)) * 2)
+        snakeLengthByCycle = 2 - (ovalDiametor/2 * CGFloat(M_PI)) / ((lineHeight + ovalDiametor/2 * CGFloat(M_PI)) * 2)
+        pathLength = ovalDiametor * 2 * CGFloat(cycleCount)
         
         let snakePath = UIBezierPath()
         snakePath.moveToPoint(CGPoint(x: 0, y: frame.height - ovalDiametor/2))
@@ -34,9 +43,9 @@ public class SnakeInfinityAnimator: UIView, CustomInfinityScrollAnimator {
         }
         snakeLayer.path = snakePath.CGPath
         snakeLayer.fillColor = nil
-        snakeLayer.strokeColor = UIColor.blackColor().CGColor
+        snakeLayer.strokeColor = UIColor.SnakeBlue.CGColor
         snakeLayer.strokeStart = 0
-        snakeLayer.strokeEnd = snakeLengthForCycle / CGFloat(cycleCount)
+        snakeLayer.strokeEnd = snakeLengthByCycle / CGFloat(cycleCount)
         snakeLayer.lineWidth = 3
         snakeLayer.lineCap = kCALineCapRound
         
@@ -55,24 +64,37 @@ public class SnakeInfinityAnimator: UIView, CustomInfinityScrollAnimator {
             startAnimating()
         }
     }
+    
+    private let AnimationGroupKey = "SnakePathAnimations"
     func startAnimating() {
+        snakeLayer.hidden = false
+        
         snakeLayer.strokeStart = 0
-        snakeLayer.strokeEnd = snakeLengthForCycle / CGFloat(cycleCount)
+        snakeLayer.strokeEnd = snakeLengthByCycle / CGFloat(cycleCount)
         
         let strokeStartAnim = CABasicAnimation(keyPath: "strokeStart")
         let strokeEndAnim = CABasicAnimation(keyPath: "strokeEnd")
+        let moveAnim = CABasicAnimation(keyPath: "position")
         
-        strokeStartAnim.toValue = 1 - snakeLengthForCycle/CGFloat(cycleCount)
+        strokeStartAnim.toValue = 1 - snakeLengthByCycle/CGFloat(cycleCount)
         strokeEndAnim.toValue = 1
+        moveAnim.toValue = NSValue(CGPoint: CGPoint(x: snakeLayer.position.x - pathLength, y: snakeLayer.position.y))
+        
 
         let animGroup = CAAnimationGroup()
-        animGroup.animations = [strokeStartAnim,strokeEndAnim]
-        animGroup.duration = 100
+        animGroup.animations = [strokeStartAnim,strokeEndAnim,moveAnim]
+        animGroup.duration = Double(cycleCount)
         
-        snakeLayer.addAnimation(animGroup, forKey: "StrokePathAnim")
+        snakeLayer.addAnimation(animGroup, forKey: AnimationGroupKey)
         
     }
     func stopAnimating() {
+        snakeLayer.hidden = true
+        
+        snakeLayer.removeAnimationForKey(AnimationGroupKey)
+        
+        snakeLayer.strokeStart = 0
+        snakeLayer.strokeEnd = 0
         
     }
     /*

@@ -36,7 +36,6 @@ class Main2TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Bind"
     }
     
     override func didReceiveMemoryWarning() {
