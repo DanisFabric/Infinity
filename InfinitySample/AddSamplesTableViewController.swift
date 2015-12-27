@@ -18,6 +18,7 @@ class AddSamplesTableViewController: UITableViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.whiteColor()
+        self.title = type.description
         
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
         self.tableView.supportSpringBounces = true
@@ -83,7 +84,7 @@ class AddSamplesTableViewController: UITableViewController {
     func addPullToRefreshWithAnimator(animator: CustomPullToRefreshAnimator) {
         self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
             let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                Int64(1.5 * Double(NSEC_PER_SEC)))
+                Int64(2.0 * Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue()) {
                 self.tableView?.endRefreshing()
             }
@@ -119,7 +120,7 @@ class AddSamplesTableViewController: UITableViewController {
     func addInfinityScrollWithAnimator(animator: CustomInfinityScrollAnimator) {
         self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in
             let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                Int64(20 * Double(NSEC_PER_SEC)))
+                Int64(2.0 * Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue()) {
                 self.items += 15
                 self.tableView.reloadData()

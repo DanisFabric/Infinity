@@ -11,7 +11,11 @@ import Infinity
 
 public class SnakeRefreshAnimator: UIView, CustomPullToRefreshAnimator {
 
-    
+    public var color: UIColor? {
+        didSet {
+            snakeLayer.strokeColor = color?.CGColor
+        }
+    }
     private var snakeLayer = CAShapeLayer()
     private var snakeLengthByCycle:CGFloat = 0 // 显示的长度所占周期数
     private var cycleCount = 1000

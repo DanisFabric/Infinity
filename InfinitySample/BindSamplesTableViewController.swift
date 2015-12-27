@@ -18,6 +18,7 @@ class BindSamplesTableViewController: UITableViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.whiteColor()
+        self.title = type.description
         
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
         self.tableView.supportSpringBounces = true

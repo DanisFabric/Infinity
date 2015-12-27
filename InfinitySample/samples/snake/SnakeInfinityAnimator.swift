@@ -17,6 +17,11 @@ extension UIColor {
 
 public class SnakeInfinityAnimator: UIView, CustomInfinityScrollAnimator {
     
+    public var color: UIColor? {
+        didSet {
+            snakeLayer.strokeColor = color?.CGColor
+        }
+    }
     private var snakeLayer = CAShapeLayer()
     private var snakeLengthByCycle:CGFloat = 0 // 占的周期数
     private var cycleCount = 1000
