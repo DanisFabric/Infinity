@@ -1,6 +1,6 @@
 ![logo](https://github.com/DanisFabric/Infinity/blob/master/images/logo.png)
 
-# 如何使用Swift的下拉刷新库Infinity
+# Infinity
 
 ## Infinity 基本介绍
 `Infinity`是基于Swift2.1的为UIScrollView快速集成下拉刷新和上拉加载更多的开源库。`Infinity`有以下几个优点：
