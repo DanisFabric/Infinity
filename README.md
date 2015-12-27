@@ -1,16 +1,15 @@
 ![logo](https://github.com/DanisFabric/Infinity/blob/master/images/logo.png)
 
-# Infinity
+# 如何使用Swift的下拉刷新库Infinity
 
-## 介绍
+## Infinity 基本介绍
+`Infinity`是基于Swift2.1的为UIScrollView快速集成下拉刷新和上拉加载更多的开源库。`Infinity`有以下几个优点：
 
-`Infinity`是一个为`UIScrollView`快速集成`下拉刷新`和`上拉加载更多`的框架。`Infinity`设计的核心是易用性、灵活性以及非入侵性。
+1. 灵活性：完全支持自定义交互动画
+2. 易用性：一句代码集成/移除 下拉刷新功能
+3. 低伤害性：对`UIScrollView`的行为不造成影响，让你放心使用`UIScrollView`相关功能。
 
-- 易用性：内置基本的刷新组件，能够通过一句代码快速集成和移除`Infinity`
-- 灵活性：动画组件的设计是面向协议的，只需要实现协议就能够轻松自定义动画。
-- 非入侵性：不对原生的`UIScrollView`相关功能造成影响，集成后没有后顾之忧。
-
-## 运行图片
+## 运行效果图
 
 ![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/add-default.gif)
 ![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/add-arrow.gif)
@@ -18,7 +17,7 @@
 ![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/bind-default.gif)
 ![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/bind-arrow.gif)
 
-## 集成
+## 集成Infinity
 
 ### Carthaga
 
@@ -33,168 +32,195 @@ github "DanisFabric/Infninity"
 1. 下载工程文件
 2. 将Infinity文件夹添加到你的工程里就OK了
 
-## 如何使用
 
-导入框架
+## Infinity 使用方法
+
+### 集成/移除-下拉刷新(PullToRefresh)
+
+集成的过程分为两步：
+
+1. 为下拉刷新操作指定动画(Infinity提供了基本的刷新动画)
+2. 设置触发后的回调闭包
 
 ```
-import Infinity
-```
-
-### 下拉刷新
-
-集成下拉刷新
-
-```swift
 let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-tableView.addPullToRefresh(animator: animator, action: { () -> Void 
-	// ... 异步操作，在回调中调用下一句代码
-	//self.tableView?.endRefreshing()
+self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
+	// 耗时操作（数据库读取，网络读取）
+	self.tableView?.endRefreshing()
 })
 ```
-移除下拉刷新
-
-```swift
-tableView.removePullToRefresh()
+移除只需一句代码：
+```
+self.tableView.removePullToRefresh()
 ```
 
-### 上拉加载更多
+### 集成/移除-上拉加载更多(InfinityScroll)
 
-集成上拉加载更多
+集成过程与下拉刷新完全相同，代码如下：
 
-```swift
+```
 let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-tableView.addInfinityScroll(animator: animator, action: { () -> Void in
-	// ... 异步操作，在回调中调用下一句代码
+self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in	
+	// 耗时操作（数据库读取，网络读取）
 	self.tableView?.endInfinityScrolling()
 })
 ```
+移除也只需一句代码
+：
+```
+self.tableView.removeInfinityScroll()
+```
+### 好的使用范式
 
-移除上拉加载更多
+#### 何时集成/移除组件
 
-```swift
-tableView.removeInfinityScroll()
+必须在`UIViewController`释放之前，将`PullToRefresh`和`InfinityScroll`都移除掉。所以需要按以下方式来调用
+
+- 在`UIViewController`的`viewDidLoad`方法里集成组件(推荐)
+- 在`UIViewController`的`deinit`里移除组件(必须)
+
+```
+	override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+	self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
+			// 耗时操作（数据库读取，网络读取）
+			self.tableView?.endRefreshing()
+		})
+        
+        let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+		self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in	
+			// 耗时操作（数据库读取，网络读取）
+			self.tableView?.endInfinityScrolling()
+		})
+    }
+
+    deinit {
+        self.tableView.removePullToRefresh()
+        self.tableView.removeInfinityScroll()
+    }
 ```
 
-### 备注
+### automaticallyAdjustsScrollViewInsets
 
-#### 注意事项
+`UIViewController`有`automaticallyAdjustsScrollViewInsets`属性，当其为true时，viewController内的`UIScrollView`的contentInset会被自动调整为合适的值（自动调整的依据为`UIViewController`是否包含于`UINavigationController`和`UITabBarController`中）。这种自动调整会为下拉刷新带来一些意想不到的BUG。[PullToRefresh](https://github.com/Yalantis/PullToRefresh)等被使用较多的第三方库会出现进入新的viewController后回弹失效的问题。
 
-`Infinity`将`UIViewController`的`automaticallyAdjustsScrollViewInsets`属性给直接设置为false，转而采用更为清晰的方式来进行Insets的设置。
+`Infinity`为了彻底解决这个问题以及让用户能够清楚地知晓其scrollView的contentInset值。所以默认将`automaticallyAdjustsScrollViewInsets`设置为false，转而推荐用护直接设置contentInset，并提供了基本的contentInset的值。
 
-> 最佳实践：
-> 不用管automaticallyAdjustsScrollViewInsets，或者将其设置为false。
-> 自己设定UIScrollView的contentInset的值
+```
+self.tableView.contentInset = InfinityContentInset.NavigationBar
+```
+InfinityContentInset有以下几个：
 
-为了更便捷的设置`contentInset`，`Infinity`提供了以下的方法：
+|type|ps|
+|---|---|
+|None|不留出inset空间|
+|NavigationBar|留出顶部导航栏空间|
+|TabBar|留出底部标签栏空间|
+|NavigationBarTabBar|同时留出导航栏和标签栏空间|
+|StatusBar|留出顶部状态栏空间|
+|StatusBarTabBar|同时留出状态栏和标签栏空间|
 
-```swift
-self.tableView.contentInset = InfinityContentInset.NavigationBar // 表示顶部空出导航栏的高度
-// 	InfinityContentInset分别有三个属性 
-//	NavigationBar			顶部空出NavigationBar的高度
-//	TabBar					底部空出TabBar高度
-//	NavigationBarTabBar		同时空出NavigationBar和TabBar高度
+## 绑定 VS 集成
+
+下面代码是add和bind方法的定义，由定义可以看出，bind和add操作的参数是完全相同的。而实际上，add和bind操作唯一的区别就是：
+
+- add操作会将animator作为UIView添加到`UIScrollView`上。
+- bind操作不会对animator做任何事，只负责将下拉刷新/加载更多 的信息发给animator
+
+```
+// PullToRefresh
+public func addPullToRefresh(height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator, action:(()->Void)?) 
+public func bindPullToRefresh(height: CGFloat = 60.0, toAnimator: CustomPullToRefreshAnimator, action:(()->Void)?) 
+
+//InfinityScroll
+public func addInfinityScroll(height: CGFloat = 80.0, animator: CustomInfinityScrollAnimator, action: (() -> Void)?) 
+public func bindInfinityScroll(height: CGFloat = 80.0, toAnimator: CustomInfinityScrollAnimator, action: (() -> Void)?) 
 ```
 
-#### 其他属性
+bind操作提供了更多的灵活性。可以在示例项目里查看具体效果。
 
-##### supportSpringBounces
+## 自定义动画
 
-是否为UIScrollView的回弹添加弹簧效果
+`Infinity`的动画是面向协议的：
 
-##### infinityStickToContent
-
-底部`加载更多控件`是否需要留出contentInset.bottom的间隔
-如果为true，不留出间隔；为false，则留出间隔
-
-### 内置动画
-
-`Infinity`内置了基本的刷新动画，其中包括：
-
-1. DefaultRefreshAnimator & DefaultInfinityAnimator: 默认的最简单的视图
-2. NormalRefreshAnimator & NormalInfinityAnimator: 箭头+文字的视图 // 还未做好
-3. GIFRefreshAnimator & GIFInfinityAnimator: 播放图片序列的视图
-
-另外，我会在工程里面添加各种有趣好玩的刷新动画，但是我并不打算将其添加到`Infinity`库里，如果你感兴趣的话，把中意的动画文件直接拖到你的工程里用就OK了。
-
-### 自定义动画
-
-`Infinity`除了内置动画，你还能够定义自己的动画。动画的实现是依赖于协议：
-
-```swift
+```
 public protocol CustomPullToRefreshAnimator {
     func animateState(state: PullToRefreshState)
 }
 ```
 
-```swift
+```
 public protocol CustomInfinityScrollAnimator {
     func animateState(state: InfinityScrollState)
 }
 ```
-你的类根据自己需要选择实现这两个协议之一。然后通过animateState方法，你就可以自定义动画了。
+你唯一要做的，就是实现对应的协议的animateState方法。根据具体的state来做动画就可以了。
 
-```swift
-    public func animateState(state: PullToRefreshState) {
+下面来实现一个具体的animator看看动画实现多么简单：
+
+```
+class TextAnimator: UIView, CustomPullToRefreshAnimator {
+    var textLabel = UILabel()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        textLabel.frame = self.bounds
+        self.addSubview(textLabel)
+    }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    func animateState(state: PullToRefreshState) {
         switch state {
         case .None:
-            stopAnimating() 
+            textLabel.text = "Pull Me To Refresh"
         case .Releasing(let progress):
-            updateForProgress(progress) // progress 0->1 之间
+            textLabel.text = String(progress)
         case .Loading:
-            startAnimating()
+            textLabel.text = "Loading ......."
         }
     }
-```
-
-### 绑定Animator
-
-`Infinity`独特的设计在于绑定Animator，这里的animator特指实现了`CustomPullToRefreshAnimator`或`CustomInfinityScrollAnimator`协议的对象。
-通过绑定，`Ininity`不会将你的animator添加到`UIScrollView`中。它只会响应刷新动作，然后给你的animator发送状态信息。
-
-最开始的运行截图的后两张图片就是通过绑定操作，将作为`UIBarButtonItem`的animator绑定到了`Infinity`。
-
-绑定操作的流程和集成操作基本相同：
-
-```swift
-let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: animator)
-tableView.bindPullToRefresh(animator: animator, action: { () -> Void 
-	// ... 异步操作，在回调中调用下一句代码
-	//self.tableView?.endRefreshing()
-})
-```
-
-因为这种设计，我们的animator可以是任意对象，最简单的就是一个Object，然后打印状态出来看看：
-
-```swift
-class PrintAnimator: CustomPullToRefreshAnimator {
-    func animateState(state: PullToRefreshState) {
-        print(state)
-    }
 }
-// ...
-let animator = PrintAnimator()
-tableView.bindPullToRefresh(animator: animator, action: { () -> Void 
-	// ... 异步操作，在回调中调用下一句代码
-	//self.tableView?.endRefreshing()
+// 在UIViewController的viewDidLoad使用TextAnimator
+let animator = TextAnimator(frame: CGRect(x: 0, y: 0, width: 200, height: 24))
+self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
+	// 耗时操作（数据库读取，网络读取）
+	self.tableView?.endRefreshing()
 })
+
 ```
-就这么简单，你就自定义出了一个完整的Animator了，并且能够在控制台看到状态变化的输出。
+是不是很简单啊^_^。而因为bind操作的存在，你甚至能够用任意类型来做animator，不一定要继承UIView。
 
-## TODO 
+## 其他
 
-继续补充刷新控件
+### supportSpringBounces
 
-## Contact
+- true: scrollView的回弹有弹簧特效
+- false: scrollView回弹去掉弹簧特效
 
-Email: [DanisFabirc](danisfabric@gmail.com)
+```
+self.tableView.supportSpringBounces = true
+```
 
-# License
+### infinityStickToContent
 
+- true: 底部`footer`忽略contentInset.bottom距离，而直接紧跟在UIScrollView的content后面
+- false: 底部`footer`留出contentInset.bottom的距离。
+- 默认为true, 一般情况下使用默认就OK了。
+
+### 联系方式
+
+Email : [DanisFabric](danisfabric@gmail.com)
+
+### License
+
+```
 The MIT License (MIT)
 
-Copyright (c) 2015 inspace.io
+Copyright © 2015 DanisFabric
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -203,14 +229,14 @@ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+```

@@ -88,7 +88,7 @@ public class SnakeInfinityAnimator: UIView, CustomInfinityScrollAnimator {
 
         let animGroup = CAAnimationGroup()
         animGroup.animations = [strokeStartAnim,strokeEndAnim,moveAnim]
-        animGroup.duration = Double(cycleCount)
+        animGroup.duration = Double(cycleCount) * 0.6
         
         snakeLayer.addAnimation(animGroup, forKey: AnimationGroupKey)
         
