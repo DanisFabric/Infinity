@@ -22,6 +22,8 @@ public class SnakeInfinityAnimator: UIView, CustomInfinityScrollAnimator {
             snakeLayer.strokeColor = color?.CGColor
         }
     }
+    public var animating = false
+    
     private var snakeLayer = CAShapeLayer()
     private var snakeLengthByCycle:CGFloat = 0 // 占的周期数
     private var cycleCount = 1000
@@ -60,6 +62,13 @@ public class SnakeInfinityAnimator: UIView, CustomInfinityScrollAnimator {
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    public override func didMoveToWindow() {
+        super.didMoveToWindow()
+        
+        if window != nil && animating {
+            startAnimating()
+        }
+    }
     
     public func animateState(state: InfinityScrollState) {
         switch state {
@@ -72,6 +81,7 @@ public class SnakeInfinityAnimator: UIView, CustomInfinityScrollAnimator {
     
     private let AnimationGroupKey = "SnakePathAnimations"
     func startAnimating() {
+        animating = true
         snakeLayer.hidden = false
         
         snakeLayer.strokeStart = 0
@@ -94,12 +104,10 @@ public class SnakeInfinityAnimator: UIView, CustomInfinityScrollAnimator {
         
     }
     func stopAnimating() {
+        animating = false
         snakeLayer.hidden = true
         
         snakeLayer.removeAnimationForKey(AnimationGroupKey)
-        
-        snakeLayer.strokeStart = 0
-        snakeLayer.strokeEnd = 0
         
     }
     /*

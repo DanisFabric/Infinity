@@ -16,6 +16,8 @@ public class SnakeRefreshAnimator: UIView, CustomPullToRefreshAnimator {
             snakeLayer.strokeColor = color?.CGColor
         }
     }
+    public var animating = false
+    
     private var snakeLayer = CAShapeLayer()
     private var snakeLengthByCycle:CGFloat = 0 // 显示的长度所占周期数
     private var cycleCount = 1000
@@ -54,6 +56,13 @@ public class SnakeRefreshAnimator: UIView, CustomPullToRefreshAnimator {
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    public override func didMoveToWindow() {
+        super.didMoveToWindow()
+        
+        if window != nil && animating {
+            startAnimating()
+        }
+    }
     public func animateState(state: PullToRefreshState) {
         switch state {
         case .None:
@@ -76,6 +85,7 @@ public class SnakeRefreshAnimator: UIView, CustomPullToRefreshAnimator {
     
     private let AnimationGroupKey = "SnakePathAnimations"
     func startAnimating() {
+        animating = true
         snakeLayer.hidden = false
         
         snakeLayer.strokeStart = 0
@@ -92,15 +102,16 @@ public class SnakeRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         
         let animGroup = CAAnimationGroup()
         animGroup.animations = [strokeStartAnim,strokeEndAnim,moveAnim]
-        animGroup.duration = Double(cycleCount)
+        animGroup.duration = Double(cycleCount) * 0.6
         
         snakeLayer.addAnimation(animGroup, forKey: AnimationGroupKey)
         
     }
     func stopAnimating() {
+        animating = false
+        
         snakeLayer.hidden = true
         snakeLayer.removeAnimationForKey(AnimationGroupKey)
-        
     }
     /*
     // Only override drawRect: if you perform custom drawing.

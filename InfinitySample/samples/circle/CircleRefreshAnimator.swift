@@ -32,6 +32,13 @@ public class CircleRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         
         circle.frame = self.bounds
     }
+    public override func didMoveToWindow() {
+        super.didMoveToWindow()
+        
+        if window != nil && animating {
+            startAnimating()
+        }
+    }
     public func animateState(state: PullToRefreshState) {
         switch state {
         case .None:

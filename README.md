@@ -42,7 +42,7 @@ github "DanisFabric/Infninity"
 1. 为下拉刷新操作指定动画(Infinity提供了基本的刷新动画)
 2. 设置触发后的回调闭包
 
-```
+```Swift
 let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
 self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
 	// 耗时操作（数据库读取，网络读取）
@@ -58,7 +58,7 @@ self.tableView.removePullToRefresh()
 
 集成过程与下拉刷新完全相同，代码如下：
 
-```
+```Swift
 let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
 self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in	
 	// 耗时操作（数据库读取，网络读取）
@@ -67,7 +67,7 @@ self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in
 ```
 移除也只需一句代码
 ：
-```
+```Swift
 self.tableView.removeInfinityScroll()
 ```
 ### 好的使用范式
@@ -79,7 +79,7 @@ self.tableView.removeInfinityScroll()
 - 在`UIViewController`的`viewDidLoad`方法里集成组件(推荐)
 - 在`UIViewController`的`deinit`里移除组件(必须)
 
-```
+```Swift
 	override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -108,7 +108,7 @@ self.tableView.removeInfinityScroll()
 
 `Infinity`为了彻底解决这个问题以及让用户能够清楚地知晓其scrollView的contentInset值。所以默认将`automaticallyAdjustsScrollViewInsets`设置为false，转而推荐用护直接设置contentInset，并提供了基本的contentInset的值。
 
-```
+```Swift
 self.tableView.contentInset = InfinityContentInset.NavigationBar
 ```
 InfinityContentInset有以下几个：
@@ -129,7 +129,7 @@ InfinityContentInset有以下几个：
 - add操作会将animator作为UIView添加到`UIScrollView`上。
 - bind操作不会对animator做任何事，只负责将下拉刷新/加载更多 的信息发给animator
 
-```
+```Swift
 // PullToRefresh
 public func addPullToRefresh(height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator, action:(()->Void)?) 
 public func bindPullToRefresh(height: CGFloat = 60.0, toAnimator: CustomPullToRefreshAnimator, action:(()->Void)?) 
@@ -145,7 +145,7 @@ bind操作提供了更多的灵活性。可以在示例项目里查看具体效�
 
 `Infinity`的动画是面向协议的：
 
-```
+```Swift
 public protocol CustomPullToRefreshAnimator {
     func animateState(state: PullToRefreshState)
 }
@@ -160,7 +160,7 @@ public protocol CustomInfinityScrollAnimator {
 
 下面来实现一个具体的animator看看动画实现多么简单：
 
-```
+```Swift
 class TextAnimator: UIView, CustomPullToRefreshAnimator {
     var textLabel = UILabel()
     
