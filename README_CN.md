@@ -1,16 +1,15 @@
 ![logo](https://github.com/DanisFabric/Infinity/blob/master/images/logo.png)
 
-# Infinity [中文教程](https://github.com/DanisFabric/Infinity/blob/master/README_CN.md)
+# Infinity
 
-## Introduction
+## 基本介绍
+`Infinity`是基于Swift2.1的为UIScrollView快速集成下拉刷新和上拉加载更多的开源库。`Infinity`有以下几个优点：
 
-`Infinity` is a simple to use library written in Swift2.1. there are some advantages: 
+1. 灵活性：完全支持自定义交互动画
+2. 易用性：一句代码集成/移除 下拉刷新功能
+3. 低伤害性：对`UIScrollView`的行为不造成影响，让你放心使用`UIScrollView`相关功能。
 
-1. Flexibility: You  can write your animations.
-2. Easy to use: One line code make UIScrollView support pull-to-refresh or infinity-scrolling
-
-
-## Screens
+## 运行效果图
 
 ![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/add-default.gif)
 ![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/add-arrow.gif)
@@ -18,101 +17,89 @@
 ![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/bind-default.gif)
 ![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/bind-arrow.gif)
 
-## Requirements
-
-- iOS 8.0+
-- Swift 2.0+
-
-## Install
+## 集成
 
 ### Carthaga
 
-Add the following code to your `Cartfile` and run `Carthage update`.
+将下面代码添加到你的Cartfile里面
 
 ```ruby
 github "DanisFabric/Infninity"
 ```
 
-### Manual
+### 手动添加
 
-1. Download the sample project
-2. add the files in Infinity folder to your project
+1. 下载工程文件
+2. 将Infinity文件夹添加到你的工程里就OK了
 
 
-## Usage
+## 使用方法
 
-Import `Infinity` 
+### 下拉刷新
 
-```Swift
-import Infinity
-```
+集成的过程分为两步：
 
-### Pull-To-Refresh
-
-You need 2 steps to add pull-to-refresh to UIScrollView:
-
-1. create animator which to show the progress of pull-to-refresh
-2. add animator to your UIScrollView
+1. 为下拉刷新操作指定动画(Infinity提供了基本的刷新动画)
+2. 将创建的动画指定给UIScrollView
 
 ```Swift
 let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
 self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
-	// ...
-	self.tableView?.endRefreshing()		//stop refreshing
+	// 耗时操作（数据库读取，网络读取）
+	self.tableView?.endRefreshing()
 })
 ```
-Removing pull-to-refresh is also simple: 
+移除只需一句代码：
+```
+tableView.removePullToRefresh()
+```
+如果你想停止刷新：
 
 ```Swift
-self.tableView.removePullToRefresh()
+tableView.endRefreshing()
 ```
-If you want to stop refreshing: 
+如果你想用代码来启动刷新：
 
 ```Swift
-self.tableView.endRefreshing()
-```
-If you want to start refreshing programmatically:
-
-```Swift
-self.tableView.startRefreshing()
+tableView.beginRefreshing()
 ```
 
-### Infinity-Scrolling
 
-You need 2 steps to add infinity-scrolling to UIScrollView:
+### 上拉加载更多
 
-1. create animator to show the state of infinity-scroll:
-2. add animator to your UIScrollView
+集成过程与下拉刷新完全相同，代码如下：
 
 ```Swift
 let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
 self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in	
+	// 耗时操作（数据库读取，网络读取）
 	self.tableView?.endInfinityScrolling()
 })
 ```
-Remove infinity-scrolling:
+移除也只需一句代码：
 
 ```Swift
 self.tableView.removeInfinityScroll()
 ```
-If you want to stop refreshing: 
+如果你想停止加载：
 
 ```Swift
 tableView.endInfinityScrolling()
 ```
-If you want to start infinity-scrolling programmatically: 
+如果你想代码来开始进行加载更多：
 
 ```Swift
 tableView.beginInfinityScrolling()
 ```
 
-### Best Practice
+### 最佳实践
 
-#### When to add/remove Infinity
+#### 何时集成/移除组件
 
-- `addPullToRefresh`/`addInfinityScroll` in `viewDidLoad` of `UIViewController`
-- `removePullToRefresh`/`removeInfinityScroll` in `deinit` of `UIViewController`
+必须在`UIViewController`释放之前，将`PullToRefresh`和`InfinityScroll`都移除掉。所以需要按以下方式来调用
 
+- 在`UIViewController`的`viewDidLoad`方法里集成组件(推荐)
+- 在`UIViewController`的`deinit`里移除组件(必须)
 
 ```Swift
 	override func viewDidLoad() {
@@ -139,29 +126,30 @@ tableView.beginInfinityScrolling()
 
 ### automaticallyAdjustsScrollViewInsets
 
+`UIViewController`有`automaticallyAdjustsScrollViewInsets`属性，当其为true时，viewController内的`UIScrollView`的contentInset会被自动调整为合适的值（自动调整的依据为`UIViewController`是否包含于`UINavigationController`和`UITabBarController`中）。这种自动调整会为下拉刷新带来一些意想不到的BUG。[PullToRefresh](https://github.com/Yalantis/PullToRefresh)等被使用较多的第三方库会出现进入新的viewController后回弹失效的问题。
 
-`automaticallyAdjustsScrollViewInsets` property on UIViewController which is by default to true bother the `Infinity` control UIScrollView, so it will be automatically set to false when add pull-to-refresh. 
-
-You need to adjsut the contentInset of UIScrollView by your self. `Infinity` offers some frequently used conentInset for you: 
+`Infinity`为了彻底解决这个问题以及让用户能够清楚地知晓其scrollView的contentInset值。所以默认将`automaticallyAdjustsScrollViewInsets`设置为false，转而推荐用护直接设置contentInset，并提供了基本的contentInset的值。
 
 ```Swift
-tableView.contentInset = InfinityContentInset.NavigationBar
+self.tableView.contentInset = InfinityContentInset.NavigationBar
 ```
-
-InfinityContentInset offers following UIEdgeInsets: 
+InfinityContentInset有以下几个：
 
 |type|ps|
 |---|---|
-|None|UIEdgeInsets()|
-|NavigationBar|UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)|
-|TabBar|UIEdgeInsets(top: 0, left: 0, bottom: 49, right: 0)|
-|NavigationBarTabBar|UIEdgeInsets(top: 64, left: 0, bottom: 49, right: 0)|
-|StatusBar|UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)|
-|StatusBarTabBar|UIEdgeInsets(top: 20, left: 0, bottom: 49, right: 0)|
+|None|不留出inset空间|
+|NavigationBar|留出顶部导航栏空间|
+|TabBar|留出底部标签栏空间|
+|NavigationBarTabBar|同时留出导航栏和标签栏空间|
+|StatusBar|留出顶部状态栏空间|
+|StatusBarTabBar|同时留出状态栏和标签栏空间|
 
-## Bind VS Add
+## 绑定 VS 集成
 
-Let's see the definition of add/bind operations: 
+下面代码是add和bind方法的定义，由定义可以看出，bind和add操作的参数是完全相同的。而实际上，add和bind操作唯一的区别就是：
+
+- add操作会将animator作为UIView添加到`UIScrollView`上。
+- bind操作不会对animator做任何事，只负责将下拉刷新/加载更多 的信息发给animator
 
 ```Swift
 // PullToRefresh
@@ -173,14 +161,11 @@ public func addInfinityScroll(height: CGFloat = 80.0, animator: CustomInfinitySc
 public func bindInfinityScroll(height: CGFloat = 80.0, toAnimator: CustomInfinityScrollAnimator, action: (() -> Void)?) 
 ```
 
-The parameters of bind operation is the same as parameters of add operation, following is the differences: 
+bind操作提供了更多的灵活性。可以在示例项目里查看具体效果。
 
-- add operation will add animator to UIScrollView as a subview
-- bind operation don't do anything to animator, the animator just receive messages from pull-to-refresh/infinity-scrolling. It means you can bind any object to pull-to-refresh/infinity-scrolling, and you can control that object completely.
+## 自定义动画
 
-## Custom Animator
-
-You just need to confirm one of following protocols to create your animator whose all behavior is under your control. 
+`Infinity`的动画是面向协议的：
 
 ```Swift
 public protocol CustomPullToRefreshAnimator {
@@ -193,7 +178,9 @@ public protocol CustomInfinityScrollAnimator {
     func animateState(state: InfinityScrollState)
 }
 ```
-Let's create a most simple Animator which onlu has a label to show the state of pull-to-refresh. 
+你唯一要做的，就是实现对应的协议的animateState方法。根据具体的state来做动画就可以了。
+
+下面来实现一个具体的animator看看动画实现多么简单：
 
 ```Swift
 class TextAnimator: UIView, CustomPullToRefreshAnimator {
@@ -219,29 +206,34 @@ class TextAnimator: UIView, CustomPullToRefreshAnimator {
         }
     }
 }
-// add TextAniamtor to UIScrollView
+// 在UIViewController的viewDidLoad使用TextAnimator
 let animator = TextAnimator(frame: CGRect(x: 0, y: 0, width: 200, height: 24))
 self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
-	// ...
+	// 耗时操作（数据库读取，网络读取）
 	self.tableView?.endRefreshing()
 })
 
 ```
+是不是很简单啊^_^。而因为bind操作的存在，你甚至能够用任意类型来做animator，不一定要继承UIView。
 
-
-## Others
+## 其他
 
 ### supportSpringBounces
 
-A bool value of UIScrollView to support spring effect
+- true: scrollView的回弹有弹簧特效
+- false: scrollView回弹去掉弹簧特效
 
-```Swift 
-tableView.supportSpringBounces = true
+```
+self.tableView.supportSpringBounces = true
 ```
 
-### Contact
+### infinityStickToContent
 
-I'd be happy if you sent me links to your apps where you use `Infinity`. If you have any questions or suggestion, send me an email to let me know. 
+- true: 底部`footer`忽略contentInset.bottom距离，而直接紧跟在UIScrollView的content后面
+- false: 底部`footer`留出contentInset.bottom的距离。
+- 默认为true, 一般情况下使用默认就OK了。
+
+### 联系方式
 
 Email : [DanisFabric](danisfabric@gmail.com)
 

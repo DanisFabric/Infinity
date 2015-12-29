@@ -11,7 +11,7 @@ import UIKit
 public struct InfinityContentInset {
     public static var None = UIEdgeInsets()
     public static var NavigationBar = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
-    public static var TabBar = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
+    public static var TabBar = UIEdgeInsets(top: 0, left: 0, bottom: 49, right: 0)
     public static var NavigationBarTabBar = UIEdgeInsets(top: 64, left: 0, bottom: 49, right: 0)
     public static var StatusBar = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
     public static var StatusBarTabBar = UIEdgeInsets(top: 20, left: 0, bottom: 49, right: 0)
