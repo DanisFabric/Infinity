@@ -25,6 +25,14 @@
 
 ## Install
 
+### Cocoapods
+
+Add following to your `Podfile` and run `pod install`. 
+
+```ruby
+pod 'Infinity'
+```
+
 ### Carthaga
 
 Add the following code to your `Cartfile` and run `Carthage update`.
