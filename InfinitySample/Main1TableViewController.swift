@@ -14,6 +14,7 @@ enum AnimatorType: Int, CustomStringConvertible{
     case Circle
     case Arrow
     case Snake
+    case Spark
     
     var description:String {
         switch self {
@@ -27,13 +28,15 @@ enum AnimatorType: Int, CustomStringConvertible{
             return "Arrow"
         case .Snake:
             return "Snake"
+        case .Spark:
+            return "Spark"
         }
     }
 }
 
 class Main1TableViewController: UITableViewController {
 
-    var samples = [AnimatorType.Default,.GIF,.Circle,.Arrow,.Snake]
+    var samples = [AnimatorType.Default,.GIF,.Circle,.Arrow,.Snake,.Spark]
     
     override func viewDidLoad() {
         super.viewDidLoad()

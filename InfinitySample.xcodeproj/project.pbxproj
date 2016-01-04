@@ -20,6 +20,8 @@
 		129972A51C2A77C80093828B /* DefaultRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129972A31C2A77C80093828B /* DefaultRefreshAnimator.swift */; };
 		12AF6F691C2E404400DB3F80 /* SnakeRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF6F681C2E404400DB3F80 /* SnakeRefreshAnimator.swift */; };
 		12AF6F6B1C2E405000DB3F80 /* SnakeInfinityAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF6F6A1C2E405000DB3F80 /* SnakeInfinityAnimator.swift */; };
+		12C8E67D1C37C4B200D27D92 /* SparkRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8E67C1C37C4B200D27D92 /* SparkRefreshAnimator.swift */; };
+		12C8E67F1C37C4C300D27D92 /* SparkInfinityAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8E67E1C37C4C300D27D92 /* SparkInfinityAnimator.swift */; };
 		12EA49511C292FA900FDD8F4 /* Main1TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EA49501C292FA900FDD8F4 /* Main1TableViewController.swift */; };
 		12EA49591C29322300FDD8F4 /* Main2TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EA49581C29322300FDD8F4 /* Main2TableViewController.swift */; };
 		12EA495B1C29323100FDD8F4 /* AddSamplesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EA495A1C29323100FDD8F4 /* AddSamplesTableViewController.swift */; };
@@ -97,6 +99,8 @@
 		129972A31C2A77C80093828B /* DefaultRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultRefreshAnimator.swift; sourceTree = "<group>"; };
 		12AF6F681C2E404400DB3F80 /* SnakeRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeRefreshAnimator.swift; sourceTree = "<group>"; };
 		12AF6F6A1C2E405000DB3F80 /* SnakeInfinityAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeInfinityAnimator.swift; sourceTree = "<group>"; };
+		12C8E67C1C37C4B200D27D92 /* SparkRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SparkRefreshAnimator.swift; sourceTree = "<group>"; };
+		12C8E67E1C37C4C300D27D92 /* SparkInfinityAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SparkInfinityAnimator.swift; sourceTree = "<group>"; };
 		12EA49501C292FA900FDD8F4 /* Main1TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main1TableViewController.swift; sourceTree = "<group>"; };
 		12EA49581C29322300FDD8F4 /* Main2TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main2TableViewController.swift; sourceTree = "<group>"; };
 		12EA495A1C29323100FDD8F4 /* AddSamplesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSamplesTableViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +196,7 @@
 		1299729F1C2A77A60093828B /* samples */ = {
 			isa = PBXGroup;
 			children = (
+				12C8E67B1C37C49F00D27D92 /* spark */,
 				12AF6F671C2E403400DB3F80 /* snake */,
 				1249A1011C2B9CEA00212C5D /* arrow */,
 				126ABE111C2AD961004F3E48 /* circle */,
@@ -225,6 +230,15 @@
 				12AF6F6A1C2E405000DB3F80 /* SnakeInfinityAnimator.swift */,
 			);
 			path = snake;
+			sourceTree = "<group>";
+		};
+		12C8E67B1C37C49F00D27D92 /* spark */ = {
+			isa = PBXGroup;
+			children = (
+				12C8E67C1C37C4B200D27D92 /* SparkRefreshAnimator.swift */,
+				12C8E67E1C37C4C300D27D92 /* SparkInfinityAnimator.swift */,
+			);
+			path = spark;
 			sourceTree = "<group>";
 		};
 		12EFE0D91C27BD5800242079 = {
@@ -477,7 +491,9 @@
 				1249A1031C2B9CFB00212C5D /* ArrowRefreshAnimator.swift in Sources */,
 				12EA49591C29322300FDD8F4 /* Main2TableViewController.swift in Sources */,
 				12AF6F6B1C2E405000DB3F80 /* SnakeInfinityAnimator.swift in Sources */,
+				12C8E67F1C37C4C300D27D92 /* SparkInfinityAnimator.swift in Sources */,
 				12EFE0E61C27BD5800242079 /* AppDelegate.swift in Sources */,
+				12C8E67D1C37C4B200D27D92 /* SparkRefreshAnimator.swift in Sources */,
 				126ABE151C2AD961004F3E48 /* CircleRefreshAnimator.swift in Sources */,
 				12EA495B1C29323100FDD8F4 /* AddSamplesTableViewController.swift in Sources */,
 				12AF6F691C2E404400DB3F80 /* SnakeRefreshAnimator.swift in Sources */,

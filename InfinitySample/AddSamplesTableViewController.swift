@@ -77,6 +77,9 @@ class AddSamplesTableViewController: UITableViewController {
         case .Snake:
             let animator = SnakeRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 18))
             addPullToRefreshWithAnimator(animator)
+        case .Spark:
+            let animator = SparkRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+            addPullToRefreshWithAnimator(animator)
         default:
             break
         }

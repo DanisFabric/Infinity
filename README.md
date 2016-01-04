@@ -128,13 +128,11 @@ tableView.beginInfinityScrolling()
         
         let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
 	self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
-			// 耗时操作（数据库读取，网络读取）
 			self.tableView?.endRefreshing()
 		})
         
         let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-		self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in	
-			// 耗时操作（数据库读取，网络读取）
+		self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in
 			self.tableView?.endInfinityScrolling()
 		})
     }
