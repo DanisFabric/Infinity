@@ -9,7 +9,7 @@
 2. 易用性：一句代码集成/移除 下拉刷新功能
 3. 低伤害性：对`UIScrollView`的行为不造成影响，让你放心使用`UIScrollView`相关功能。
 
-## 运行效果图
+## 运行效果图 [更多](https://github.com/DanisFabric/InfinityImages)
 
 ![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/add-default.gif)
 ![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/add-arrow.gif)
