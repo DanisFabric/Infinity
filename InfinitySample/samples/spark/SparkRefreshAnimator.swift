@@ -135,7 +135,7 @@ class SparkRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         animationGroup.duration = 1.0
         animationGroup.repeatCount = 1000
         animationGroup.beginTime = CACurrentMediaTime() + Double(index) * animationGroup.duration / 8 / 2
-        animationGroup.timingFunction = CAMediaTimingFunction(controlPoints: 1, 0.5, 0, 0.5)
+        animationGroup.timingFunction = CAMediaTimingFunction(controlPoints: 1, 0.27, 0, 0.75)
         
         let circleLayer = circles[index]
         circleLayer.hidden = false
