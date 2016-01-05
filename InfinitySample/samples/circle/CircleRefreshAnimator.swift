@@ -9,12 +9,12 @@
 import UIKit
 import Infinity
 
-public class CircleRefreshAnimator: UIView, CustomPullToRefreshAnimator {
+class CircleRefreshAnimator: UIView, CustomPullToRefreshAnimator {
 
-    public var circle = CAShapeLayer()
-    public private(set) var animating = false
+    var circle = CAShapeLayer()
+    private(set) var animating = false
     
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         
         circle.fillColor = UIColor.darkGrayColor().CGColor
@@ -23,23 +23,23 @@ public class CircleRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         
         self.layer.addSublayer(circle)
     }
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         
         circle.frame = self.bounds
     }
-    public override func didMoveToWindow() {
+    override func didMoveToWindow() {
         super.didMoveToWindow()
         
         if window != nil && animating {
             startAnimating()
         }
     }
-    public func animateState(state: PullToRefreshState) {
+    func animateState(state: PullToRefreshState) {
         switch state {
         case .None:
             stopAnimating()

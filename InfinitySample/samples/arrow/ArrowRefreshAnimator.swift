@@ -18,10 +18,10 @@ extension UIColor {
     }
 }
 
-public class ArrowRefreshAnimator: UIView, CustomPullToRefreshAnimator {
+class ArrowRefreshAnimator: UIView, CustomPullToRefreshAnimator {
     
-    public private(set) var animating = false
-    public var color: UIColor? {
+    private(set) var animating = false
+    var color: UIColor? {
         didSet {
             if let color = color {
                 arrowLayer.strokeColor = color.CGColor
@@ -37,7 +37,7 @@ public class ArrowRefreshAnimator: UIView, CustomPullToRefreshAnimator {
     
     private var activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         
         circleBackLayer.path = UIBezierPath(ovalInRect: CGRect(x: 0, y: 0, width: frame.width, height: frame.height)).CGPath
@@ -83,10 +83,10 @@ public class ArrowRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         self.addSubview(activityIndicatorView)
         
     }
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    public func animateState(state: PullToRefreshState) {
+    func animateState(state: PullToRefreshState) {
         switch state {
         case .None:
             stopAnimating()

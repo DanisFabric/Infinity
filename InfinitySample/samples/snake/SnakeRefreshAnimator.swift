@@ -9,14 +9,14 @@
 import UIKit
 import Infinity
 
-public class SnakeRefreshAnimator: UIView, CustomPullToRefreshAnimator {
+class SnakeRefreshAnimator: UIView, CustomPullToRefreshAnimator {
 
-    public var color: UIColor? {
+    var color: UIColor? {
         didSet {
             snakeLayer.strokeColor = color?.CGColor
         }
     }
-    public var animating = false
+    var animating = false
     
     private var snakeLayer = CAShapeLayer()
     private var snakeLengthByCycle:CGFloat = 0 // 显示的长度所占周期数
@@ -24,7 +24,7 @@ public class SnakeRefreshAnimator: UIView, CustomPullToRefreshAnimator {
     
     private var pathLength:CGFloat = 0
     
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         
         let ovalDiametor = frame.width / 4
@@ -53,17 +53,17 @@ public class SnakeRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         snakeLayer.frame = self.bounds
         self.layer.addSublayer(snakeLayer)
     }
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    public override func didMoveToWindow() {
+    override func didMoveToWindow() {
         super.didMoveToWindow()
         
         if window != nil && animating {
             startAnimating()
         }
     }
-    public func animateState(state: PullToRefreshState) {
+    func animateState(state: PullToRefreshState) {
         switch state {
         case .None:
             stopAnimating()

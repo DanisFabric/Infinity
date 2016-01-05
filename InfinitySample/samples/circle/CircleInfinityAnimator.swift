@@ -9,12 +9,12 @@
 import UIKit
 import Infinity
 
-public class CircleInfinityAnimator: UIView, CustomInfinityScrollAnimator {
+class CircleInfinityAnimator: UIView, CustomInfinityScrollAnimator {
 
     var circle: CAShapeLayer = CAShapeLayer()
     private(set) var animating = false
     
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         
         circle.fillColor = UIColor.darkGrayColor().CGColor
@@ -23,15 +23,15 @@ public class CircleInfinityAnimator: UIView, CustomInfinityScrollAnimator {
         
         self.layer.addSublayer(circle)
     }
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    public override func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         
         circle.frame = self.bounds
     }
-    public override func didMoveToWindow() {
+    override func didMoveToWindow() {
         super.didMoveToWindow()
         
         if window != nil && animating {
@@ -39,7 +39,7 @@ public class CircleInfinityAnimator: UIView, CustomInfinityScrollAnimator {
         }
     }
     
-    public func animateState(state: InfinityScrollState) {
+    func animateState(state: InfinityScrollState) {
         switch state {
         case .None:
             stopAnimating()

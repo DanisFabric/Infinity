@@ -15,14 +15,14 @@ extension UIColor {
     }
 }
 
-public class SnakeInfinityAnimator: UIView, CustomInfinityScrollAnimator {
+class SnakeInfinityAnimator: UIView, CustomInfinityScrollAnimator {
     
-    public var color: UIColor? {
+    var color: UIColor? {
         didSet {
             snakeLayer.strokeColor = color?.CGColor
         }
     }
-    public var animating = false
+    var animating = false
     
     private var snakeLayer = CAShapeLayer()
     private var snakeLengthByCycle:CGFloat = 0 // 占的周期数
@@ -30,7 +30,7 @@ public class SnakeInfinityAnimator: UIView, CustomInfinityScrollAnimator {
     
     private var pathLength:CGFloat = 0
     
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         
         let ovalDiametor = frame.width / 4
@@ -59,10 +59,10 @@ public class SnakeInfinityAnimator: UIView, CustomInfinityScrollAnimator {
         snakeLayer.frame = self.bounds
         self.layer.addSublayer(snakeLayer)
     }
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    public override func didMoveToWindow() {
+    override func didMoveToWindow() {
         super.didMoveToWindow()
         
         if window != nil && animating {
@@ -70,7 +70,7 @@ public class SnakeInfinityAnimator: UIView, CustomInfinityScrollAnimator {
         }
     }
     
-    public func animateState(state: InfinityScrollState) {
+    func animateState(state: InfinityScrollState) {
         switch state {
         case .None:
             stopAnimating()
