@@ -10,13 +10,10 @@
 2. Easy to use: One line code make UIScrollView support pull-to-refresh or infinity-scrolling
 
 
-## Screens [More](https://github.com/DanisFabric/InfinityImages)
+## Screens [More Sample Images](https://github.com/DanisFabric/InfinityImages)
 
 ![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/add-default.gif)
-![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/add-arrow.gif)
-![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/add-gif.gif)
 ![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/bind-default.gif)
-![screen1](https://github.com/DanisFabric/Infinity/blob/master/images/bind-arrow.gif)
 
 ## Requirements
 
