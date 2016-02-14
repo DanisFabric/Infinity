@@ -22,7 +22,7 @@
 
 ## Install
 
-### Cocoapods
+### CocoaPods
 
 Add following to your `Podfile` and run `pod install`. 
 
