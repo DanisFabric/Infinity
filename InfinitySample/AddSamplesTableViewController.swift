@@ -17,23 +17,23 @@ class AddSamplesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.whiteColor()
-        self.title = type.description
+        view.backgroundColor = UIColor.whiteColor()
+        title = type.description
         
-        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
-        self.tableView.supportSpringBounces = true
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
+        tableView.supportSpringBounces = true
         
-        self.automaticallyAdjustsScrollViewInsets = false
-        self.tableView.contentInset = InfinityContentInset.NavigationBar
+        automaticallyAdjustsScrollViewInsets = false
+        tableView.contentInset = InfinityContentInset.NavigationBar
         
         addPullToRefresh(type)
         addInfinityScroll(type)
-        self.tableView.infinityStickToContent = true
+        tableView.infinityStickToContent = true
     }
 
     deinit {
-        self.tableView.removePullToRefresh()
-        self.tableView.removeInfinityScroll()
+        tableView.removePullToRefresh()
+        tableView.removeInfinityScroll()
     }
     
     // MARK: - Add PullToRefresh
@@ -85,7 +85,7 @@ class AddSamplesTableViewController: UITableViewController {
         }
     }
     func addPullToRefreshWithAnimator(animator: CustomPullToRefreshAnimator) {
-        self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
+        tableView.addPullToRefresh(animator: animator, action: { () -> Void in
             let delayTime = dispatch_time(DISPATCH_TIME_NOW,
                 Int64(2.0 * Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue()) {
@@ -121,7 +121,7 @@ class AddSamplesTableViewController: UITableViewController {
         }
     }
     func addInfinityScrollWithAnimator(animator: CustomInfinityScrollAnimator) {
-        self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in
+        tableView.addInfinityScroll(animator: animator, action: { () -> Void in
             let delayTime = dispatch_time(DISPATCH_TIME_NOW,
                 Int64(2.0 * Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue()) {
@@ -158,7 +158,7 @@ class AddSamplesTableViewController: UITableViewController {
         let newVC = UIViewController()
         newVC.view.backgroundColor = UIColor.redColor()
         
-        self.showViewController(newVC, sender: self)
+        showViewController(newVC, sender: self)
     }
 
     /*

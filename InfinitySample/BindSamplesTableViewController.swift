@@ -17,26 +17,24 @@ class BindSamplesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.whiteColor()
-        self.title = type.description
+        view.backgroundColor = UIColor.whiteColor()
+        title = type.description
         
-        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
-        self.tableView.supportSpringBounces = true
-        
-        //automaticallyAdjustsScrollViewInsets 一定要为false，inset的值自己设定
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
+        tableView.supportSpringBounces = true
         
         //        self.automaticallyAdjustsScrollViewInsets = false
-        self.tableView.contentInset = InfinityContentInset.NavigationBar
+        tableView.contentInset = InfinityContentInset.NavigationBar
         
         bindPullToRefresh(type)
         addInfinityScroll(type)
         
-        self.tableView.infinityStickToContent = true // Default
+        tableView.infinityStickToContent = true // Default
     }
     
     deinit {
-        self.tableView.removePullToRefresh()
-        self.tableView.removeInfinityScroll()
+        tableView.removePullToRefresh()
+        tableView.removeInfinityScroll()
     }
     
     // MARK: - Add PullToRefresh
@@ -86,7 +84,7 @@ class BindSamplesTableViewController: UITableViewController {
         }
     }
     func bindPullToRefreshWithAnimator(animator: CustomPullToRefreshAnimator) {
-        self.tableView.bindPullToRefresh(toAnimator: animator, action: { () -> Void in
+        tableView.bindPullToRefresh(toAnimator: animator, action: { () -> Void in
             let delayTime = dispatch_time(DISPATCH_TIME_NOW,
                 Int64(1.5 * Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue()) {
@@ -120,7 +118,7 @@ class BindSamplesTableViewController: UITableViewController {
         }
     }
     func addInfinityScrollWithAnimator(animator: CustomInfinityScrollAnimator) {
-        self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in
+        tableView.addInfinityScroll(animator: animator, action: { () -> Void in
             let delayTime = dispatch_time(DISPATCH_TIME_NOW,
                 Int64(1.5 * Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue()) {
