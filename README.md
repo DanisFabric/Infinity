@@ -61,25 +61,25 @@ You need 2 steps to add pull-to-refresh to UIScrollView:
 
 ```Swift
 let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
+self.tableView.addPullToRefresh(animator: animator, action: { [weak self] () -> Void in
 	// ...
-	self.tableView?.endRefreshing()		//stop refreshing
+	self?.tableView?.endRefreshing()		//stop refreshing
 })
 ```
 Removing pull-to-refresh is also simple: 
 
 ```Swift
-self.tableView.removePullToRefresh()
+tableView.removePullToRefresh()
 ```
 If you want to stop refreshing: 
 
 ```Swift
-self.tableView.endRefreshing()
+tableView.endRefreshing()
 ```
 If you want to start refreshing programmatically:
 
 ```Swift
-self.tableView.startRefreshing()
+tableView.startRefreshing()
 ```
 
 ### Infinity-Scrolling
@@ -91,14 +91,14 @@ You need 2 steps to add infinity-scrolling to UIScrollView:
 
 ```Swift
 let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in	
-	self.tableView?.endInfinityScrolling()
+self.tableView.addInfinityScroll(animator: animator, action: { [weak self] () -> Void in	
+	self?.tableView?.endInfinityScrolling()
 })
 ```
 Remove infinity-scrolling:
 
 ```Swift
-self.tableView.removeInfinityScroll()
+tableView.removeInfinityScroll()
 ```
 If you want to stop refreshing: 
 
@@ -124,13 +124,13 @@ tableView.beginInfinityScrolling()
         super.viewDidLoad()
         
         let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-	self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
-			self.tableView?.endRefreshing()
+	self.tableView.addPullToRefresh(animator: animator, action: { [weak self] () -> Void in
+			self?.tableView?.endRefreshing()
 		})
         
         let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-		self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in
-			self.tableView?.endInfinityScrolling()
+		self.tableView.addInfinityScroll(animator: animator, action: { [weak self] () -> Void in
+			self?.tableView?.endInfinityScrolling()
 		})
     }
 

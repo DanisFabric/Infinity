@@ -44,13 +44,13 @@ github "DanisFabric/Infninity"
 
 ```Swift
 let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
+self.tableView.addPullToRefresh(animator: animator, action: { [weak self] () -> Void in
 	// 耗时操作（数据库读取，网络读取）
-	self.tableView?.endRefreshing()
+	self?.tableView?.endRefreshing()
 })
 ```
 移除只需一句代码：
-```
+```Swift
 tableView.removePullToRefresh()
 ```
 如果你想停止刷新：
@@ -71,15 +71,15 @@ tableView.beginRefreshing()
 
 ```Swift
 let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in	
+self.tableView.addInfinityScroll(animator: animator, action: { [weak self] () -> Void in	
 	// 耗时操作（数据库读取，网络读取）
-	self.tableView?.endInfinityScrolling()
+	self?.tableView?.endInfinityScrolling()
 })
 ```
 移除也只需一句代码：
 
 ```Swift
-self.tableView.removeInfinityScroll()
+tableView.removeInfinityScroll()
 ```
 如果你想停止加载：
 
@@ -106,15 +106,15 @@ tableView.beginInfinityScrolling()
         super.viewDidLoad()
         
         let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-	self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
+	self.tableView.addPullToRefresh(animator: animator, action: { [weak self] () -> Void in
 			// 耗时操作（数据库读取，网络读取）
-			self.tableView?.endRefreshing()
+			self?.tableView?.endRefreshing()
 		})
         
         let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-		self.tableView.addInfinityScroll(animator: animator, action: { () -> Void in	
+		self.tableView.addInfinityScroll(animator: animator, action: { [weak self] () -> Void in	
 			// 耗时操作（数据库读取，网络读取）
-			self.tableView?.endInfinityScrolling()
+			self?.tableView?.endInfinityScrolling()
 		})
     }
 
@@ -123,6 +123,14 @@ tableView.beginInfinityScrolling()
         self.tableView.removeInfinityScroll()
     }
 ```
+
+#### 循环引用
+
+![weak-reference](https://github.com/DanisFabric/Infinity/blob/master/images/weak.png)
+
+如图，存在一个循环引用的链条，所以需要保证action->self 的引用为`weak`的弱引用，self才能够得到正确的释放
+
+
 
 ### automaticallyAdjustsScrollViewInsets
 

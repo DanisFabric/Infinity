@@ -84,11 +84,11 @@ class BindSamplesTableViewController: UITableViewController {
         }
     }
     func bindPullToRefreshWithAnimator(animator: CustomPullToRefreshAnimator) {
-        tableView.bindPullToRefresh(toAnimator: animator, action: { () -> Void in
+        tableView.bindPullToRefresh(toAnimator: animator, action: { [weak self] () -> Void in
             let delayTime = dispatch_time(DISPATCH_TIME_NOW,
                 Int64(1.5 * Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue()) {
-                self.tableView?.endRefreshing()
+                self?.tableView?.endRefreshing()
             }
         })
     }
@@ -118,13 +118,13 @@ class BindSamplesTableViewController: UITableViewController {
         }
     }
     func addInfinityScrollWithAnimator(animator: CustomInfinityScrollAnimator) {
-        tableView.addInfinityScroll(animator: animator, action: { () -> Void in
+        tableView.addInfinityScroll(animator: animator, action: { [weak self] () -> Void in
             let delayTime = dispatch_time(DISPATCH_TIME_NOW,
                 Int64(1.5 * Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue()) {
-                self.items += 15
-                self.tableView.reloadData()
-                self.tableView?.endInfinityScrolling()
+                self?.items += 15
+                self?.tableView.reloadData()
+                self?.tableView?.endInfinityScrolling()
             }
         })
     }
