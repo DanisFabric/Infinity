@@ -23,8 +23,8 @@ class BindSamplesTableViewController: UITableViewController {
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
         tableView.supportSpringBounces = true
         
-        //        self.automaticallyAdjustsScrollViewInsets = false
-        tableView.contentInset = InfinityContentInset.NavigationBar
+        self.automaticallyAdjustsScrollViewInsets = false
+        tableView.setInsetType(withTop: .NavigationBar , bottom: .TabBar)
         
         bindPullToRefresh(type)
         addInfinityScroll(type)

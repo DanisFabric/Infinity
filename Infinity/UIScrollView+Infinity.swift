@@ -8,15 +8,6 @@
 
 import UIKit
 
-public struct InfinityContentInset {
-    public static var None = UIEdgeInsets()
-    public static var NavigationBar = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
-    public static var TabBar = UIEdgeInsets(top: 0, left: 0, bottom: 49, right: 0)
-    public static var NavigationBarTabBar = UIEdgeInsets(top: 64, left: 0, bottom: 49, right: 0)
-    public static var StatusBar = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
-    public static var StatusBarTabBar = UIEdgeInsets(top: 20, left: 0, bottom: 49, right: 0)
-}
-
 private var associatedPullToRefresherKey:String  = "InfinityPullToRefresherKey"
 private var associatedInfinityScrollerKey:String = "InfinityInfinityScrollerKey"
 
@@ -113,10 +104,51 @@ extension UIScrollView {
     }
 }
 
+private let NavigationBarHeight: CGFloat = 64
+private let StatusBarHeight: CGFloat = 20
+private let TabBarHeight: CGFloat = 49
+
+public enum InfinityInsetTopType {
+    case None
+    case NavigationBar
+    case StatusBar
+    case Custom(height: CGFloat)
+}
+public enum InfinityInsetBottomType {
+    case None
+    case TabBar
+    case Custom(height: CGFloat)
+}
+
+extension UIScrollView {
+    public func setInsetType(withTop top: InfinityInsetTopType, bottom: InfinityInsetBottomType) {
+        var insetTop: CGFloat = 0
+        var insetBottom: CGFloat = 0
+        
+        switch top {
+        case .None:
+            break
+        case .StatusBar:
+            insetTop = StatusBarHeight
+        case .NavigationBar:
+            insetTop = NavigationBarHeight
+        case .Custom(let height):
+            insetTop = height
+        }
+        switch bottom {
+        case .None:
+            break
+        case .TabBar:
+            insetBottom = TabBarHeight
+        case .Custom(let height):
+            insetBottom = height
+        }
+        self.contentInset = UIEdgeInsets(top: insetTop, left: 0, bottom: insetBottom, right: 0)
+    }
+}
 
 private var associatedSupportSpringBouncesKey:String = "InfinitySupportSpringBouncesKey"
 private var associatedLockInsetKey: String           = "InfinityLockInsetKey"
-
 
 extension UIScrollView {
     public var supportSpringBounces: Bool {

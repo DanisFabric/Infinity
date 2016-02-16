@@ -130,12 +130,7 @@ class InfinityScroller: NSObject {
             case .Loading where oldValue == .None:
                 
                 updatingState = true
-                var jumpToBottom: CGFloat = 0
-                if self.stickToContent {
-                    jumpToBottom = self.defaultHeightToTrigger
-                }else {
-                    jumpToBottom = self.defaultHeightToTrigger + self.defaultContentInset.bottom
-                }
+                let jumpToBottom = defaultHeightToTrigger + defaultContentInset.bottom
                 let inset = UIEdgeInsets(top: self.defaultContentInset.top, left: self.defaultContentInset.left, bottom: jumpToBottom, right: self.defaultContentInset.right)
                 self.scrollView?.setContentInset(inset, completion: { (finished) -> Void in
                     self.updatingState = false

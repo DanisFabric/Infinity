@@ -68,7 +68,6 @@ class Main2TableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let sampleVC = BindSamplesTableViewController()
-        sampleVC.hidesBottomBarWhenPushed = true
         sampleVC.type = samples[indexPath.row]
         
         self.showViewController(sampleVC, sender: self)

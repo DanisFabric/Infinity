@@ -24,7 +24,8 @@ class AddSamplesTableViewController: UITableViewController {
         tableView.supportSpringBounces = true
         
         automaticallyAdjustsScrollViewInsets = false
-        tableView.contentInset = InfinityContentInset.NavigationBar
+//        tableView.contentInset = InfinityContentInset.NavigationBar
+        tableView.setInsetType(withTop: .NavigationBar, bottom: .None)
         
         addPullToRefresh(type)
         addInfinityScroll(type)
