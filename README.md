@@ -148,19 +148,8 @@ tableView.beginInfinityScrolling()
 You need to adjsut the contentInset of UIScrollView by your self. `Infinity` offers some frequently used conentInset for you: 
 
 ```Swift
-tableView.contentInset = InfinityContentInset.NavigationBar
+tableView.setInsetType(withTop: .NavigationBar, bottom: .None)
 ```
-
-InfinityContentInset offers following UIEdgeInsets: 
-
-|type|ps|
-|---|---|
-|None|UIEdgeInsets()|
-|NavigationBar|UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)|
-|TabBar|UIEdgeInsets(top: 0, left: 0, bottom: 49, right: 0)|
-|NavigationBarTabBar|UIEdgeInsets(top: 64, left: 0, bottom: 49, right: 0)|
-|StatusBar|UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)|
-|StatusBarTabBar|UIEdgeInsets(top: 20, left: 0, bottom: 49, right: 0)|
 
 ## Bind VS Add
 

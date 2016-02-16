@@ -131,18 +131,9 @@ tableView.beginInfinityScrolling()
 `Infinity`为了彻底解决这个问题以及让用户能够清楚地知晓其scrollView的contentInset值。所以默认将`automaticallyAdjustsScrollViewInsets`设置为false，转而推荐用护直接设置contentInset，并提供了基本的contentInset的值。
 
 ```Swift
-self.tableView.contentInset = InfinityContentInset.NavigationBar
+tableView.setInsetType(withTop: .NavigationBar, bottom: .None)
 ```
-InfinityContentInset有以下几个：
 
-|type|ps|
-|---|---|
-|None|不留出inset空间|
-|NavigationBar|留出顶部导航栏空间|
-|TabBar|留出底部标签栏空间|
-|NavigationBarTabBar|同时留出导航栏和标签栏空间|
-|StatusBar|留出顶部状态栏空间|
-|StatusBarTabBar|同时留出状态栏和标签栏空间|
 
 ## 绑定 VS 集成
 
