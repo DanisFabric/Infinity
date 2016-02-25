@@ -1,6 +1,6 @@
 //
 //  SamplesTableViewController.swift
-//  InfinitySample
+//  InfiniteSample
 //
 //  Created by Danis on 15/12/22.
 //  Copyright © 2015年 danis. All rights reserved.
@@ -24,17 +24,17 @@ class AddSamplesTableViewController: UITableViewController {
         tableView.supportSpringBounces = true
         
         automaticallyAdjustsScrollViewInsets = false
-//        tableView.contentInset = InfinityContentInset.NavigationBar
+//        tableView.contentInset = InfiniteContentInset.NavigationBar
         tableView.setInsetType(withTop: .NavigationBar, bottom: .None)
         
         addPullToRefresh(type)
-        addInfinityScroll(type)
-        tableView.infinityStickToContent = true
+        addInfiniteScroll(type)
+        tableView.infiniteStickToContent = true
     }
 
     deinit {
         tableView.removePullToRefresh()
-        tableView.removeInfinityScroll()
+        tableView.removeInfiniteScroll()
     }
     
     // MARK: - Add PullToRefresh
@@ -95,14 +95,14 @@ class AddSamplesTableViewController: UITableViewController {
             }
         })
     }
-    // MARK: - Add InfinityScroll
-    func addInfinityScroll(type: AnimatorType) {
+    // MARK: - Add InfiniteScroll
+    func addInfiniteScroll(type: AnimatorType) {
         switch type {
         case .Default:
-            let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-            addInfinityScrollWithAnimator(animator)
+            let animator = DefaultInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+            addInfiniteScrollWithAnimator(animator)
         case .GIF:
-            let animator = GIFInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+            let animator = GIFInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             var animatedImages = [UIImage]()
             for var index = 0; index <= 29; index++ {
                 let image = UIImage(named: "hud_\(index)")
@@ -111,26 +111,26 @@ class AddSamplesTableViewController: UITableViewController {
                 }
             }
             animator.animatedImages = animatedImages
-            addInfinityScrollWithAnimator(animator)
+            addInfiniteScrollWithAnimator(animator)
         case .Circle:
-            let animator = CircleInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-            addInfinityScrollWithAnimator(animator)
+            let animator = CircleInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+            addInfiniteScrollWithAnimator(animator)
         case .Snake:
-            let animator = SnakeInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 18))
-            addInfinityScrollWithAnimator(animator)
+            let animator = SnakeInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 18))
+            addInfiniteScrollWithAnimator(animator)
         default:
             break
         }
     }
-    func addInfinityScrollWithAnimator(animator: CustomInfinityScrollAnimator) {
-        tableView.addInfinityScroll(animator: animator, action: { [weak self] () -> Void in
+    func addInfiniteScrollWithAnimator(animator: CustomInfiniteScrollAnimator) {
+        tableView.addInfiniteScroll(animator: animator, action: { [weak self] () -> Void in
             let delayTime = dispatch_time(DISPATCH_TIME_NOW,
                 Int64(2.0 * Double(NSEC_PER_SEC)))
             dispatch_after(delayTime, dispatch_get_main_queue()) {
-                print("end infinity scrolling")
+                print("end Infinite scrolling")
                 self?.items += 15
                 self?.tableView.reloadData()
-                self?.tableView?.endInfinityScrolling()
+                self?.tableView?.endInfiniteScrolling()
             }
         })
     }

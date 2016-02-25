@@ -1,6 +1,6 @@
 //
-//  CircleInfinityAnimator.swift
-//  InfinitySample
+//  CircleInfiniteAnimator.swift
+//  InfiniteSample
 //
 //  Created by Danis on 15/12/23.
 //  Copyright © 2015年 danis. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 import Infinity
 
-class CircleInfinityAnimator: UIView, CustomInfinityScrollAnimator {
+class CircleInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
 
     var circle: CAShapeLayer = CAShapeLayer()
     private(set) var animating = false
@@ -39,7 +39,7 @@ class CircleInfinityAnimator: UIView, CustomInfinityScrollAnimator {
         }
     }
     
-    func animateState(state: InfinityScrollState) {
+    func animateState(state: InfiniteScrollState) {
         switch state {
         case .None:
             stopAnimating()

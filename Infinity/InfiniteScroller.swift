@@ -8,11 +8,11 @@
 
 import UIKit
 
-public protocol CustomInfinityScrollAnimator {
-    func animateState(state: InfinityScrollState)
+public protocol CustomInfiniteScrollAnimator {
+    func animateState(state: InfiniteScrollState)
 }
 
-public enum InfinityScrollState: Equatable, CustomStringConvertible {
+public enum InfiniteScrollState: Equatable, CustomStringConvertible {
     case None
     case Loading
     
@@ -23,7 +23,7 @@ public enum InfinityScrollState: Equatable, CustomStringConvertible {
         }
     }
 }
-public func == (left: InfinityScrollState, right: InfinityScrollState) -> Bool {
+public func == (left: InfiniteScrollState, right: InfiniteScrollState) -> Bool {
     switch (left, right) {
     case (.None, .None): return true
     case (.Loading, .Loading): return true
@@ -32,7 +32,7 @@ public func == (left: InfinityScrollState, right: InfinityScrollState) -> Bool {
     }
 }
 
-class InfinityScroller: NSObject {
+class InfiniteScroller: NSObject {
     weak var scrollView: UIScrollView? {
         willSet {
             removeScrollViewObserving(scrollView)
@@ -48,7 +48,7 @@ class InfinityScroller: NSObject {
             }
         }
     }
-    var animator: CustomInfinityScrollAnimator
+    var animator: CustomInfiniteScrollAnimator
     var containerView: FooterContainerView
     var action: (() -> Void)?
     
@@ -62,7 +62,7 @@ class InfinityScroller: NSObject {
         }
     }
     
-    init(height: CGFloat, animator: CustomInfinityScrollAnimator) {
+    init(height: CGFloat, animator: CustomInfiniteScrollAnimator) {
         self.defaultHeightToTrigger = height
         self.animator = animator
         self.containerView = FooterContainerView()
@@ -123,7 +123,7 @@ class InfinityScroller: NSObject {
     }
     var lockInset = false
     var updatingState = false
-    var state: InfinityScrollState = .None {
+    var state: InfiniteScrollState = .None {
         didSet {
             self.animator.animateState(state)
             switch state {
@@ -157,10 +157,10 @@ class InfinityScroller: NSObject {
         }
     }
     // MARK: - Infinity Scroll
-    func beginInfinityScrolling() {
+    func beginInfiniteScrolling() {
         scrollView?.setContentOffset(CGPoint(x: 0, y: (scrollView!.contentSize.height + defaultContentInset.bottom - scrollView!.frame.height + defaultHeightToTrigger)), animated: true)
     }
-    func endInfinityScrolling() {
+    func endInfiniteScrolling() {
         self.state = .None
     }
 }

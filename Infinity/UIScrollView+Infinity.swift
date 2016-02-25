@@ -9,7 +9,7 @@
 import UIKit
 
 private var associatedPullToRefresherKey:String  = "InfinityPullToRefresherKey"
-private var associatedInfinityScrollerKey:String = "InfinityInfinityScrollerKey"
+private var associatedInfiniteScrollerKey:String = "InfinityInfiniteScrollerKey"
 
 // MARK: - PullToRefresh
 extension UIScrollView {
@@ -51,54 +51,64 @@ extension UIScrollView {
             objc_setAssociatedObject(self, &associatedPullToRefresherKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-}
-
-// MARK: - InfinityScroll
-extension UIScrollView {
-    
-    public func addInfinityScroll(height: CGFloat = 80.0, animator: CustomInfinityScrollAnimator, action: (() -> Void)?) {
-        
-        bindInfinityScroll(height, toAnimator: animator, action: action)
-        
-        if let animatorView = animator as? UIView {
-            self.infinityScroller?.containerView.addSubview(animatorView)
-        }
-    }
-    public func bindInfinityScroll(height: CGFloat = 80.0, toAnimator: CustomInfinityScrollAnimator, action: (() -> Void)?) {
-        removeInfinityScroll()
-        
-        self.infinityScroller = InfinityScroller(height: height, animator: toAnimator)
-        self.infinityScroller?.scrollView = self
-        self.infinityScroller?.action = action
-    }
-    public func removeInfinityScroll() {
-        self.infinityScroller?.scrollView = nil
-        self.infinityScroller = nil
-    }
-    public func beginInfinityScrolling() {
-        self.infinityScroller?.beginInfinityScrolling()
-    }
-    public func endInfinityScrolling() {
-        self.infinityScroller?.endInfinityScrolling()
-    }
-    
-    //MARK: - Properties
-    var infinityScroller: InfinityScroller? {
+   public var scrollToTopImmediately: Bool? {
         get {
-            return objc_getAssociatedObject(self, &associatedInfinityScrollerKey) as? InfinityScroller
-        }
-        set {
-            objc_setAssociatedObject(self, &associatedInfinityScrollerKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-    // 当并未添加infinityScroll时返回的为nil，表示并不支持这种配置
-    public var infinityStickToContent: Bool? {
-        get {
-            return self.infinityScroller?.stickToContent
+            return pullToRefresher?.scrollbackImmediately
         }
         set {
             if let newValue = newValue {
-                self.infinityScroller?.stickToContent = newValue
+                pullToRefresher?.scrollbackImmediately = newValue
+            }
+        }
+    }
+}
+
+// MARK: - InfiniteScroll
+extension UIScrollView {
+    
+    public func addInfiniteScroll(height: CGFloat = 80.0, animator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
+        
+        bindInfiniteScroll(height, toAnimator: animator, action: action)
+        
+        if let animatorView = animator as? UIView {
+            self.infiniteScroller?.containerView.addSubview(animatorView)
+        }
+    }
+    public func bindInfiniteScroll(height: CGFloat = 80.0, toAnimator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
+        removeInfiniteScroll()
+        
+        self.infiniteScroller = InfiniteScroller(height: height, animator: toAnimator)
+        self.infiniteScroller?.scrollView = self
+        self.infiniteScroller?.action = action
+    }
+    public func removeInfiniteScroll() {
+        self.infiniteScroller?.scrollView = nil
+        self.infiniteScroller = nil
+    }
+    public func beginInfiniteScrolling() {
+        self.infiniteScroller?.beginInfiniteScrolling()
+    }
+    public func endInfiniteScrolling() {
+        self.infiniteScroller?.endInfiniteScrolling()
+    }
+    
+    //MARK: - Properties
+    var infiniteScroller: InfiniteScroller? {
+        get {
+            return objc_getAssociatedObject(self, &associatedInfiniteScrollerKey) as? InfiniteScroller
+        }
+        set {
+            objc_setAssociatedObject(self, &associatedInfiniteScrollerKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    // 当并未添加infinityScroll时返回的为nil，表示并不支持这种配置
+    public var infiniteStickToContent: Bool? {
+        get {
+            return self.infiniteScroller?.stickToContent
+        }
+        set {
+            if let newValue = newValue {
+                self.infiniteScroller?.stickToContent = newValue
             }
         }
     }

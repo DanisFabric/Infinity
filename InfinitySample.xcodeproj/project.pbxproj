@@ -37,7 +37,7 @@
 		12EFE1201C27BD6A00242079 /* Infinity.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 12EFE10A1C27BD6A00242079 /* Infinity.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		12EFE1291C27BD7A00242079 /* UIScrollView+Infinity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EFE1281C27BD7A00242079 /* UIScrollView+Infinity.swift */; };
 		12EFE12B1C27BDE300242079 /* PullToRefresher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EFE12A1C27BDE300242079 /* PullToRefresher.swift */; };
-		12EFE12D1C27BDED00242079 /* InfinityScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EFE12C1C27BDED00242079 /* InfinityScroller.swift */; };
+		12EFE12D1C27BDED00242079 /* InfiniteScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EFE12C1C27BDED00242079 /* InfiniteScroller.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,7 +121,7 @@
 		12EFE11C1C27BD6A00242079 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12EFE1281C27BD7A00242079 /* UIScrollView+Infinity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Infinity.swift"; sourceTree = "<group>"; };
 		12EFE12A1C27BDE300242079 /* PullToRefresher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullToRefresher.swift; sourceTree = "<group>"; };
-		12EFE12C1C27BDED00242079 /* InfinityScroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfinityScroller.swift; sourceTree = "<group>"; };
+		12EFE12C1C27BDED00242079 /* InfiniteScroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScroller.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,7 +297,7 @@
 				12EFE10E1C27BD6A00242079 /* Info.plist */,
 				12EFE1281C27BD7A00242079 /* UIScrollView+Infinity.swift */,
 				12EFE12A1C27BDE300242079 /* PullToRefresher.swift */,
-				12EFE12C1C27BDED00242079 /* InfinityScroller.swift */,
+				12EFE12C1C27BDED00242079 /* InfiniteScroller.swift */,
 				129972A01C2A77C80093828B /* controls */,
 			);
 			path = Infinity;
@@ -515,7 +515,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12EFE12D1C27BDED00242079 /* InfinityScroller.swift in Sources */,
+				12EFE12D1C27BDED00242079 /* InfiniteScroller.swift in Sources */,
 				12EFE12B1C27BDE300242079 /* PullToRefresher.swift in Sources */,
 				126ABE101C2AD941004F3E48 /* NormalInfinityAnimator.swift in Sources */,
 				126ABE0A1C2AD8DD004F3E48 /* GIFInfinityAnimator.swift in Sources */,

@@ -1,6 +1,6 @@
 //
-//  SparkInfinityAnimator.swift
-//  InfinitySample
+//  SparkInfiniteAnimator.swift
+//  InfiniteSample
 //
 //  Created by Danis on 16/1/2.
 //  Copyright © 2016年 danis. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 import Infinity
 
-class SparkInfinityAnimator: UIView, CustomInfinityScrollAnimator {
+class SparkInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
     
     private var circles = [CAShapeLayer]()
     var animating = false
@@ -52,7 +52,7 @@ class SparkInfinityAnimator: UIView, CustomInfinityScrollAnimator {
         }
     }
     
-    func animateState(state: InfinityScrollState) {
+    func animateState(state: InfiniteScrollState) {
         switch state {
         case .None:
             stopAnimating()

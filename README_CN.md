@@ -70,33 +70,33 @@ tableView.beginRefreshing()
 集成过程与下拉刷新完全相同，代码如下：
 
 ```Swift
-let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-self.tableView.addInfinityScroll(animator: animator, action: { [weak self] () -> Void in	
+let animator = DefaultInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+self.tableView.addInfiniteScroll(animator: animator, action: { [weak self] () -> Void in	
 	// 耗时操作（数据库读取，网络读取）
-	self?.tableView?.endInfinityScrolling()
+	self?.tableView?.endInfiniteScrolling()
 })
 ```
 移除也只需一句代码：
 
 ```Swift
-tableView.removeInfinityScroll()
+tableView.removeInfiniteScroll()
 ```
 如果你想停止加载：
 
 ```Swift
-tableView.endInfinityScrolling()
+tableView.endInfiniteScrolling()
 ```
 如果你想代码来开始进行加载更多：
 
 ```Swift
-tableView.beginInfinityScrolling()
+tableView.beginInfiniteScrolling()
 ```
 
 ### 最佳实践
 
 #### 何时集成/移除组件
 
-必须在`UIViewController`释放之前，将`PullToRefresh`和`InfinityScroll`都移除掉。所以需要按以下方式来调用
+必须在`UIViewController`释放之前，将`PullToRefresh`和`InfiniteScroll`都移除掉。所以需要按以下方式来调用
 
 - 在`UIViewController`的`viewDidLoad`方法里集成组件(推荐)
 - 在`UIViewController`的`deinit`里移除组件(必须)
@@ -111,16 +111,16 @@ tableView.beginInfinityScrolling()
 			self?.tableView?.endRefreshing()
 		})
         
-        let animator = DefaultInfinityAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-		self.tableView.addInfinityScroll(animator: animator, action: { [weak self] () -> Void in	
+        let animator = DefaultInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+		self.tableView.addInfiniteScroll(animator: animator, action: { [weak self] () -> Void in	
 			// 耗时操作（数据库读取，网络读取）
-			self?.tableView?.endInfinityScrolling()
+			self?.tableView?.endInfiniteScrolling()
 		})
     }
 
     deinit {
         self.tableView.removePullToRefresh()
-        self.tableView.removeInfinityScroll()
+        self.tableView.removeInfiniteScroll()
     }
 ```
 

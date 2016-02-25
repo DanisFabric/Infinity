@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class DefaultInfinityAnimator: UIView, CustomInfinityScrollAnimator {
+public class DefaultInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
 
     public var activityIndicatorView: UIActivityIndicatorView
     public private(set) var animating: Bool = false
@@ -35,7 +35,7 @@ public class DefaultInfinityAnimator: UIView, CustomInfinityScrollAnimator {
             startAnimating()
         }
     }
-    public func animateState(state: InfinityScrollState) {
+    public func animateState(state: InfiniteScrollState) {
         print(state)
         switch state {
         case .None:

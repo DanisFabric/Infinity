@@ -1,6 +1,6 @@
 //
-//  SnakeInfinityAnimator.swift
-//  InfinitySample
+//  SnakeInfiniteAnimator.swift
+//  InfiniteSample
 //
 //  Created by Danis on 15/12/26.
 //  Copyright © 2015年 danis. All rights reserved.
@@ -15,7 +15,7 @@ extension UIColor {
     }
 }
 
-class SnakeInfinityAnimator: UIView, CustomInfinityScrollAnimator {
+class SnakeInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
     
     var color: UIColor? {
         didSet {
@@ -70,7 +70,7 @@ class SnakeInfinityAnimator: UIView, CustomInfinityScrollAnimator {
         }
     }
     
-    func animateState(state: InfinityScrollState) {
+    func animateState(state: InfiniteScrollState) {
         switch state {
         case .None:
             stopAnimating()

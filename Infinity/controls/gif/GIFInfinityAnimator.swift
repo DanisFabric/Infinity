@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class GIFInfinityAnimator: UIView, CustomInfinityScrollAnimator {
+public class GIFInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
     
     public var animatedImages:[UIImage]? {
         didSet {
@@ -28,7 +28,7 @@ public class GIFInfinityAnimator: UIView, CustomInfinityScrollAnimator {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func animateState(state: InfinityScrollState) {
+    public func animateState(state: InfiniteScrollState) {
         switch state {
         case .Loading:
             startAnimating()
