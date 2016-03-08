@@ -15,6 +15,10 @@ public class InfinityTableViewController: UITableViewController {
             tableView.enableInfiniteScroll = infinity
         }
     }
+    public func checkInfinity(count: Int, withPageLimit limit: Int) {
+        infinity = !(count < limit)
+    }
+    
     
     public func addPullToRefresh(height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator) {
         tableView.addPullToRefresh(height, animator: animator) { [unowned self]() -> Void in
