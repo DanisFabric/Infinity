@@ -16,6 +16,7 @@
 		126ABE101C2AD941004F3E48 /* NormalInfinityAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126ABE0F1C2AD941004F3E48 /* NormalInfinityAnimator.swift */; };
 		126ABE141C2AD961004F3E48 /* CircleInfinityAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126ABE121C2AD961004F3E48 /* CircleInfinityAnimator.swift */; };
 		126ABE151C2AD961004F3E48 /* CircleRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126ABE131C2AD961004F3E48 /* CircleRefreshAnimator.swift */; };
+		1278E6C11C8F17260048B007 /* InfinityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1278E6C01C8F17260048B007 /* InfinityTableViewController.swift */; };
 		129972A41C2A77C80093828B /* DefaultInfinityAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129972A21C2A77C80093828B /* DefaultInfinityAnimator.swift */; };
 		129972A51C2A77C80093828B /* DefaultRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129972A31C2A77C80093828B /* DefaultRefreshAnimator.swift */; };
 		12AF6F691C2E404400DB3F80 /* SnakeRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF6F681C2E404400DB3F80 /* SnakeRefreshAnimator.swift */; };
@@ -95,6 +96,7 @@
 		126ABE0F1C2AD941004F3E48 /* NormalInfinityAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalInfinityAnimator.swift; sourceTree = "<group>"; };
 		126ABE121C2AD961004F3E48 /* CircleInfinityAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleInfinityAnimator.swift; sourceTree = "<group>"; };
 		126ABE131C2AD961004F3E48 /* CircleRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleRefreshAnimator.swift; sourceTree = "<group>"; };
+		1278E6C01C8F17260048B007 /* InfinityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfinityTableViewController.swift; sourceTree = "<group>"; };
 		129972A21C2A77C80093828B /* DefaultInfinityAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultInfinityAnimator.swift; sourceTree = "<group>"; };
 		129972A31C2A77C80093828B /* DefaultRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultRefreshAnimator.swift; sourceTree = "<group>"; };
 		12AF6F681C2E404400DB3F80 /* SnakeRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeRefreshAnimator.swift; sourceTree = "<group>"; };
@@ -193,6 +195,14 @@
 			path = circle;
 			sourceTree = "<group>";
 		};
+		1278E6BF1C8F17050048B007 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1278E6C01C8F17260048B007 /* InfinityTableViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		1299729F1C2A77A60093828B /* samples */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,13 +214,14 @@
 			path = samples;
 			sourceTree = "<group>";
 		};
-		129972A01C2A77C80093828B /* controls */ = {
+		129972A01C2A77C80093828B /* Controls */ = {
 			isa = PBXGroup;
 			children = (
 				126ABE0C1C2AD926004F3E48 /* normal */,
 				126ABE061C2AD8BC004F3E48 /* gif */,
 				129972A11C2A77C80093828B /* default */,
 			);
+			name = Controls;
 			path = controls;
 			sourceTree = "<group>";
 		};
@@ -298,7 +309,8 @@
 				12EFE1281C27BD7A00242079 /* UIScrollView+Infinity.swift */,
 				12EFE12A1C27BDE300242079 /* PullToRefresher.swift */,
 				12EFE12C1C27BDED00242079 /* InfiniteScroller.swift */,
-				129972A01C2A77C80093828B /* controls */,
+				1278E6BF1C8F17050048B007 /* ViewControllers */,
+				129972A01C2A77C80093828B /* Controls */,
 			);
 			path = Infinity;
 			sourceTree = "<group>";
@@ -524,6 +536,7 @@
 				129972A41C2A77C80093828B /* DefaultInfinityAnimator.swift in Sources */,
 				12EFE1291C27BD7A00242079 /* UIScrollView+Infinity.swift in Sources */,
 				129972A51C2A77C80093828B /* DefaultRefreshAnimator.swift in Sources */,
+				1278E6C11C8F17260048B007 /* InfinityTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

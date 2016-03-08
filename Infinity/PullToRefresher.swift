@@ -55,6 +55,7 @@ class PullToRefresher: NSObject {
     var animator: CustomPullToRefreshAnimator
     var containerView: HeaderContainerView
     var action:(()->Void)?
+    var enable = true
     
     // Values
     var defaultContentInset: UIEdgeInsets = UIEdgeInsets()
@@ -81,7 +82,7 @@ class PullToRefresher: NSObject {
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if context == &KVOContext {
             if keyPath == "contentOffset" {
-                guard !updatingState else {
+                guard !updatingState && enable else {
                     return
                 }
                 

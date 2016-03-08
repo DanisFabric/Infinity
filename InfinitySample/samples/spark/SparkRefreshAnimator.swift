@@ -76,6 +76,7 @@ class SparkRefreshAnimator: UIView, CustomPullToRefreshAnimator {
             
             positions.append(position)
         }
+        alpha = 0
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -91,10 +92,12 @@ class SparkRefreshAnimator: UIView, CustomPullToRefreshAnimator {
     func animateState(state: PullToRefreshState) {
         switch state {
         case .None:
+            alpha = 0
             stopAnimating()
         case .Loading:
             startAnimating()
         case .Releasing(let progress):
+            alpha = 1.0
             updateForProgress(progress)
         }
     }

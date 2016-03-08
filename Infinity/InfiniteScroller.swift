@@ -51,6 +51,7 @@ class InfiniteScroller: NSObject {
     var animator: CustomInfiniteScrollAnimator
     var containerView: FooterContainerView
     var action: (() -> Void)?
+    var enable = true
     
     // Values
     var defaultContentInset = UIEdgeInsets()
@@ -99,7 +100,7 @@ class InfiniteScroller: NSObject {
                 guard lastOffset.y != point.y else {
                     return
                 }
-                guard !updatingState else {
+                guard !updatingState && enable else {
                     return
                 }
 
