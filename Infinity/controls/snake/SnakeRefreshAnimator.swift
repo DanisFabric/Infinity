@@ -1,23 +1,16 @@
 //
-//  SnakeInfiniteAnimator.swift
-//  InfiniteSample
+//  SnakeRefreshAnimator.swift
+//  InfinitySample
 //
 //  Created by Danis on 15/12/26.
 //  Copyright © 2015年 danis. All rights reserved.
 //
 
 import UIKit
-import Infinity
 
-extension UIColor {
-    static var SnakeBlue: UIColor {
-        return UIColor(red: 76/255.0, green: 143/255.0, blue: 1.0, alpha: 1.0)
-    }
-}
+public class SnakeRefreshAnimator: UIView, CustomPullToRefreshAnimator {
 
-class SnakeInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
-    
-    var color: UIColor? {
+    public var color: UIColor? {
         didSet {
             snakeLayer.strokeColor = color?.CGColor
         }
@@ -25,12 +18,12 @@ class SnakeInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
     var animating = false
     
     private var snakeLayer = CAShapeLayer()
-    private var snakeLengthByCycle:CGFloat = 0 // 占的周期数
+    private var snakeLengthByCycle:CGFloat = 0 // 显示的长度所占周期数
     private var cycleCount = 1000
     
     private var pathLength:CGFloat = 0
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         
         let ovalDiametor = frame.width / 4
@@ -59,24 +52,34 @@ class SnakeInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
         snakeLayer.frame = self.bounds
         self.layer.addSublayer(snakeLayer)
     }
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    override func didMoveToWindow() {
+    public override func didMoveToWindow() {
         super.didMoveToWindow()
         
         if window != nil && animating {
             startAnimating()
         }
     }
-    
-    func animateState(state: InfiniteScrollState) {
+    public func animateState(state: PullToRefreshState) {
         switch state {
         case .None:
             stopAnimating()
         case .Loading:
             startAnimating()
+        case .Releasing(let progress):
+            updateForProgress(progress)
         }
+    }
+    func updateForProgress(progress: CGFloat) {
+        snakeLayer.hidden = false
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        snakeLayer.strokeStart = 0
+        snakeLayer.strokeEnd = snakeLengthByCycle / CGFloat(cycleCount) * progress
+        CATransaction.commit()
     }
     
     private let AnimationGroupKey = "SnakePathAnimations"
@@ -95,7 +98,7 @@ class SnakeInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
         strokeEndAnim.toValue = 1
         moveAnim.toValue = NSValue(CGPoint: CGPoint(x: snakeLayer.position.x - pathLength, y: snakeLayer.position.y))
         
-
+        
         let animGroup = CAAnimationGroup()
         animGroup.animations = [strokeStartAnim,strokeEndAnim,moveAnim]
         animGroup.duration = Double(cycleCount) * 0.6
@@ -105,10 +108,9 @@ class SnakeInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
     }
     func stopAnimating() {
         animating = false
+        
         snakeLayer.hidden = true
-        
         snakeLayer.removeAnimationForKey(AnimationGroupKey)
-        
     }
     /*
     // Only override drawRect: if you perform custom drawing.

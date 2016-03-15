@@ -30,7 +30,9 @@ class AddSamplesTableViewController: UITableViewController {
         addPullToRefresh(type)
         addInfiniteScroll(type)
         tableView.infiniteStickToContent = true
-        tableView.enablePullToRefresh = false
+        
+//        tableView.enablePullToRefresh = false
+//        tableView.enableInfiniteScroll = false
     }
 
     deinit {

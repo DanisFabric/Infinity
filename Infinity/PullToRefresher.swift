@@ -85,7 +85,6 @@ class PullToRefresher: NSObject {
                 guard !updatingState && enable else {
                     return
                 }
-                
                 let point = change!["new"]!.CGPointValue
                 let offsetY = point.y + defaultContentInset.top
                 switch offsetY {

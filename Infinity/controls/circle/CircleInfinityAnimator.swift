@@ -1,21 +1,21 @@
 //
-//  CircleRefreshAnimator.swift
-//  InfinitySample
+//  CircleInfiniteAnimator.swift
+//  InfiniteSample
 //
 //  Created by Danis on 15/12/23.
 //  Copyright © 2015年 danis. All rights reserved.
 //
 
 import UIKit
-import Infinity
 
-class CircleRefreshAnimator: UIView, CustomPullToRefreshAnimator {
+public class CircleInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
 
-    var circle = CAShapeLayer()
+    var circle: CAShapeLayer = CAShapeLayer()
     private(set) var animating = false
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
+        
         
         circle.fillColor = UIColor.darkGrayColor().CGColor
         circle.path = UIBezierPath(ovalInRect: CGRect(x: 0, y: 0, width: frame.width, height: frame.height)).CGPath
@@ -23,34 +23,29 @@ class CircleRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         
         self.layer.addSublayer(circle)
     }
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         
         circle.frame = self.bounds
     }
-    override func didMoveToWindow() {
+    override public func didMoveToWindow() {
         super.didMoveToWindow()
         
         if window != nil && animating {
             startAnimating()
         }
     }
-    func animateState(state: PullToRefreshState) {
+    
+    public func animateState(state: InfiniteScrollState) {
         switch state {
         case .None:
             stopAnimating()
-        case .Releasing(let progress):
-            updateCircle(progress)
         case .Loading:
             startAnimating()
         }
-    }
-    func updateCircle(progress: CGFloat) {
-        circle.transform = CATransform3DMakeScale(progress, progress, progress)
     }
     
     private let CircleAnimationKey = "CircleAnimationKey"
@@ -84,7 +79,6 @@ class CircleRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         self.circle.transform = CATransform3DMakeScale(0, 0, 0)
         self.circle.opacity = 1.0
     }
-    
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Infinity
 
 extension UIColor {
     static var ArrowBlue: UIColor {
@@ -18,7 +17,7 @@ extension UIColor {
     }
 }
 
-class ArrowRefreshAnimator: UIView, CustomPullToRefreshAnimator {
+public class ArrowRefreshAnimator: UIView, CustomPullToRefreshAnimator {
     
     private(set) var animating = false
     var color: UIColor? {
@@ -37,7 +36,7 @@ class ArrowRefreshAnimator: UIView, CustomPullToRefreshAnimator {
     
     private var activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         
         circleBackLayer.path = UIBezierPath(ovalInRect: CGRect(x: 0, y: 0, width: frame.width, height: frame.height)).CGPath
@@ -83,10 +82,10 @@ class ArrowRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         self.addSubview(activityIndicatorView)
         
     }
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func animateState(state: PullToRefreshState) {
+    public func animateState(state: PullToRefreshState) {
         switch state {
         case .None:
             stopAnimating()

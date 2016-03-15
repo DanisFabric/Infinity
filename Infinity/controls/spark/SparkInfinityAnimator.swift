@@ -1,58 +1,21 @@
 //
-//  SparkRefreshAnimator.swift
-//  InfinitySample
+//  SparkInfiniteAnimator.swift
+//  InfiniteSample
 //
 //  Created by Danis on 16/1/2.
 //  Copyright © 2016年 danis. All rights reserved.
 //
 
 import UIKit
-import Infinity
 
-extension UIColor {
-    convenience init(hex: Int, alpha: CGFloat) {
-        let red = CGFloat((hex & 0xFF0000) >> 16) / 255.0
-        let green = CGFloat((hex & 0xFF00) >> 8) / 255.0
-        let blue = CGFloat(hex & 0xFF) / 255.0
-        
-        self.init(red: red, green: green, blue: blue, alpha: alpha)
-    }
-    convenience init(hex: Int) {
-        self.init(hex:hex, alpha:1.0)
-    }
-    
-    static func sparkColorWithIndex(index: Int) -> UIColor {
-        switch index % 8 {
-        case 0:
-            return UIColor(hex: 0xf9b60f)
-        case 1:
-            return UIColor(hex: 0xf78a44)
-        case 2:
-            return UIColor(hex: 0xf05e4d)
-        case 3:
-            return UIColor(hex: 0xf75078)
-        case 4:
-            return UIColor(hex: 0xc973e4)
-        case 5:
-            return UIColor(hex: 0x1bbef1)
-        case 6:
-            return UIColor(hex: 0x5593f0)
-        case 7:
-            return UIColor(hex: 0x00cf98)
-        default:
-            return UIColor.clearColor()
-        }
-    }
-}
-
-class SparkRefreshAnimator: UIView, CustomPullToRefreshAnimator {
+public class SparkInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
     
     private var circles = [CAShapeLayer]()
     var animating = false
     
     private var positions = [CGPoint]()
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         
         let ovalDiameter = min(frame.width,frame.height) / 8
@@ -76,41 +39,24 @@ class SparkRefreshAnimator: UIView, CustomPullToRefreshAnimator {
             
             positions.append(position)
         }
-        alpha = 0
     }
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    override func didMoveToWindow() {
+    public override func didMoveToWindow() {
         super.didMoveToWindow()
         
         if window != nil && animating {
             startAnimating()
         }
     }
-
-    func animateState(state: PullToRefreshState) {
+    
+    public func animateState(state: InfiniteScrollState) {
         switch state {
         case .None:
-            alpha = 0
             stopAnimating()
         case .Loading:
             startAnimating()
-        case .Releasing(let progress):
-            alpha = 1.0
-            updateForProgress(progress)
-        }
-    }
-    func updateForProgress(progress: CGFloat) {
-        let number = progress * CGFloat(circles.count)
-        
-        for index in 0..<8 {
-            let circleLayer = circles[index]
-            if CGFloat(index) < number {
-                circleLayer.hidden = false
-            }else {
-                circleLayer.hidden = true
-            }
         }
     }
     func startAnimating() {
@@ -138,7 +84,7 @@ class SparkRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         animationGroup.duration = 1.0
         animationGroup.repeatCount = 1000
         animationGroup.beginTime = CACurrentMediaTime() + Double(index) * animationGroup.duration / 8 / 2
-        animationGroup.timingFunction = CAMediaTimingFunction(controlPoints: 1, 0.27, 0, 0.75)
+        animationGroup.timingFunction = CAMediaTimingFunction(controlPoints: 1, 0.5, 0, 0.5)
         
         let circleLayer = circles[index]
         circleLayer.hidden = false
@@ -153,4 +99,12 @@ class SparkRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         }
         animating = false
     }
+    /*
+    // Only override drawRect: if you perform custom drawing.
+    // An empty implementation adversely affects performance during animation.
+    override func drawRect(rect: CGRect) {
+        // Drawing code
+    }
+    */
+
 }
