@@ -16,9 +16,9 @@ extension UIColor {
 
 public class SnakeInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
     
-    public var color: UIColor? {
+    public var color: UIColor = UIColor.SnakeBlue {
         didSet {
-            snakeLayer.strokeColor = color?.CGColor
+            snakeLayer.strokeColor = color.CGColor
         }
     }
     var animating = false
@@ -49,7 +49,7 @@ public class SnakeInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
         }
         snakeLayer.path = snakePath.CGPath
         snakeLayer.fillColor = nil
-        snakeLayer.strokeColor = UIColor.SnakeBlue.CGColor
+        snakeLayer.strokeColor = color.CGColor
         snakeLayer.strokeStart = 0
         snakeLayer.strokeEnd = snakeLengthByCycle / CGFloat(cycleCount)
         snakeLayer.lineWidth = 3

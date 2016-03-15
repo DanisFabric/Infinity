@@ -20,13 +20,11 @@ extension UIColor {
 public class ArrowRefreshAnimator: UIView, CustomPullToRefreshAnimator {
     
     private(set) var animating = false
-    var color: UIColor? {
+    public var color: UIColor = UIColor.ArrowBlue {
         didSet {
-            if let color = color {
-                arrowLayer.strokeColor = color.CGColor
-                circleFrontLayer.strokeColor = color.CGColor
-                activityIndicatorView.color = color
-            }
+            arrowLayer.strokeColor = color.CGColor
+            circleFrontLayer.strokeColor = color.CGColor
+            activityIndicatorView.color = color
         }
     }
     
@@ -41,12 +39,12 @@ public class ArrowRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         
         circleBackLayer.path = UIBezierPath(ovalInRect: CGRect(x: 0, y: 0, width: frame.width, height: frame.height)).CGPath
         circleBackLayer.fillColor = nil
-        circleBackLayer.strokeColor = UIColor.ArrowLightGray.CGColor
+        circleBackLayer.strokeColor = color.CGColor
         circleBackLayer.lineWidth = 3
         
         circleFrontLayer.path = UIBezierPath(ovalInRect: CGRect(x: 0, y: 0, width: frame.width, height: frame.height)).CGPath
         circleFrontLayer.fillColor = nil
-        circleFrontLayer.strokeColor = UIColor.ArrowBlue.CGColor
+        circleFrontLayer.strokeColor = color.CGColor
         circleFrontLayer.lineWidth = 3
         circleFrontLayer.lineCap = kCALineCapRound
         circleFrontLayer.strokeStart = 0
@@ -63,7 +61,7 @@ public class ArrowRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         
         arrowLayer.path = arrowPath.CGPath
         arrowLayer.fillColor = nil
-        arrowLayer.strokeColor = UIColor.ArrowBlue.CGColor
+        arrowLayer.strokeColor = color.CGColor
         arrowLayer.lineWidth = 3
         arrowLayer.lineJoin = kCALineJoinRound
         arrowLayer.lineCap = kCALineCapButt
