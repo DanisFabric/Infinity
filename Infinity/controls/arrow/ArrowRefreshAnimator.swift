@@ -39,7 +39,7 @@ public class ArrowRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         
         circleBackLayer.path = UIBezierPath(ovalInRect: CGRect(x: 0, y: 0, width: frame.width, height: frame.height)).CGPath
         circleBackLayer.fillColor = nil
-        circleBackLayer.strokeColor = color.CGColor
+        circleBackLayer.strokeColor = UIColor.ArrowLightGray.CGColor
         circleBackLayer.lineWidth = 3
         
         circleFrontLayer.path = UIBezierPath(ovalInRect: CGRect(x: 0, y: 0, width: frame.width, height: frame.height)).CGPath
