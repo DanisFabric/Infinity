@@ -17,6 +17,7 @@
 		126ABE141C2AD961004F3E48 /* CircleInfinityAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126ABE121C2AD961004F3E48 /* CircleInfinityAnimator.swift */; };
 		126ABE151C2AD961004F3E48 /* CircleRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126ABE131C2AD961004F3E48 /* CircleRefreshAnimator.swift */; };
 		1278E6C11C8F17260048B007 /* InfinityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1278E6C01C8F17260048B007 /* InfinityTableViewController.swift */; };
+		128EE1361C981F6D00FDCDA0 /* InfinityCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128EE1351C981F6D00FDCDA0 /* InfinityCollectionViewController.swift */; };
 		129972A41C2A77C80093828B /* DefaultInfinityAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129972A21C2A77C80093828B /* DefaultInfinityAnimator.swift */; };
 		129972A51C2A77C80093828B /* DefaultRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129972A31C2A77C80093828B /* DefaultRefreshAnimator.swift */; };
 		12AF6F691C2E404400DB3F80 /* SnakeRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF6F681C2E404400DB3F80 /* SnakeRefreshAnimator.swift */; };
@@ -97,6 +98,7 @@
 		126ABE121C2AD961004F3E48 /* CircleInfinityAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleInfinityAnimator.swift; sourceTree = "<group>"; };
 		126ABE131C2AD961004F3E48 /* CircleRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleRefreshAnimator.swift; sourceTree = "<group>"; };
 		1278E6C01C8F17260048B007 /* InfinityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfinityTableViewController.swift; sourceTree = "<group>"; };
+		128EE1351C981F6D00FDCDA0 /* InfinityCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfinityCollectionViewController.swift; sourceTree = "<group>"; };
 		129972A21C2A77C80093828B /* DefaultInfinityAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultInfinityAnimator.swift; sourceTree = "<group>"; };
 		129972A31C2A77C80093828B /* DefaultRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultRefreshAnimator.swift; sourceTree = "<group>"; };
 		12AF6F681C2E404400DB3F80 /* SnakeRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeRefreshAnimator.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				1278E6C01C8F17260048B007 /* InfinityTableViewController.swift */,
+				128EE1351C981F6D00FDCDA0 /* InfinityCollectionViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -528,6 +531,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12EFE12D1C27BDED00242079 /* InfiniteScroller.swift in Sources */,
+				128EE1361C981F6D00FDCDA0 /* InfinityCollectionViewController.swift in Sources */,
 				12EFE12B1C27BDE300242079 /* PullToRefresher.swift in Sources */,
 				126ABE101C2AD941004F3E48 /* NormalInfinityAnimator.swift in Sources */,
 				126ABE0A1C2AD8DD004F3E48 /* GIFInfinityAnimator.swift in Sources */,
