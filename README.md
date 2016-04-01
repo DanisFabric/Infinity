@@ -35,7 +35,7 @@ pod 'Infinity'
 Add the following code to your `Cartfile` and run `Carthage update`.
 
 ```ruby
-github "DanisFabric/Infninity"
+github "DanisFabric/Infinity"
 ```
 
 ### Manual
