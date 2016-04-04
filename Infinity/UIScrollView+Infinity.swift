@@ -114,7 +114,7 @@ extension UIScrollView {
             objc_setAssociatedObject(self, &associatedInfiniteScrollerKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-    // 当并未添加infinityScroll时返回的为nil，表示并不支持这种配置
+    
     public var infiniteStickToContent: Bool? {
         get {
             return self.infiniteScroller?.stickToContent

@@ -49,20 +49,20 @@ class BindSamplesTableViewController: UITableViewController {
             let animator = GIFRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             // Add Images for Animator
             var refreshImages = [UIImage]()
-            for var index = 0; index <= 21; index++ {
+            for index in 0...21 {
                 let image = UIImage(named: "hud_\(index)")
                 if let image = image {
                     refreshImages.append(image)
                 }
             }
             var animatedImages = [UIImage]()
-            for var index = 21; index <= 29; index++ {
+            for index in 21..<29 {
                 let image = UIImage(named: "hud_\(index)")
                 if let image = image {
                     animatedImages.append(image)
                 }
             }
-            for var index = 0; index < 21; index++ {
+            for index in 0..<21 {
                 let image = UIImage(named: "hud_\(index)")
                 if let image = image {
                     animatedImages.append(image)
@@ -102,7 +102,7 @@ class BindSamplesTableViewController: UITableViewController {
         case .GIF:
             let animator = GIFInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             var animatedImages = [UIImage]()
-            for var index = 0; index <= 29; index++ {
+            for index in 0...29 {
                 let image = UIImage(named: "hud_\(index)")
                 if let image = image {
                     animatedImages.append(image)
