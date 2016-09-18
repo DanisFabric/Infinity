@@ -80,7 +80,6 @@ extension UIScrollView {
 extension UIScrollView {
     
     public func addInfiniteScroll(height: CGFloat = 80.0, animator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
-        
         bindInfiniteScroll(height, toAnimator: animator, action: action)
         
         if let animatorView = animator as? UIView {

@@ -12,7 +12,7 @@ import Infinity
 class AddSamplesTableViewController: UITableViewController {
 
     var type:AnimatorType = .Default
-    var items = 20
+    var items = 20  
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,20 +50,20 @@ class AddSamplesTableViewController: UITableViewController {
             let animator = GIFRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             // Add Images for Animator
             var refreshImages = [UIImage]()
-            for var index = 0; index <= 21; index++ {
+            for index in 0..<22 {
                 let image = UIImage(named: "hud_\(index)")
                 if let image = image {
                     refreshImages.append(image)
                 }
             }
             var animatedImages = [UIImage]()
-            for var index = 21; index <= 29; index++ {
+            for index in 21..<30 {
                 let image = UIImage(named: "hud_\(index)")
                 if let image = image {
                     animatedImages.append(image)
                 }
             }
-            for var index = 0; index < 21; index++ {
+            for index in 0..<22 {
                 let image = UIImage(named: "hud_\(index)")
                 if let image = image {
                     animatedImages.append(image)
@@ -108,7 +108,7 @@ class AddSamplesTableViewController: UITableViewController {
         case .GIF:
             let animator = GIFInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             var animatedImages = [UIImage]()
-            for var index = 0; index <= 29; index++ {
+            for index in 0..<30 {
                 let image = UIImage(named: "hud_\(index)")
                 if let image = image {
                     animatedImages.append(image)
