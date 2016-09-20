@@ -10,50 +10,50 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-public class InfinityCollectionViewController: UICollectionViewController {
+open class InfinityCollectionViewController: UICollectionViewController {
     
-    public var infinity = true {
+    open var infinity = true {
         didSet {
             collectionView?.enableInfiniteScroll = infinity
         }
     }
-    public func checkInfinity(count: Int, withPageLimit limit: Int) {
+    open func checkInfinity(_ count: Int, withPageLimit limit: Int) {
         infinity = !(count < limit)
     }
     
-    public func addPullToRefresh(height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator) {
+    open func addPullToRefresh(_ height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator) {
         collectionView?.addPullToRefresh(height, animator: animator, action: { () -> Void in
             self.didPullToRefresh()
         })
     }
-    public func addInfiniteScroll(height: CGFloat = 60.0, animator: CustomInfiniteScrollAnimator) {
+    open func addInfiniteScroll(_ height: CGFloat = 60.0, animator: CustomInfiniteScrollAnimator) {
         collectionView?.addInfiniteScroll(height, animator: animator, action: { () -> Void in
             self.didInfiniteScroll()
         })
     }
 
-    public func removePullToRefresh() {
+    open func removePullToRefresh() {
         collectionView?.removePullToRefresh()
     }
-    public func removeInfiniteScroll() {
+    open func removeInfiniteScroll() {
         collectionView?.removeInfiniteScroll()
     }
-    public func beginRefreshing() {
+    open func beginRefreshing() {
         collectionView?.beginRefreshing()
     }
-    public func endRefreshing() {
+    open func endRefreshing() {
         collectionView?.endRefreshing()
     }
-    public func beginInfiniteScrolling() {
+    open func beginInfiniteScrolling() {
         collectionView?.beginInfiniteScrolling()
     }
-    public func endInfinityScrolling() {
+    open func endInfinityScrolling() {
         collectionView?.endInfiniteScrolling()
     }
-    public func didPullToRefresh() {
+    open func didPullToRefresh() {
         
     }
-    public func didInfiniteScroll() {
+    open func didInfiniteScroll() {
         
     }
 }

@@ -14,20 +14,20 @@ extension UIColor {
     }
 }
 
-public class SnakeInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
+open class SnakeInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
     
-    public var color: UIColor = UIColor.SnakeBlue {
+    open var color: UIColor = UIColor.SnakeBlue {
         didSet {
-            snakeLayer.strokeColor = color.CGColor
+            snakeLayer.strokeColor = color.cgColor
         }
     }
     var animating = false
     
-    private var snakeLayer = CAShapeLayer()
-    private var snakeLengthByCycle:CGFloat = 0 // 占的周期数
-    private var cycleCount = 1000
+    fileprivate var snakeLayer = CAShapeLayer()
+    fileprivate var snakeLengthByCycle:CGFloat = 0 // 占的周期数
+    fileprivate var cycleCount = 1000
     
-    private var pathLength:CGFloat = 0
+    fileprivate var pathLength:CGFloat = 0
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,17 +39,17 @@ public class SnakeInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
         pathLength = ovalDiametor * 2 * CGFloat(cycleCount)
         
         let snakePath = UIBezierPath()
-        snakePath.moveToPoint(CGPoint(x: 0, y: frame.height - ovalDiametor/2))
+        snakePath.move(to: CGPoint(x: 0, y: frame.height - ovalDiametor/2))
         for index in 0...cycleCount {
             let cycleStartX = CGFloat(index) * ovalDiametor * 2
-            snakePath.addLineToPoint(CGPoint(x: cycleStartX, y: ovalDiametor / 2))
-            snakePath.addArcWithCenter(CGPoint(x: cycleStartX + ovalDiametor / 2, y: ovalDiametor / 2), radius: ovalDiametor / 2, startAngle: CGFloat(M_PI), endAngle: 0, clockwise: true)
-            snakePath.addLineToPoint(CGPoint(x: cycleStartX + ovalDiametor, y: frame.height - ovalDiametor / 2))
-            snakePath.addArcWithCenter(CGPoint(x: cycleStartX + ovalDiametor / 2 * 3, y: frame.height - ovalDiametor/2), radius: ovalDiametor/2, startAngle: CGFloat(M_PI), endAngle: 0, clockwise: false)
+            snakePath.addLine(to: CGPoint(x: cycleStartX, y: ovalDiametor / 2))
+            snakePath.addArc(withCenter: CGPoint(x: cycleStartX + ovalDiametor / 2, y: ovalDiametor / 2), radius: ovalDiametor / 2, startAngle: CGFloat(M_PI), endAngle: 0, clockwise: true)
+            snakePath.addLine(to: CGPoint(x: cycleStartX + ovalDiametor, y: frame.height - ovalDiametor / 2))
+            snakePath.addArc(withCenter: CGPoint(x: cycleStartX + ovalDiametor / 2 * 3, y: frame.height - ovalDiametor/2), radius: ovalDiametor/2, startAngle: CGFloat(M_PI), endAngle: 0, clockwise: false)
         }
-        snakeLayer.path = snakePath.CGPath
+        snakeLayer.path = snakePath.cgPath
         snakeLayer.fillColor = nil
-        snakeLayer.strokeColor = color.CGColor
+        snakeLayer.strokeColor = color.cgColor
         snakeLayer.strokeStart = 0
         snakeLayer.strokeEnd = snakeLengthByCycle / CGFloat(cycleCount)
         snakeLayer.lineWidth = 3
@@ -61,7 +61,7 @@ public class SnakeInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    override public func didMoveToWindow() {
+    override open func didMoveToWindow() {
         super.didMoveToWindow()
         
         if window != nil && animating {
@@ -69,19 +69,19 @@ public class SnakeInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
         }
     }
     
-    public func animateState(state: InfiniteScrollState) {
+    open func animateState(_ state: InfiniteScrollState) {
         switch state {
-        case .None:
+        case .none:
             stopAnimating()
-        case .Loading:
+        case .loading:
             startAnimating()
         }
     }
     
-    private let AnimationGroupKey = "SnakePathAnimations"
+    fileprivate let AnimationGroupKey = "SnakePathAnimations"
     func startAnimating() {
         animating = true
-        snakeLayer.hidden = false
+        snakeLayer.isHidden = false
         
         snakeLayer.strokeStart = 0
         snakeLayer.strokeEnd = snakeLengthByCycle / CGFloat(cycleCount)
@@ -92,21 +92,21 @@ public class SnakeInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
         
         strokeStartAnim.toValue = 1 - snakeLengthByCycle/CGFloat(cycleCount)
         strokeEndAnim.toValue = 1
-        moveAnim.toValue = NSValue(CGPoint: CGPoint(x: snakeLayer.position.x - pathLength, y: snakeLayer.position.y))
+        moveAnim.toValue = NSValue(cgPoint: CGPoint(x: snakeLayer.position.x - pathLength, y: snakeLayer.position.y))
         
 
         let animGroup = CAAnimationGroup()
         animGroup.animations = [strokeStartAnim,strokeEndAnim,moveAnim]
         animGroup.duration = Double(cycleCount) * 0.6
         
-        snakeLayer.addAnimation(animGroup, forKey: AnimationGroupKey)
+        snakeLayer.add(animGroup, forKey: AnimationGroupKey)
         
     }
     func stopAnimating() {
         animating = false
-        snakeLayer.hidden = true
+        snakeLayer.isHidden = true
         
-        snakeLayer.removeAnimationForKey(AnimationGroupKey)
+        snakeLayer.removeAnimation(forKey: AnimationGroupKey)
         
     }
     /*

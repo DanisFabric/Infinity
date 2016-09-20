@@ -8,16 +8,16 @@
 
 import UIKit
 
-public class GIFRefreshAnimator: UIView, CustomPullToRefreshAnimator {
+open class GIFRefreshAnimator: UIView, CustomPullToRefreshAnimator {
     
-    public var refreshImages:[UIImage]?
-    public var animatedImages:[UIImage]? {
+    open var refreshImages:[UIImage]?
+    open var animatedImages:[UIImage]? {
         didSet {
             imageView.animationImages = animatedImages
         }
     }
     
-    private var imageView:UIImageView = UIImageView()
+    fileprivate var imageView:UIImageView = UIImageView()
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,17 +30,17 @@ public class GIFRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func animateState(state: PullToRefreshState) {
+    open func animateState(_ state: PullToRefreshState) {
         switch state {
-        case .None:
+        case .none:
             stopAnimating()
-        case .Releasing(let progress):
+        case .releasing(let progress):
             updateForProgress(progress)
-        case .Loading:
+        case .loading:
             startAnimating()
         }
     }
-    func updateForProgress(progress: CGFloat) {
+    func updateForProgress(_ progress: CGFloat) {
         if let refreshImages = refreshImages {
             let currentIndex = min(Int(progress * CGFloat(refreshImages.count)), refreshImages.count - 1)
             imageView.image = refreshImages[currentIndex]

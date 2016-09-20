@@ -17,7 +17,7 @@ private var associatedEnableInfiniteScrollKey: String = "InfinityEnableInfiniteS
 // MARK: - PullToRefresh
 extension UIScrollView {
 
-    public func addPullToRefresh(height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator, action:(()->Void)?) {
+    public func addPullToRefresh(_ height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator, action:(()->Void)?) {
         
         bindPullToRefresh(height, toAnimator: animator, action: action)
         self.pullToRefresher?.scrollbackImmediately = false
@@ -27,7 +27,7 @@ extension UIScrollView {
         }
         
     }
-    public func bindPullToRefresh(height: CGFloat = 60.0, toAnimator: CustomPullToRefreshAnimator, action:(()->Void)?) {
+    public func bindPullToRefresh(_ height: CGFloat = 60.0, toAnimator: CustomPullToRefreshAnimator, action:(()->Void)?) {
         removePullToRefresh()
         
         self.pullToRefresher = PullToRefresher(height: height, animator: toAnimator)
@@ -79,14 +79,14 @@ extension UIScrollView {
 // MARK: - InfiniteScroll
 extension UIScrollView {
     
-    public func addInfiniteScroll(height: CGFloat = 80.0, animator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
+    public func addInfiniteScroll(_ height: CGFloat = 80.0, animator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
         bindInfiniteScroll(height, toAnimator: animator, action: action)
         
         if let animatorView = animator as? UIView {
             self.infiniteScroller?.containerView.addSubview(animatorView)
         }
     }
-    public func bindInfiniteScroll(height: CGFloat = 80.0, toAnimator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
+    public func bindInfiniteScroll(_ height: CGFloat = 80.0, toAnimator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
         removeInfiniteScroll()
         
         self.infiniteScroller = InfiniteScroller(height: height, animator: toAnimator)
@@ -141,15 +141,15 @@ private let StatusBarHeight: CGFloat = 20
 private let TabBarHeight: CGFloat = 49
 
 public enum InfinityInsetTopType {
-    case None
-    case NavigationBar
-    case StatusBar
-    case Custom(height: CGFloat)
+    case none
+    case navigationBar
+    case statusBar
+    case custom(height: CGFloat)
 }
 public enum InfinityInsetBottomType {
-    case None
-    case TabBar
-    case Custom(height: CGFloat)
+    case none
+    case tabBar
+    case custom(height: CGFloat)
 }
 
 extension UIScrollView {
@@ -158,21 +158,21 @@ extension UIScrollView {
         var insetBottom: CGFloat = 0
         
         switch top {
-        case .None:
+        case .none:
             break
-        case .StatusBar:
+        case .statusBar:
             insetTop = StatusBarHeight
-        case .NavigationBar:
+        case .navigationBar:
             insetTop = NavigationBarHeight
-        case .Custom(let height):
+        case .custom(let height):
             insetTop = height
         }
         switch bottom {
-        case .None:
+        case .none:
             break
-        case .TabBar:
+        case .tabBar:
             insetBottom = TabBarHeight
-        case .Custom(let height):
+        case .custom(let height):
             insetBottom = height
         }
         self.contentInset = UIEdgeInsets(top: insetTop, left: 0, bottom: insetBottom, right: 0)
@@ -207,10 +207,10 @@ extension UIScrollView {
             objc_setAssociatedObject(self, &associatedLockInsetKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-    func setContentInset(inset: UIEdgeInsets, completion: ((Bool) -> Void)?) {
+    func setContentInset(_ inset: UIEdgeInsets, completion: ((Bool) -> Void)?) {
         if self.supportSpringBounces {
             
-            UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: [.CurveEaseInOut,.AllowUserInteraction,.BeginFromCurrentState], animations: { () -> Void in
+            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: [.allowUserInteraction, .beginFromCurrentState], animations: { () -> Void in
                 
                 self.lockInset = true
                 self.contentInset = inset
@@ -219,7 +219,7 @@ extension UIScrollView {
                 }, completion: completion)
             
         }else {
-            UIView.animateWithDuration(0.3, delay: 0, options: [.CurveEaseInOut,.AllowUserInteraction,.BeginFromCurrentState], animations: { () -> Void in
+            UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: { () -> Void in
                 
                 self.lockInset = true
                 self.contentInset = inset

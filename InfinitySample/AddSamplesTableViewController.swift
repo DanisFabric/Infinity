@@ -17,18 +17,18 @@ class AddSamplesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = .white
         title = type.description
         
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
         tableView.supportSpringBounces = true
         
         automaticallyAdjustsScrollViewInsets = false
 //        tableView.contentInset = InfiniteContentInset.NavigationBar
-        tableView.setInsetType(withTop: .NavigationBar, bottom: .None)
+        tableView.setInsetType(withTop: .navigationBar, bottom: .none)
         
-        addPullToRefresh(type)
-        addInfiniteScroll(type)
+        addPullToRefresh(type: type)
+        addInfiniteScroll(type: type)
         tableView.infiniteStickToContent = true
         
 //        tableView.enablePullToRefresh = false
@@ -45,7 +45,7 @@ class AddSamplesTableViewController: UITableViewController {
         switch type {
         case .Default:
             let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-            addPullToRefreshWithAnimator(animator)
+            addPullToRefreshWithAnimator(animator: animator)
         case .GIF:
             let animator = GIFRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             // Add Images for Animator
@@ -71,29 +71,27 @@ class AddSamplesTableViewController: UITableViewController {
             }
             animator.refreshImages = refreshImages
             animator.animatedImages = animatedImages
-            addPullToRefreshWithAnimator(animator)
+            addPullToRefreshWithAnimator(animator: animator)
         case .Circle:
             let animator = CircleRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-            addPullToRefreshWithAnimator(animator)
+            addPullToRefreshWithAnimator(animator: animator)
         case .Arrow:
             let animator = ArrowRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-            animator.color = UIColor.redColor()
-            addPullToRefreshWithAnimator(animator)
+            animator.color = .red
+            addPullToRefreshWithAnimator(animator: animator)
         case .Snake:
             let animator = SnakeRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 18))
-            addPullToRefreshWithAnimator(animator)
+            addPullToRefreshWithAnimator(animator: animator)
         case .Spark:
             let animator = SparkRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-            addPullToRefreshWithAnimator(animator)
+            addPullToRefreshWithAnimator(animator: animator)
         default:
             break
         }
     }
     func addPullToRefreshWithAnimator(animator: CustomPullToRefreshAnimator) {
         tableView.addPullToRefresh(animator: animator, action: { [weak self] () -> Void in
-            let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                Int64(2.0 * Double(NSEC_PER_SEC)))
-            dispatch_after(delayTime, dispatch_get_main_queue()) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 print("end refreshing")
                 self?.tableView?.endRefreshing()
             }
@@ -104,7 +102,7 @@ class AddSamplesTableViewController: UITableViewController {
         switch type {
         case .Default:
             let animator = DefaultInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-            addInfiniteScrollWithAnimator(animator)
+            addInfiniteScrollWithAnimator(animator: animator)
         case .GIF:
             let animator = GIFInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
             var animatedImages = [UIImage]()
@@ -115,23 +113,20 @@ class AddSamplesTableViewController: UITableViewController {
                 }
             }
             animator.animatedImages = animatedImages
-            addInfiniteScrollWithAnimator(animator)
+            addInfiniteScrollWithAnimator(animator: animator)
         case .Circle:
             let animator = CircleInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-            addInfiniteScrollWithAnimator(animator)
+            addInfiniteScrollWithAnimator(animator: animator)
         case .Snake:
             let animator = SnakeInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 18))
-            addInfiniteScrollWithAnimator(animator)
+            addInfiniteScrollWithAnimator(animator: animator)
         default:
             break
         }
     }
     func addInfiniteScrollWithAnimator(animator: CustomInfiniteScrollAnimator) {
         tableView.addInfiniteScroll(animator: animator, action: { [weak self] () -> Void in
-            let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-                Int64(2.0 * Double(NSEC_PER_SEC)))
-            dispatch_after(delayTime, dispatch_get_main_queue()) {
-                print("end Infinite scrolling")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 self?.items += 15
                 self?.tableView.reloadData()
                 self?.tableView?.endInfiniteScrolling()
@@ -146,26 +141,27 @@ class AddSamplesTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.items
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SampleCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SampleCell", for: indexPath)
 
         cell.textLabel?.text = "Cell"
 
         return cell
     }
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let newVC = UIViewController()
-        newVC.view.backgroundColor = UIColor.redColor()
+        newVC.view.backgroundColor = .red
         
-        showViewController(newVC, sender: self)
+        show(newVC, sender: self)
     }
 
     /*

@@ -9,24 +9,24 @@
 import UIKit
 
 public protocol CustomInfiniteScrollAnimator {
-    func animateState(state: InfiniteScrollState)
+    func animateState(_ state: InfiniteScrollState)
 }
 
 public enum InfiniteScrollState: Equatable, CustomStringConvertible {
-    case None
-    case Loading
+    case none
+    case loading
     
     public var description: String {
         switch self {
-        case .None: return "None"
-        case .Loading: return "Loading"
+        case .none: return "None"
+        case .loading: return "Loading"
         }
     }
 }
 public func == (left: InfiniteScrollState, right: InfiniteScrollState) -> Bool {
     switch (left, right) {
-    case (.None, .None): return true
-    case (.Loading, .Loading): return true
+    case (.none, .none): return true
+    case (.loading, .loading): return true
     default:
         return false
     }
@@ -71,18 +71,20 @@ class InfiniteScroller: NSObject {
     
     // MARK: - Observe Scroll View
     var KVOContext = "InfinityScrollKVOContext"
-    func addScrollViewObserving(scrollView: UIScrollView?) {
-        scrollView?.addObserver(self, forKeyPath: "contentOffset", options: .New, context: &KVOContext)
-        scrollView?.addObserver(self, forKeyPath: "contentInset", options: .New, context: &KVOContext)
-        scrollView?.addObserver(self, forKeyPath: "contentSize", options: .New, context: &KVOContext)
+    func addScrollViewObserving(_ scrollView: UIScrollView?) {
+        scrollView?.addObserver(self, forKeyPath: "contentOffset", options: .new, context: &KVOContext)
+        scrollView?.addObserver(self, forKeyPath: "contentInset", options: .new, context: &KVOContext)
+        scrollView?.addObserver(self, forKeyPath: "contentSize", options: .new, context: &KVOContext)
     }
-    func removeScrollViewObserving(scrollView: UIScrollView?) {
+    func removeScrollViewObserving(_ scrollView: UIScrollView?) {
         scrollView?.removeObserver(self, forKeyPath: "contentOffset", context: &KVOContext)
         scrollView?.removeObserver(self, forKeyPath: "contentInset", context: &KVOContext)
         scrollView?.removeObserver(self, forKeyPath: "contentSize", context: &KVOContext)
     }
-    private var lastOffset = CGPoint()
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    fileprivate var lastOffset = CGPoint()
+    
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if context == &KVOContext {
             if keyPath == "contentSize" {
                 adjustFooterFrame()
@@ -91,11 +93,11 @@ class InfiniteScroller: NSObject {
                 guard !self.scrollView!.lockInset else {
                     return
                 }
-                defaultContentInset = change!["new"]!.UIEdgeInsetsValue()
+                defaultContentInset = (change![.newKey]! as AnyObject).uiEdgeInsetsValue!
                 adjustFooterFrame()
             }
             else if keyPath == "contentOffset" {
-                let point = change!["new"]!.CGPointValue
+                let point = (change![.newKey]! as AnyObject).cgPointValue!
                 
                 guard lastOffset.y != point.y else {
                     return
@@ -111,24 +113,24 @@ class InfiniteScroller: NSObject {
                     distance = scrollView!.contentSize.height + self.defaultContentInset.bottom - point.y - scrollView!.frame.height
                 }
                 // 要保证scrollView里面是有内容的, 且保证是在上滑
-                if distance < 0 && self.state != .Loading && scrollView!.contentSize.height > 0 && point.y > lastOffset.y {
-                    self.state = .Loading
+                if distance < 0 && self.state != .loading && scrollView!.contentSize.height > 0 && point.y > lastOffset.y {
+                    self.state = .loading
                 }
                 
                 lastOffset = point
             }
         }
         else {
-            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
     var lockInset = false
     var updatingState = false
-    var state: InfiniteScrollState = .None {
+    var state: InfiniteScrollState = .none {
         didSet {
             self.animator.animateState(state)
             switch state {
-            case .Loading where oldValue == .None:
+            case .loading where oldValue == .none:
                 
                 updatingState = true
                 let jumpToBottom = defaultHeightToTrigger + defaultContentInset.bottom
@@ -137,7 +139,7 @@ class InfiniteScroller: NSObject {
                     self.updatingState = false
                 })
                 action?()
-            case .None where oldValue == .Loading:
+            case .none where oldValue == .loading:
                 self.updatingState = true
                 self.scrollView?.setContentInset(self.defaultContentInset, completion: { (finished) -> Void in
                     self.updatingState = false
@@ -162,7 +164,7 @@ class InfiniteScroller: NSObject {
         scrollView?.setContentOffset(CGPoint(x: 0, y: (scrollView!.contentSize.height + defaultContentInset.bottom - scrollView!.frame.height + defaultHeightToTrigger)), animated: true)
     }
     func endInfiniteScrolling() {
-        self.state = .None
+        self.state = .none
     }
 }
 

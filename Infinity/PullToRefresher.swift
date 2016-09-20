@@ -9,27 +9,27 @@
 import UIKit
 
 public protocol CustomPullToRefreshAnimator {
-    func animateState(state: PullToRefreshState)
+    func animateState(_ state: PullToRefreshState)
 }
 
 public enum PullToRefreshState: Equatable, CustomStringConvertible {
-    case None
-    case Releasing(progress:CGFloat)
-    case Loading
+    case none
+    case releasing(progress:CGFloat)
+    case loading
     
     public var description: String {
         switch self {
-        case .None: return "None"
-        case .Releasing(let progress): return "Releasing: \(progress)"
-        case .Loading: return "Loading"
+        case .none: return "None"
+        case .releasing(let progress): return "Releasing: \(progress)"
+        case .loading: return "Loading"
         }
     }
 }
 public func == (left: PullToRefreshState, right: PullToRefreshState) -> Bool {
     switch (left, right) {
-    case (.None, .None): return true
-    case (.Releasing, .Releasing): return true
-    case (.Loading, .Loading): return true
+    case (.none, .none): return true
+    case (.releasing, .releasing): return true
+    case (.loading, .loading): return true
     default:
         return false
     }
@@ -69,34 +69,34 @@ class PullToRefresher: NSObject {
     }
     // MARK: - Observe Scroll View
     var KVOContext = "PullToRefreshKVOContext"
-    func addScrollViewObserving(scrollView: UIScrollView?) {
-        scrollView?.addObserver(self, forKeyPath: "contentOffset", options: .New, context: &KVOContext)
-        scrollView?.addObserver(self, forKeyPath: "contentInset", options: .New, context: &KVOContext)
+    func addScrollViewObserving(_ scrollView: UIScrollView?) {
+        scrollView?.addObserver(self, forKeyPath: "contentOffset", options: .new, context: &KVOContext)
+        scrollView?.addObserver(self, forKeyPath: "contentInset", options: .new, context: &KVOContext)
         
     }
-    func removeScrollViewObserving(scrollView: UIScrollView?) {
+    func removeScrollViewObserving(_ scrollView: UIScrollView?) {
         scrollView?.removeObserver(self, forKeyPath: "contentOffset", context: &KVOContext)
         scrollView?.removeObserver(self, forKeyPath: "contentInset", context: &KVOContext)
     }
 
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if context == &KVOContext {
             if keyPath == "contentOffset" {
                 guard !updatingState && enable else {
                     return
                 }
-                let point = change!["new"]!.CGPointValue
+                let point = (change![.newKey]! as AnyObject).cgPointValue!
                 let offsetY = point.y + defaultContentInset.top
                 switch offsetY {
-                case 0 where state != .Loading:
-                    state = .None
-                case -defaultHeightToTrigger...0 where state != .Loading:
-                    state = .Releasing(progress: min(-offsetY / defaultHeightToTrigger, 1.0))
-                case (-CGFloat.max)...(-defaultHeightToTrigger) where state == .Releasing(progress:1):
-                    if scrollView!.dragging {
-                        state = .Releasing(progress: 1.0)
+                case 0 where state != .loading:
+                    state = .none
+                case -defaultHeightToTrigger...0 where state != .loading:
+                    state = .releasing(progress: min(-offsetY / defaultHeightToTrigger, 1.0))
+                case (-CGFloat.greatestFiniteMagnitude)...(-defaultHeightToTrigger) where state == .releasing(progress:1):
+                    if scrollView!.isDragging {
+                        state = .releasing(progress: 1.0)
                     }else {
-                        state = .Loading
+                        state = .loading
                     }
                 default:
                     break
@@ -106,20 +106,20 @@ class PullToRefresher: NSObject {
                 guard !self.scrollView!.lockInset else {
                     return
                 }
-                self.defaultContentInset = change!["new"]!.UIEdgeInsetsValue()
+                self.defaultContentInset = (change![.newKey]! as AnyObject).uiEdgeInsetsValue!
             }
             
         }else {
-            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
     var updatingState = false
-    var state: PullToRefreshState = .None {
+    var state: PullToRefreshState = .none {
         didSet {
             self.animator.animateState(state)
             
             switch state {
-            case .None where oldValue == .Loading:
+            case .none where oldValue == .loading:
                 if !self.scrollbackImmediately {
                     self.updatingState = true
                     self.scrollView?.setContentInset(self.defaultContentInset, completion: { (finished) -> Void in
@@ -127,7 +127,7 @@ class PullToRefresher: NSObject {
                     })
                 }
                 
-            case .Loading where oldValue != .Loading:
+            case .loading where oldValue != .loading:
                 
                 if !self.scrollbackImmediately {
                     self.updatingState = true
@@ -145,10 +145,10 @@ class PullToRefresher: NSObject {
     }
     // MARK: - Refresh
     func beginRefreshing() {
-        self.scrollView?.setContentOffset(CGPointMake(0, -(defaultHeightToTrigger + defaultContentInset.top + 1)), animated: true)
+        self.scrollView?.setContentOffset(CGPoint(x: 0, y: -(defaultHeightToTrigger + defaultContentInset.top + 1)), animated: true)
     }
     func endRefreshing() {
-        self.state = .None
+        self.state = .none
     }
 }
 
@@ -175,10 +175,10 @@ extension UIView {
     func firstResponderViewController() -> UIViewController? {
         var responder: UIResponder? = self as UIResponder
         while responder != nil {
-            if responder!.isKindOfClass(UIViewController.self) {
+            if responder!.isKind(of: UIViewController.self) {
                 return responder as? UIViewController
             }
-            responder = responder?.nextResponder()
+            responder = responder?.next
         }
         return nil
     }

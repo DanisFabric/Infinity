@@ -420,16 +420,20 @@
 					12EFE0E11C27BD5800242079 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 87EPALR25V;
+						LastSwiftMigration = 0800;
 					};
 					12EFE0F51C27BD5900242079 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 						TestTargetID = 12EFE0E11C27BD5800242079;
 					};
 					12EFE1091C27BD6A00242079 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 					};
 					12EFE1121C27BD6A00242079 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 						TestTargetID = 12EFE0E11C27BD5800242079;
 					};
 				};
@@ -682,6 +686,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.danis.InfinitySample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "13b89b0d-06b6-469d-80dc-97326f947718";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -697,6 +702,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.danis.InfinitySample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "13b89b0d-06b6-469d-80dc-97326f947718";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -708,6 +714,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.danis.InfinitySampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InfinitySample.app/InfinitySample";
 			};
 			name = Debug;
@@ -720,6 +727,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.danis.InfinitySampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InfinitySample.app/InfinitySample";
 			};
 			name = Release;
@@ -741,6 +749,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -763,6 +772,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.danis.Infinity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -776,6 +786,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.danis.InfinityTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InfinitySample.app/InfinitySample";
 			};
 			name = Debug;
@@ -787,6 +798,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.danis.InfinityTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InfinitySample.app/InfinitySample";
 			};
 			name = Release;

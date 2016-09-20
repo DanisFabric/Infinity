@@ -8,16 +8,16 @@
 
 import UIKit
 
-public class CircleRefreshAnimator: UIView, CustomPullToRefreshAnimator {
+open class CircleRefreshAnimator: UIView, CustomPullToRefreshAnimator {
 
     var circle = CAShapeLayer()
-    private(set) var animating = false
+    fileprivate(set) var animating = false
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
         
-        circle.fillColor = UIColor.darkGrayColor().CGColor
-        circle.path = UIBezierPath(ovalInRect: CGRect(x: 0, y: 0, width: frame.width, height: frame.height)).CGPath
+        circle.fillColor = UIColor.darkGray.cgColor
+        circle.path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: frame.width, height: frame.height)).cgPath
         circle.transform = CATransform3DMakeScale(0, 0, 0)
         
         self.layer.addSublayer(circle)
@@ -27,33 +27,33 @@ public class CircleRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         
         circle.frame = self.bounds
     }
-    override public func didMoveToWindow() {
+    override open func didMoveToWindow() {
         super.didMoveToWindow()
         
         if window != nil && animating {
             startAnimating()
         }
     }
-    public func animateState(state: PullToRefreshState) {
+    open func animateState(_ state: PullToRefreshState) {
         switch state {
-        case .None:
+        case .none:
             stopAnimating()
-        case .Releasing(let progress):
+        case .releasing(let progress):
             updateCircle(progress)
-        case .Loading:
+        case .loading:
             startAnimating()
         }
     }
-    func updateCircle(progress: CGFloat) {
+    func updateCircle(_ progress: CGFloat) {
         circle.transform = CATransform3DMakeScale(progress, progress, progress)
     }
     
-    private let CircleAnimationKey = "CircleAnimationKey"
+    fileprivate let CircleAnimationKey = "CircleAnimationKey"
     func startAnimating() {
         animating = true
         
@@ -72,15 +72,15 @@ public class CircleRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         animGroup.duration = 1.0
         animGroup.repeatCount = 1000
         animGroup.animations = [scaleAnim,opacityAnim]
-        animGroup.removedOnCompletion = false
+        animGroup.isRemovedOnCompletion = false
         animGroup.fillMode = kCAFillModeForwards
         
-        self.circle.addAnimation(animGroup, forKey: CircleAnimationKey)
+        self.circle.add(animGroup, forKey: CircleAnimationKey)
     }
     func stopAnimating() {
         animating = false
         
-        self.circle.removeAnimationForKey(CircleAnimationKey)
+        self.circle.removeAnimation(forKey: CircleAnimationKey)
         self.circle.transform = CATransform3DMakeScale(0, 0, 0)
         self.circle.opacity = 1.0
     }
