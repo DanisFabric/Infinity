@@ -8,9 +8,9 @@
 
 import UIKit
 
-public class GIFInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
+open class GIFInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
     
-    public var animatedImages:[UIImage]? {
+    open var animatedImages:[UIImage]? {
         didSet {
             imageView.animationImages = animatedImages
         }
@@ -28,20 +28,20 @@ public class GIFInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func animateState(state: InfiniteScrollState) {
+    open func animateState(_ state: InfiniteScrollState) {
         switch state {
-        case .Loading:
+        case .loading:
             startAnimating()
-        case .None:
+        case .none:
             stopAnimating()
         }
     }
     func startAnimating() {
-        imageView.hidden = false
+        imageView.isHidden = false
         imageView.startAnimating()
     }
     func stopAnimating() {
-        imageView.hidden = true
+        imageView.isHidden = true
         imageView.stopAnimating()
     }
 

@@ -8,15 +8,15 @@
 
 import UIKit
 
-public class DefaultInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
+open class DefaultInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
 
-    public var activityIndicatorView: UIActivityIndicatorView
-    public private(set) var animating: Bool = false
+    open var activityIndicatorView: UIActivityIndicatorView
+    open fileprivate(set) var animating: Bool = false
     
     public override init(frame: CGRect) {
-        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         activityIndicatorView.hidesWhenStopped = true
-        activityIndicatorView.hidden = true
+        activityIndicatorView.isHidden = true
         
         super.init(frame: frame)
         
@@ -25,22 +25,22 @@ public class DefaultInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         
         activityIndicatorView.frame = self.bounds
     }
-    public override func didMoveToWindow() {
+    open override func didMoveToWindow() {
         if window != nil && animating {
             startAnimating()
         }
     }
-    public func animateState(state: InfiniteScrollState) {
+    open func animateState(_ state: InfiniteScrollState) {
         print(state)
         switch state {
-        case .None:
+        case .none:
             stopAnimating()
-        case .Loading:
+        case .loading:
             startAnimating()
         }
     }
@@ -48,13 +48,13 @@ public class DefaultInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
         animating = true
         
         activityIndicatorView.startAnimating()
-        activityIndicatorView.hidden = false
+        activityIndicatorView.isHidden = false
     }
     func stopAnimating() {
         animating = false
         
         activityIndicatorView.stopAnimating()
-        activityIndicatorView.hidden = true
+        activityIndicatorView.isHidden = true
     }
     /*
     // Only override drawRect: if you perform custom drawing.
