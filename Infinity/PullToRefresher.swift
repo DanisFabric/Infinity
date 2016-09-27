@@ -93,9 +93,12 @@ class PullToRefresher: NSObject {
                 case -defaultHeightToTrigger...0 where state != .loading:
                     state = .releasing(progress: min(-offsetY / defaultHeightToTrigger, 1.0))
                 case (-CGFloat.greatestFiniteMagnitude)...(-defaultHeightToTrigger) where state == .releasing(progress:1):
+                    print("over")
                     if scrollView!.isDragging {
+                        print("dragging --- ")
                         state = .releasing(progress: 1.0)
                     }else {
+                        print("trigger")
                         state = .loading
                     }
                 default:

@@ -17,6 +17,8 @@ class AddSamplesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "refresh", style: .plain, target: self, action: #selector(startRefreshing(sender:)))
+        
         view.backgroundColor = .white
         title = type.description
         
@@ -38,6 +40,11 @@ class AddSamplesTableViewController: UITableViewController {
     deinit {
         tableView.removePullToRefresh()
         tableView.removeInfiniteScroll()
+    }
+    
+    
+    func startRefreshing(sender: AnyObject) {
+        tableView.beginRefreshing()
     }
     
     // MARK: - Add PullToRefresh
