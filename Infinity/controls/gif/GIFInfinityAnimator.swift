@@ -10,11 +10,7 @@ import UIKit
 
 open class GIFInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
     
-    open var animatedImages:[UIImage]? {
-        didSet {
-            imageView.animationImages = animatedImages
-        }
-    }
+    open var animatedImages = [UIImage]()
     
     var imageView: UIImageView = UIImageView()
     
@@ -37,6 +33,7 @@ open class GIFInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
         }
     }
     func startAnimating() {
+        imageView.animationImages = animatedImages
         imageView.isHidden = false
         imageView.startAnimating()
     }

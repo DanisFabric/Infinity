@@ -10,12 +10,8 @@ import UIKit
 
 open class GIFRefreshAnimator: UIView, CustomPullToRefreshAnimator {
     
-    open var refreshImages:[UIImage]?
-    open var animatedImages:[UIImage]? {
-        didSet {
-            imageView.animationImages = animatedImages
-        }
-    }
+    open var refreshImages = [UIImage]()
+    open var animatedImages = [UIImage]()
     
     fileprivate var imageView:UIImageView = UIImageView()
     
@@ -41,17 +37,18 @@ open class GIFRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         }
     }
     func updateForProgress(_ progress: CGFloat) {
-        if let refreshImages = refreshImages {
+        if refreshImages.count > 0 {
             let currentIndex = min(Int(progress * CGFloat(refreshImages.count)), refreshImages.count - 1)
             imageView.image = refreshImages[currentIndex]
         }
     }
     func startAnimating() {
+        imageView.animationImages = animatedImages
         imageView.startAnimating()
     }
     func stopAnimating() {
         imageView.stopAnimating()
-        imageView.image = refreshImages?.first
+        imageView.image = refreshImages.first
     }
     /*
     // Only override drawRect: if you perform custom drawing.
