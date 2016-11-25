@@ -12,7 +12,7 @@ import Infinity
 class AddSamplesTableViewController: UITableViewController {
 
     var type:AnimatorType = .Default
-    var items = 20  
+    var items = 5
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,10 +97,19 @@ class AddSamplesTableViewController: UITableViewController {
         }
     }
     func addPullToRefreshWithAnimator(animator: CustomPullToRefreshAnimator) {
-        tableView.addPullToRefresh(animator: animator, action: { [weak self] () -> Void in
+        tableView.addPullToRefresh(animator: animator, action: { [unowned self] () -> Void in
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 print("end refreshing")
-                self?.tableView?.endRefreshing()
+                
+                self.items += 3
+                self.tableView.reloadData()
+                self.tableView?.endRefreshing()
+                
+                if self.items < 12 {
+                    self.tableView.enableInfiniteScroll = false
+                } else {
+                    self.tableView.enableInfiniteScroll = true
+                }
             }
         })
     }
@@ -139,6 +148,7 @@ class AddSamplesTableViewController: UITableViewController {
                 self?.tableView?.endInfiniteScrolling()
             }
         })
+        tableView.enableInfiniteScroll = false
     }
 
     override func didReceiveMemoryWarning() {
