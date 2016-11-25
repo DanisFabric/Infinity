@@ -4,7 +4,7 @@
 
 ## Introduction
 
-`Infinity` is a simple to use library written in Swift2.1. there are some advantages: 
+`Infinity` is a simple to use library written in Swift2.1. there are some advantages:
 
 1. Flexibility: You  can write your animations.
 2. Easy to use: One line code make UIScrollView support pull-to-refresh or infinity-scrolling
@@ -18,17 +18,9 @@
 ## Requirements
 
 - iOS 8.0+
-- Swift 2.0+
+- Swift 3.0+
 
 ## Install
-
-### CocoaPods
-
-Add following to your `Podfile` and run `pod install`. 
-
-```ruby
-pod 'Infinity'
-```
 
 ### Carthaga
 
@@ -46,7 +38,7 @@ github "DanisFabric/Infinity"
 
 ## Usage
 
-Import `Infinity` 
+Import `Infinity`
 
 ```Swift
 import Infinity
@@ -66,12 +58,12 @@ self.tableView.addPullToRefresh(animator: animator, action: { [weak self] () -> 
 	self?.tableView?.endRefreshing()		//stop refreshing
 })
 ```
-Removing pull-to-refresh is also simple: 
+Removing pull-to-refresh is also simple:
 
 ```Swift
 tableView.removePullToRefresh()
 ```
-If you want to stop refreshing: 
+If you want to stop refreshing:
 
 ```Swift
 tableView.endRefreshing()
@@ -91,7 +83,7 @@ You need 2 steps to add infinite-scrolling to UIScrollView:
 
 ```Swift
 let animator = DefaultInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-self.tableView.addInfiniteScroll(animator: animator, action: { [weak self] () -> Void in	
+self.tableView.addInfiniteScroll(animator: animator, action: { [weak self] () -> Void in
 	self?.tableView?.endInfiniteScrolling()
 })
 ```
@@ -100,12 +92,12 @@ Remove infinite-scrolling:
 ```Swift
 tableView.removeInfiniteScroll()
 ```
-If you want to stop refreshing: 
+If you want to stop refreshing:
 
 ```Swift
 tableView.endInfiniteScrolling()
 ```
-If you want to start infinity-scrolling programmatically: 
+If you want to start infinity-scrolling programmatically:
 
 ```Swift
 tableView.beginInfiniteScrolling()
@@ -122,12 +114,12 @@ tableView.beginInfiniteScrolling()
 ```Swift
 	override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
 	self.tableView.addPullToRefresh(animator: animator, action: { [weak self] () -> Void in
 			self?.tableView?.endRefreshing()
 		})
-        
+
         let animator = DefaultInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
 		self.tableView.addInfiniteScroll(animator: animator, action: { [weak self] () -> Void in
 			self?.tableView?.endInfiniteScrolling()
@@ -143,9 +135,9 @@ tableView.beginInfiniteScrolling()
 ### automaticallyAdjustsScrollViewInsets
 
 
-`automaticallyAdjustsScrollViewInsets` property on UIViewController which is by default to true bother the `Infinity` control UIScrollView, so it will be automatically set to false when add pull-to-refresh. 
+`automaticallyAdjustsScrollViewInsets` property on UIViewController which is by default to true bother the `Infinity` control UIScrollView, so it will be automatically set to false when add pull-to-refresh.
 
-You need to adjsut the contentInset of UIScrollView by your self. `Infinity` offers some frequently used conentInset for you: 
+You need to adjsut the contentInset of UIScrollView by your self. `Infinity` offers some frequently used conentInset for you:
 
 ```Swift
 tableView.setInsetType(withTop: .NavigationBar, bottom: .None)
@@ -153,26 +145,26 @@ tableView.setInsetType(withTop: .NavigationBar, bottom: .None)
 
 ## Bind VS Add
 
-Let's see the definition of add/bind operations: 
+Let's see the definition of add/bind operations:
 
 ```Swift
 // PullToRefresh
-public func addPullToRefresh(height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator, action:(()->Void)?) 
-public func bindPullToRefresh(height: CGFloat = 60.0, toAnimator: CustomPullToRefreshAnimator, action:(()->Void)?) 
+public func addPullToRefresh(height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator, action:(()->Void)?)
+public func bindPullToRefresh(height: CGFloat = 60.0, toAnimator: CustomPullToRefreshAnimator, action:(()->Void)?)
 
 //InfinityScroll
-public func addInfinityScroll(height: CGFloat = 80.0, animator: CustomInfinityScrollAnimator, action: (() -> Void)?) 
-public func bindInfinityScroll(height: CGFloat = 80.0, toAnimator: CustomInfinityScrollAnimator, action: (() -> Void)?) 
+public func addInfinityScroll(height: CGFloat = 80.0, animator: CustomInfinityScrollAnimator, action: (() -> Void)?)
+public func bindInfinityScroll(height: CGFloat = 80.0, toAnimator: CustomInfinityScrollAnimator, action: (() -> Void)?)
 ```
 
-The parameters of bind operation is the same as parameters of add operation, following is the differences: 
+The parameters of bind operation is the same as parameters of add operation, following is the differences:
 
 - add operation will add animator to UIScrollView as a subview
 - bind operation don't do anything to animator, the animator just receive messages from pull-to-refresh/infinity-scrolling. It means you can bind any object to pull-to-refresh/infinity-scrolling, and you can control that object completely.
 
 ## Custom Animator
 
-You just need to confirm one of following protocols to create your animator whose all behavior is under your control. 
+You just need to confirm one of following protocols to create your animator whose all behavior is under your control.
 
 ```Swift
 public protocol CustomPullToRefreshAnimator {
@@ -185,15 +177,15 @@ public protocol CustomInfinityScrollAnimator {
     func animateState(state: InfinityScrollState)
 }
 ```
-Let's create a most simple Animator which onlu has a label to show the state of pull-to-refresh. 
+Let's create a most simple Animator which onlu has a label to show the state of pull-to-refresh.
 
 ```Swift
 class TextAnimator: UIView, CustomPullToRefreshAnimator {
     var textLabel = UILabel()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         textLabel.frame = self.bounds
         self.addSubview(textLabel)
     }
@@ -227,13 +219,13 @@ self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
 
 A bool value of UIScrollView to support spring effect
 
-```Swift 
+```Swift
 tableView.supportSpringBounces = true
 ```
 
 ### Contact
 
-I'd be happy if you sent me links to your apps where you use `Infinity`. If you have any questions or suggestion, send me an email to let me know. 
+I'd be happy if you sent me links to your apps where you use `Infinity`. If you have any questions or suggestion, send me an email to let me know.
 
 Email : [DanisFabric](danisfabric@gmail.com)
 
