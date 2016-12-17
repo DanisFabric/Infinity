@@ -23,7 +23,6 @@ class AddSamplesTableViewController: UITableViewController {
         title = type.description
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
-        tableView.supportSpringBounces = true
         
         automaticallyAdjustsScrollViewInsets = false
 //        tableView.contentInset = InfiniteContentInset.NavigationBar

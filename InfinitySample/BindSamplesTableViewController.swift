@@ -21,7 +21,6 @@ class BindSamplesTableViewController: UITableViewController {
         title = type.description
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
-        tableView.supportSpringBounces = true
         
         self.automaticallyAdjustsScrollViewInsets = false
         tableView.setInsetType(withTop: .navigationBar , bottom: .tabBar)

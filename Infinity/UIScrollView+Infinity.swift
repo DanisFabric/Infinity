@@ -183,18 +183,6 @@ private var associatedSupportSpringBouncesKey:String = "InfinitySupportSpringBou
 private var associatedLockInsetKey: String           = "InfinityLockInsetKey"
 
 extension UIScrollView {
-    public var supportSpringBounces: Bool {
-        get {
-             let support = objc_getAssociatedObject(self, &associatedSupportSpringBouncesKey) as? Bool
-            if support == nil {
-                return false
-            }
-            return support!
-        }
-        set {
-            objc_setAssociatedObject(self, &associatedSupportSpringBouncesKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
     var lockInset: Bool {
         get {
             let locked = objc_getAssociatedObject(self, &associatedLockInsetKey) as? Bool
@@ -208,27 +196,15 @@ extension UIScrollView {
         }
     }
     func setContentInset(_ inset: UIEdgeInsets, completion: ((Bool) -> Void)?) {
-        if self.supportSpringBounces {
+        UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: { () -> Void in
             
-            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: [.allowUserInteraction, .beginFromCurrentState], animations: { () -> Void in
-                
-                self.lockInset = true
-                self.contentInset = inset
-                self.lockInset = false
-                
-                }, completion: completion)
+            self.lockInset = true
+            self.contentInset = inset
+            self.lockInset = false
             
-        }else {
-            UIView.animate(withDuration: 0.3, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState], animations: { () -> Void in
-                
-                self.lockInset = true
-                self.contentInset = inset
-                self.lockInset = false
-
-                }, completion: { (finished) -> Void in
-                    
-                    completion?(finished)
-            })
-        }
+        }, completion: { (finished) -> Void in
+            
+            completion?(finished)
+        })
     }
 }
