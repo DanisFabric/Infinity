@@ -12,7 +12,7 @@ open class InfinityTableViewController: UITableViewController {
     
     open var infinity = true {
         didSet {
-            tableView.enableInfiniteScroll = infinity
+            tableView.isInfiniteScrollEnabled = infinity
         }
     }
     open func checkInfinity(_ count: Int, withPageLimit limit: Int) {

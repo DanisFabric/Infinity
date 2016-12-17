@@ -11,8 +11,8 @@ import UIKit
 private var associatedPullToRefresherKey: String  = "InfinityPullToRefresherKey"
 private var associatedInfiniteScrollerKey: String = "InfinityInfiniteScrollerKey"
 
-private var associatedEnablePullToRefreshKey: String = "InfinityEnablePullToRefreshKey"
-private var associatedEnableInfiniteScrollKey: String = "InfinityEnableInfiniteScrollKey"
+private var associatedisPullToRefreshEnabledKey: String = "InfinityisPullToRefreshEnabledKey"
+private var associatedisInfiniteScrollEnabledKey: String = "InfinityisInfiniteScrollEnabledKey"
 
 // MARK: - PullToRefresh
 extension UIScrollView {
@@ -54,7 +54,7 @@ extension UIScrollView {
             objc_setAssociatedObject(self, &associatedPullToRefresherKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-    public var enablePullToRefresh: Bool? {
+    public var isPullToRefreshEnabled: Bool? {
         get {
             return pullToRefresher?.enable
         }
@@ -124,7 +124,7 @@ extension UIScrollView {
             }
         }
     }
-    public var enableInfiniteScroll: Bool? {
+    public var isInfiniteScrollEnabled: Bool? {
         get {
             return infiniteScroller?.enable
         }

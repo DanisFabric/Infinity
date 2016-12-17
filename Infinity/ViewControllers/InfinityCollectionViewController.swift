@@ -14,7 +14,7 @@ open class InfinityCollectionViewController: UICollectionViewController {
     
     open var infinity = true {
         didSet {
-            collectionView?.enableInfiniteScroll = infinity
+            collectionView?.isInfiniteScrollEnabled = infinity
         }
     }
     open func checkInfinity(_ count: Int, withPageLimit limit: Int) {

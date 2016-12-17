@@ -33,8 +33,8 @@ class AddSamplesTableViewController: UITableViewController {
         addInfiniteScroll(type: type)
         tableView.infiniteStickToContent = true
         
-//        tableView.enablePullToRefresh = false
-//        tableView.enableInfiniteScroll = false
+//        tableView.isPullToRefreshEnabled = false
+//        tableView.isInfiniteScrollEnabled = false
     }
 
     deinit {
@@ -106,9 +106,9 @@ class AddSamplesTableViewController: UITableViewController {
                 self.tableView?.endRefreshing()
                 
                 if self.items < 12 {
-                    self.tableView.enableInfiniteScroll = false
+                    self.tableView.isInfiniteScrollEnabled = false
                 } else {
-                    self.tableView.enableInfiniteScroll = true
+                    self.tableView.isInfiniteScrollEnabled = true
                 }
             }
         })
@@ -148,7 +148,7 @@ class AddSamplesTableViewController: UITableViewController {
                 self?.tableView?.endInfiniteScrolling()
             }
         })
-        tableView.enableInfiniteScroll = false
+        tableView.isInfiniteScrollEnabled = false
     }
 
     override func didReceiveMemoryWarning() {
