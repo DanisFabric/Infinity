@@ -118,28 +118,29 @@ class PullToRefresher: NSObject {
         didSet {
             self.animator.animateState(state)
             
-            switch state {
-            case .none where oldValue == .loading:
-                if !self.scrollbackImmediately {
-                    self.updatingState = true
-                    self.scrollView?.setContentInset(self.defaultContentInset, completion: { (finished) -> Void in
-                        self.updatingState = false
-                    })
+            DispatchQueue.main.async {
+                switch self.state {
+                case .none where oldValue == .loading:
+                    if !self.scrollbackImmediately {
+                        self.updatingState = true
+                        self.scrollView?.setContentInset(self.defaultContentInset, completion: { [unowned self] (finished) -> Void in
+                            self.updatingState = false
+                        })
+                    }
+                    
+                case .loading where oldValue != .loading:
+                        if !self.scrollbackImmediately {
+                            self.updatingState = true
+                            var inset = self.defaultContentInset
+                            inset.top += self.defaultHeightToTrigger
+                            self.scrollView?.setContentInset(inset, completion: { [unowned self] (finished) -> Void in
+                                self.updatingState = false
+                            })
+                            self.action?()
+                        }
+                default:
+                    break
                 }
-                
-            case .loading where oldValue != .loading:
-                
-                if !self.scrollbackImmediately {
-                    self.updatingState = true
-                    var inset = self.defaultContentInset
-                    inset.top += self.defaultHeightToTrigger
-                    self.scrollView?.setContentInset(inset, completion: { (finished) -> Void in
-                        self.updatingState = false
-                    })
-                }
-                self.action?()
-            default:
-                break
             }
         }
     }

@@ -28,13 +28,10 @@ class BindSamplesTableViewController: UITableViewController {
         bindPullToRefresh(type: type)
         addInfiniteScroll(type: type)
         
-        tableView.scrollToTopImmediately = false
-        tableView.infiniteStickToContent = true // Default
     }
     
     deinit {
-        tableView.removePullToRefresh()
-        tableView.removeInfiniteScroll()
+        tableView.fty.clear()
     }
     
     // MARK: - Add PullToRefresh
@@ -82,11 +79,11 @@ class BindSamplesTableViewController: UITableViewController {
         }
     }
     func bindPullToRefreshWithAnimator(animator: CustomPullToRefreshAnimator) {
-        tableView.bindPullToRefresh(toAnimator: animator, action: { [weak self] () -> Void in
+        tableView.fty.pullToRefresh.bind(animator: animator) { [unowned self] in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                self?.tableView?.endRefreshing()
+                self.tableView.fty.pullToRefresh.end()
             }
-        })
+        }
     }
     // MARK: - Add InfiniteScroll
     func addInfiniteScroll(type: BindAnimatorType) {
@@ -114,13 +111,13 @@ class BindSamplesTableViewController: UITableViewController {
         }
     }
     func addInfiniteScrollWithAnimator(animator: CustomInfiniteScrollAnimator) {
-        tableView.addInfiniteScroll(animator: animator, action: { [weak self] () -> Void in
+        tableView.fty.infiniteScroll.add(animator: animator) { [unowned self] in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                self?.items += 15
-                self?.tableView.reloadData()
-                self?.tableView?.endInfiniteScrolling()
+                self.items += 15
+                self.tableView.reloadData()
+                self.tableView.fty.infiniteScroll.end()
             }
-        })
+        }
     }
     
     override func didReceiveMemoryWarning() {

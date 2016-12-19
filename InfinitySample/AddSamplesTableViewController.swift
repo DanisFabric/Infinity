@@ -30,20 +30,18 @@ class AddSamplesTableViewController: UITableViewController {
         
         addPullToRefresh(type: type)
         addInfiniteScroll(type: type)
-        tableView.infiniteStickToContent = true
         
 //        tableView.isPullToRefreshEnabled = false
 //        tableView.isInfiniteScrollEnabled = false
     }
 
     deinit {
-        tableView.removePullToRefresh()
-        tableView.removeInfiniteScroll()
+        tableView.fty.clear()
     }
     
     
     func startRefreshing(sender: AnyObject) {
-        tableView.beginRefreshing()
+        tableView.fty.pullToRefresh.begin()
     }
     
     // MARK: - Add PullToRefresh
@@ -96,21 +94,21 @@ class AddSamplesTableViewController: UITableViewController {
         }
     }
     func addPullToRefreshWithAnimator(animator: CustomPullToRefreshAnimator) {
-        tableView.addPullToRefresh(animator: animator, action: { [unowned self] () -> Void in
+        tableView.fty.pullToRefresh.add(animator: animator) { [unowned self] in
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 print("end refreshing")
                 
                 self.items += 3
                 self.tableView.reloadData()
-                self.tableView?.endRefreshing()
+                self.tableView.fty.pullToRefresh.end()
                 
                 if self.items < 12 {
-                    self.tableView.isInfiniteScrollEnabled = false
+                    self.tableView.fty.infiniteScroll.isEnabled = false
                 } else {
-                    self.tableView.isInfiniteScrollEnabled = true
+                    self.tableView.fty.infiniteScroll.isEnabled = true
                 }
             }
-        })
+        }
     }
     // MARK: - Add InfiniteScroll
     func addInfiniteScroll(type: AnimatorType) {
@@ -140,14 +138,14 @@ class AddSamplesTableViewController: UITableViewController {
         }
     }
     func addInfiniteScrollWithAnimator(animator: CustomInfiniteScrollAnimator) {
-        tableView.addInfiniteScroll(animator: animator, action: { [weak self] () -> Void in
+        tableView.fty.infiniteScroll.add(animator: animator) { [unowned self] in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                self?.items += 15
-                self?.tableView.reloadData()
-                self?.tableView?.endInfiniteScrolling()
+                self.items += 15
+                self.tableView.reloadData()
+                self.tableView.fty.infiniteScroll.end()
             }
-        })
-        tableView.isInfiniteScrollEnabled = false
+        }
+        tableView.fty.infiniteScroll.isEnabled = false
     }
 
     override func didReceiveMemoryWarning() {
