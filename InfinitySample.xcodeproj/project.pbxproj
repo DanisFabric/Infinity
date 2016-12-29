@@ -14,7 +14,6 @@
 				000BF0391E15091B004EA6C8 /* ShellScript */,
 			);
 			dependencies = (
-				000BF03B1E15093A004EA6C8 /* PBXTargetDependency */,
 			);
 			name = Comman;
 			productName = Comman;
@@ -56,13 +55,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		000BF03A1E15093A004EA6C8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 12EFE0DA1C27BD5800242079 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 12EFE1091C27BD6A00242079;
-			remoteInfo = Infinity;
-		};
 		12EFE0F71C27BD5900242079 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12EFE0DA1C27BD5800242079 /* Project object */;
@@ -578,11 +570,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		000BF03B1E15093A004EA6C8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 12EFE1091C27BD6A00242079 /* Infinity */;
-			targetProxy = 000BF03A1E15093A004EA6C8 /* PBXContainerItemProxy */;
-		};
 		12EFE0F81C27BD5900242079 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 12EFE0E11C27BD5800242079 /* InfinitySample */;
@@ -869,6 +856,7 @@
 				000BF0371E150912004EA6C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		12EFE0DD1C27BD5800242079 /* Build configuration list for PBXProject "InfinitySample" */ = {
 			isa = XCConfigurationList;
