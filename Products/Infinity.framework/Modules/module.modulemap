@@ -1,0 +1,10 @@
+framework module Infinity {
+  umbrella header "Infinity.h"
+
+  export *
+  module * { export * }
+}
+
+module Infinity.Swift {
+    header "Infinity-Swift.h"
+}

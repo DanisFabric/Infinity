@@ -123,9 +123,15 @@ class PullToRefresher: NSObject {
                 case .none where oldValue == .loading:
                     if !self.scrollbackImmediately {
                         self.updatingState = true
-                        self.scrollView?.setContentInset(self.defaultContentInset, completion: { [unowned self] (finished) -> Void in
-                            self.updatingState = false
-                        })
+                        if self.scrollView is UICollectionView {
+                            self.scrollView?.setContentInset(self.defaultContentInset, completion: { [unowned self] (finished) -> Void in
+                                self.updatingState = false
+                            })
+                        } else {
+                            self.scrollView?.setContentInset(self.defaultContentInset, completion: { [unowned self] (finished) -> Void in
+                                self.updatingState = false
+                            })
+                        }
                     }
                     
                 case .loading where oldValue != .loading:

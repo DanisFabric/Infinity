@@ -6,6 +6,21 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		000BF0351E150912004EA6C8 /* Comman */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 000BF0381E150912004EA6C8 /* Build configuration list for PBXAggregateTarget "Comman" */;
+			buildPhases = (
+				000BF0391E15091B004EA6C8 /* ShellScript */,
+			);
+			dependencies = (
+				000BF03B1E15093A004EA6C8 /* PBXTargetDependency */,
+			);
+			name = Comman;
+			productName = Comman;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		1249A1071C2BBFA100212C5D /* BindSamplesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1249A1061C2BBFA100212C5D /* BindSamplesTableViewController.swift */; };
 		1249A1091C2BE5EB00212C5D /* sample-gif.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1249A1081C2BE5EB00212C5D /* sample-gif.xcassets */; };
@@ -13,8 +28,6 @@
 		126ABE0A1C2AD8DD004F3E48 /* GIFInfinityAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126ABE091C2AD8DD004F3E48 /* GIFInfinityAnimator.swift */; };
 		126ABE0E1C2AD934004F3E48 /* NormalRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126ABE0D1C2AD934004F3E48 /* NormalRefreshAnimator.swift */; };
 		126ABE101C2AD941004F3E48 /* NormalInfinityAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126ABE0F1C2AD941004F3E48 /* NormalInfinityAnimator.swift */; };
-		1278E6C11C8F17260048B007 /* InfinityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1278E6C01C8F17260048B007 /* InfinityTableViewController.swift */; };
-		128EE1361C981F6D00FDCDA0 /* InfinityCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128EE1351C981F6D00FDCDA0 /* InfinityCollectionViewController.swift */; };
 		128EE1431C98301700FDCDA0 /* ArrowRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128EE13B1C98301700FDCDA0 /* ArrowRefreshAnimator.swift */; };
 		128EE1441C98301700FDCDA0 /* SnakeInfinityAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128EE13E1C98301700FDCDA0 /* SnakeInfinityAnimator.swift */; };
 		128EE1451C98301700FDCDA0 /* SnakeRefreshAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128EE13F1C98301700FDCDA0 /* SnakeRefreshAnimator.swift */; };
@@ -43,6 +56,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		000BF03A1E15093A004EA6C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 12EFE0DA1C27BD5800242079 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 12EFE1091C27BD6A00242079;
+			remoteInfo = Infinity;
+		};
 		12EFE0F71C27BD5900242079 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 12EFE0DA1C27BD5800242079 /* Project object */;
@@ -94,8 +114,6 @@
 		126ABE091C2AD8DD004F3E48 /* GIFInfinityAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GIFInfinityAnimator.swift; sourceTree = "<group>"; };
 		126ABE0D1C2AD934004F3E48 /* NormalRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalRefreshAnimator.swift; sourceTree = "<group>"; };
 		126ABE0F1C2AD941004F3E48 /* NormalInfinityAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalInfinityAnimator.swift; sourceTree = "<group>"; };
-		1278E6C01C8F17260048B007 /* InfinityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfinityTableViewController.swift; sourceTree = "<group>"; };
-		128EE1351C981F6D00FDCDA0 /* InfinityCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfinityCollectionViewController.swift; sourceTree = "<group>"; };
 		128EE13B1C98301700FDCDA0 /* ArrowRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowRefreshAnimator.swift; sourceTree = "<group>"; };
 		128EE13E1C98301700FDCDA0 /* SnakeInfinityAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeInfinityAnimator.swift; sourceTree = "<group>"; };
 		128EE13F1C98301700FDCDA0 /* SnakeRefreshAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeRefreshAnimator.swift; sourceTree = "<group>"; };
@@ -178,15 +196,6 @@
 				126ABE0F1C2AD941004F3E48 /* NormalInfinityAnimator.swift */,
 			);
 			path = normal;
-			sourceTree = "<group>";
-		};
-		1278E6BF1C8F17050048B007 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				1278E6C01C8F17260048B007 /* InfinityTableViewController.swift */,
-				128EE1351C981F6D00FDCDA0 /* InfinityCollectionViewController.swift */,
-			);
-			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		128EE13A1C98301700FDCDA0 /* arrow */ = {
@@ -304,7 +313,6 @@
 				12EFE1281C27BD7A00242079 /* UIScrollView+Infinity.swift */,
 				12EFE12A1C27BDE300242079 /* PullToRefresher.swift */,
 				12EFE12C1C27BDED00242079 /* InfiniteScroller.swift */,
-				1278E6BF1C8F17050048B007 /* ViewControllers */,
 				129972A01C2A77C80093828B /* Controls */,
 			);
 			path = Infinity;
@@ -417,6 +425,10 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = danis;
 				TargetAttributes = {
+					000BF0351E150912004EA6C8 = {
+						CreatedOnToolsVersion = 8.2;
+						ProvisioningStyle = Automatic;
+					};
 					12EFE0E11C27BD5800242079 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 87EPALR25V;
@@ -455,6 +467,7 @@
 				12EFE0F51C27BD5900242079 /* InfinitySampleTests */,
 				12EFE1091C27BD6A00242079 /* Infinity */,
 				12EFE1121C27BD6A00242079 /* InfinityTests */,
+				000BF0351E150912004EA6C8 /* Comman */,
 			);
 		};
 /* End PBXProject section */
@@ -494,6 +507,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		000BF0391E15091B004EA6C8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Sets the target folders and the final framework product.\n# 如果工程名称和Framework的Target名称不一样的话，要自定义FMKNAME\n# 例如: FMK_NAME = \"MyFramework\"\n# FMK_NAME=${PROJECT_NAME}\nFMK_NAME=\"Infinity\"\n# Install dir will be the final output to the framework.\n# The following line create it in the root folder of the current project.\nINSTALL_DIR=${SRCROOT}/Products/${FMK_NAME}.framework\n# Working dir will be deleted after the framework creation.\nWRK_DIR=build\nDEVICE_DIR=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.framework\nSIMULATOR_DIR=${WRK_DIR}/Release-iphonesimulator/${FMK_NAME}.framework\n# -configuration ${CONFIGURATION}\n# Clean and Building both architectures.\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphoneos clean build\nxcodebuild -configuration \"Release\" -target \"${FMK_NAME}\" -sdk iphonesimulator clean build\n# Cleaning the oldest.\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\nmkdir -p \"${INSTALL_DIR}\"\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\nrm -r \"${WRK_DIR}\"\nopen \"${INSTALL_DIR}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		12EFE0DE1C27BD5800242079 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -524,7 +553,6 @@
 				128EE14B1C98306800FDCDA0 /* CircleRefreshAnimator.swift in Sources */,
 				128EE1461C98301700FDCDA0 /* SparkInfinityAnimator.swift in Sources */,
 				12EFE12D1C27BDED00242079 /* InfiniteScroller.swift in Sources */,
-				128EE1361C981F6D00FDCDA0 /* InfinityCollectionViewController.swift in Sources */,
 				12EFE12B1C27BDE300242079 /* PullToRefresher.swift in Sources */,
 				126ABE101C2AD941004F3E48 /* NormalInfinityAnimator.swift in Sources */,
 				126ABE0A1C2AD8DD004F3E48 /* GIFInfinityAnimator.swift in Sources */,
@@ -536,7 +564,6 @@
 				129972A51C2A77C80093828B /* DefaultRefreshAnimator.swift in Sources */,
 				128EE14A1C98306800FDCDA0 /* CircleInfinityAnimator.swift in Sources */,
 				128EE1431C98301700FDCDA0 /* ArrowRefreshAnimator.swift in Sources */,
-				1278E6C11C8F17260048B007 /* InfinityTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,6 +578,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		000BF03B1E15093A004EA6C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 12EFE1091C27BD6A00242079 /* Infinity */;
+			targetProxy = 000BF03A1E15093A004EA6C8 /* PBXContainerItemProxy */;
+		};
 		12EFE0F81C27BD5900242079 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 12EFE0E11C27BD5800242079 /* InfinitySample */;
@@ -593,6 +625,20 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		000BF0361E150912004EA6C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		000BF0371E150912004EA6C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		12EFE0FD1C27BD5900242079 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -816,6 +862,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		000BF0381E150912004EA6C8 /* Build configuration list for PBXAggregateTarget "Comman" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				000BF0361E150912004EA6C8 /* Debug */,
+				000BF0371E150912004EA6C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		12EFE0DD1C27BD5800242079 /* Build configuration list for PBXProject "InfinitySample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
