@@ -37,66 +37,67 @@ github "DanisFabric/Infninity"
 
 ### 下拉刷新
 
-集成的过程分为两步：
+#### 集成的过程分为两步：
 
 1. 为下拉刷新操作指定动画(Infinity提供了基本的刷新动画)
 2. 将创建的动画指定给UIScrollView
 
 ```Swift
 let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-self.tableView.addPullToRefresh(animator: animator, action: { [weak self] () -> Void in
-	// 耗时操作（数据库读取，网络读取）
-	self?.tableView?.endRefreshing()
-})
+tableView.fty.pullToRefresh.add(animator: animator) { [unowned self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                print("end refreshing")
+                self.tableView.fty.pullToRefresh.end()
+            }
+        }
 ```
-移除只需一句代码：
+#### 停止刷新
 ```Swift
-tableView.removePullToRefresh()
+tableView.fty.pullToRefresh.end()
 ```
-如果你想停止刷新：
+#### 移除
+```Swift
+tableView.fty.pullToRefresh.remove()
+```
+#### 代码触发刷新操作
 
 ```Swift
-tableView.endRefreshing()
-```
-如果你想用代码来启动刷新：
-
-```Swift
-tableView.beginRefreshing()
+tableView.fty.pullToRefresh.begin()
 ```
 
 
 ### 上拉加载更多
 
-集成过程与下拉刷新完全相同，代码如下：
+#### 集成过程与【下拉刷新】完全相同
 
 ```Swift
 let animator = DefaultInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-self.tableView.addInfiniteScroll(animator: animator, action: { [weak self] () -> Void in	
-	// 耗时操作（数据库读取，网络读取）
-	self?.tableView?.endInfiniteScrolling()
-})
+tableView.fty.infiniteScroll.add(animator: animator) { [unowned self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self.tableView.fty.infiniteScroll.end()
+            }
+        }
+
 ```
-移除也只需一句代码：
+#### 停止
 
 ```Swift
-tableView.removeInfiniteScroll()
+tableView.fty.infiniteScroll.end()
 ```
-如果你想停止加载：
+#### 移除
 
 ```Swift
-tableView.endInfiniteScrolling()
+tableView.fty.infiniteScroll.remove()
 ```
-如果你想代码来开始进行加载更多：
+#### 代码触发加载更多
 
 ```Swift
-tableView.beginInfiniteScrolling()
+tableView.fty.infiniteScroll.begin()
 ```
 
 ### 最佳实践
 
-#### 何时集成/移除组件
-
-必须在`UIViewController`释放之前，将`PullToRefresh`和`InfiniteScroll`都移除掉。所以需要按以下方式来调用
+#### 何时集成 & 移除组件
 
 - 在`UIViewController`的`viewDidLoad`方法里集成组件(推荐)
 - 在`UIViewController`的`deinit`里移除组件(必须)
@@ -104,23 +105,26 @@ tableView.beginInfiniteScrolling()
 ```Swift
 	override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-	self.tableView.addPullToRefresh(animator: animator, action: { [weak self] () -> Void in
-			// 耗时操作（数据库读取，网络读取）
-			self?.tableView?.endRefreshing()
-		})
-        
+				tableView.fty.pullToRefresh.add(animator: animator) { [unowned self] in
+					// 耗时操作（数据库读取，网络读取）
+					self.tableView.fty.pullToRefresh.end()	// 调用此方法来停止刷新的动画
+				}
+
         let animator = DefaultInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-		self.tableView.addInfiniteScroll(animator: animator, action: { [weak self] () -> Void in	
-			// 耗时操作（数据库读取，网络读取）
-			self?.tableView?.endInfiniteScrolling()
-		})
+				tableView.fty.infiniteScroll.add(animator: animator) { [unowned self] in
+					// 耗时操作（数据库读取，网络读取）
+					self.tableView.fty.infiniteScroll.end()
+				}
     }
 
     deinit {
-        self.tableView.removePullToRefresh()
-        self.tableView.removeInfiniteScroll()
+			tableView.fty.pullToRefresh.remove()
+			tableView.fty.infiniteScroll.remove()
+
+			// 或者使用下面这句代码，和上面代码效果相同
+			tableView.fty.clear()
     }
 ```
 
@@ -128,20 +132,20 @@ tableView.beginInfiniteScrolling()
 
 ![weak-reference](https://github.com/DanisFabric/Infinity/blob/master/images/weak.png)
 
-如图，存在一个循环引用的链条，所以需要保证action->self 的引用为`weak`的弱引用，self才能够得到正确的释放
-
-
+如图，存在一个循环引用的链条，所以需要保证action->self 的引用为`unowned`的弱引用，self才能够得到正确的释放
 
 ### automaticallyAdjustsScrollViewInsets
 
 `UIViewController`有`automaticallyAdjustsScrollViewInsets`属性，当其为true时，viewController内的`UIScrollView`的contentInset会被自动调整为合适的值（自动调整的依据为`UIViewController`是否包含于`UINavigationController`和`UITabBarController`中）。这种自动调整会为下拉刷新带来一些意想不到的BUG。[PullToRefresh](https://github.com/Yalantis/PullToRefresh)等被使用较多的第三方库会出现进入新的viewController后回弹失效的问题。
 
-`Infinity`为了彻底解决这个问题以及让用户能够清楚地知晓其scrollView的contentInset值。所以默认将`automaticallyAdjustsScrollViewInsets`设置为false，转而推荐用护直接设置contentInset，并提供了基本的contentInset的值。
+`Infinity`为了彻底解决这个问题以及让用户能够清楚地知晓其scrollView的contentInset值。所以默认将`automaticallyAdjustsScrollViewInsets`设置为false。
+
+推荐开发者自己设置scrollView的`contentInset`。
 
 ```Swift
-tableView.setInsetType(withTop: .NavigationBar, bottom: .None)
+tableView.automaticallyAdjustsScrollViewInsets = false
+tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
 ```
-
 
 ## 绑定 VS 集成
 
@@ -152,12 +156,12 @@ tableView.setInsetType(withTop: .NavigationBar, bottom: .None)
 
 ```Swift
 // PullToRefresh
-public func addPullToRefresh(height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator, action:(()->Void)?) 
-public func bindPullToRefresh(height: CGFloat = 60.0, toAnimator: CustomPullToRefreshAnimator, action:(()->Void)?) 
+public func add(height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator, action:(()->Void)?)
+public func bind(height: CGFloat = 60.0, toAnimator: CustomPullToRefreshAnimator, action:(()->Void)?)
 
 //InfinityScroll
-public func addInfinityScroll(height: CGFloat = 80.0, animator: CustomInfinityScrollAnimator, action: (() -> Void)?) 
-public func bindInfinityScroll(height: CGFloat = 80.0, toAnimator: CustomInfinityScrollAnimator, action: (() -> Void)?) 
+public func add(height: CGFloat = 80.0, animator: CustomInfinityScrollAnimator, action: (() -> Void)?)
+public func bind(height: CGFloat = 80.0, toAnimator: CustomInfinityScrollAnimator, action: (() -> Void)?)
 ```
 
 bind操作提供了更多的灵活性。可以在示例项目里查看具体效果。
@@ -184,10 +188,10 @@ public protocol CustomInfinityScrollAnimator {
 ```Swift
 class TextAnimator: UIView, CustomPullToRefreshAnimator {
     var textLabel = UILabel()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         textLabel.frame = self.bounds
         self.addSubview(textLabel)
     }
@@ -207,24 +211,15 @@ class TextAnimator: UIView, CustomPullToRefreshAnimator {
 }
 // 在UIViewController的viewDidLoad使用TextAnimator
 let animator = TextAnimator(frame: CGRect(x: 0, y: 0, width: 200, height: 24))
-self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
+tableView.fty.pullToRefresh.add(animator: animator){ [unowned self] in
 	// 耗时操作（数据库读取，网络读取）
-	self.tableView?.endRefreshing()
-})
-
+	self.tableView.fty.pullToRefresh.end()
+}
 ```
-是不是很简单啊^_^。而因为bind操作的存在，你甚至能够用任意类型来做animator，不一定要继承UIView。
+
+是不是很简单啊。而因为bind操作的存在，你甚至能够用任意类型来做animator，不一定要继承UIView。
 
 ## 其他
-
-### supportSpringBounces
-
-- true: scrollView的回弹有弹簧特效
-- false: scrollView回弹去掉弹簧特效
-
-```
-self.tableView.supportSpringBounces = true
-```
 
 ### infinityStickToContent
 
