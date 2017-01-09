@@ -23,7 +23,7 @@ class BindSamplesTableViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
         
         self.automaticallyAdjustsScrollViewInsets = false
-        tableView.setInsetType(withTop: .navigationBar , bottom: .tabBar)
+        tableView.contentInset = UIEdgeInsets(top: navigationController!.navigationBar.bounds.height, left: 0, bottom: tabBarController!.tabBar.bounds.height, right: 0)
         
         bindPullToRefresh(type: type)
         addInfiniteScroll(type: type)

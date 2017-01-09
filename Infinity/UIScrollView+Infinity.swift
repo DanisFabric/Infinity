@@ -241,49 +241,6 @@ extension UIScrollView {
     }
 }
 
-private let NavigationBarHeight: CGFloat = 64
-private let StatusBarHeight: CGFloat = 20
-private let TabBarHeight: CGFloat = 49
-
-public enum InfinityInsetTopType {
-    case none
-    case navigationBar
-    case statusBar
-    case custom(height: CGFloat)
-}
-public enum InfinityInsetBottomType {
-    case none
-    case tabBar
-    case custom(height: CGFloat)
-}
-
-extension UIScrollView {
-    public func setInsetType(withTop top: InfinityInsetTopType, bottom: InfinityInsetBottomType) {
-        var insetTop: CGFloat = 0
-        var insetBottom: CGFloat = 0
-        
-        switch top {
-        case .none:
-            break
-        case .statusBar:
-            insetTop = StatusBarHeight
-        case .navigationBar:
-            insetTop = NavigationBarHeight
-        case .custom(let height):
-            insetTop = height
-        }
-        switch bottom {
-        case .none:
-            break
-        case .tabBar:
-            insetBottom = TabBarHeight
-        case .custom(let height):
-            insetBottom = height
-        }
-        self.contentInset = UIEdgeInsets(top: insetTop, left: 0, bottom: insetBottom, right: 0)
-    }
-}
-
 private var associatedSupportSpringBouncesKey:String = "InfinitySupportSpringBouncesKey"
 private var associatedLockInsetKey: String           = "InfinityLockInsetKey"
 
