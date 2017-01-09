@@ -3,7 +3,7 @@
 # Infinity
 
 ## 基本介绍
-`Infinity`是基于Swift2.1的为UIScrollView快速集成下拉刷新和上拉加载更多的开源库。`Infinity`有以下几个优点：
+`Infinity`是基于Swift3.0的为UIScrollView快速集成下拉刷新和上拉加载更多的开源库。`Infinity`有以下几个优点：
 
 1. 灵活性：完全支持自定义交互动画
 2. 易用性：一句代码集成/移除 下拉刷新功能
