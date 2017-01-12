@@ -46,61 +46,72 @@ import Infinity
 
 ### Pull-To-Refresh
 
-You need 2 steps to add pull-to-refresh to UIScrollView:
+#### Add pull-to-refresh to UIScrollView
 
 1. create animator which to show the progress of pull-to-refresh
 2. add animator to your UIScrollView
 
 ```Swift
 let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-self.tableView.addPullToRefresh(animator: animator, action: { [weak self] () -> Void in
-	// ...
-	self?.tableView?.endRefreshing()		//stop refreshing
-})
+tableView.fty.pullToRefresh.add(animator: animator) { [unowned self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                print("end refreshing")
+                self.tableView.fty.pullToRefresh.end()
+            }
+        }
 ```
-Removing pull-to-refresh is also simple:
+
+#### Stop refreshing
 
 ```Swift
-tableView.removePullToRefresh()
+tableView.fty.pullToRefresh.end()
 ```
-If you want to stop refreshing:
+
+#### Remove refreshing
 
 ```Swift
-tableView.endRefreshing()
+tableView.fty.pullToRefresh.remove()
 ```
-If you want to start refreshing programmatically:
+
+#### Trigger refreshing
 
 ```Swift
-tableView.startRefreshing()
+tableView.fty.pullToRefresh.begin()
 ```
 
-### Infinity-Scrolling
+### Infinite-Scrolling
 
-You need 2 steps to add infinite-scrolling to UIScrollView:
+#### Add infinite-scrolling to UIScrollView
 
 1. create animator to show the state of infinity-scroll:
 2. add animator to your UIScrollView
 
 ```Swift
 let animator = DefaultInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-self.tableView.addInfiniteScroll(animator: animator, action: { [weak self] () -> Void in
-	self?.tableView?.endInfiniteScrolling()
-})
+tableView.fty.infiniteScroll.add(animator: animator) { [unowned self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self.tableView.fty.infiniteScroll.end()
+            }
+        }
+
 ```
-Remove infinite-scrolling:
+
+#### Stop infinite-scrolling
 
 ```Swift
-tableView.removeInfiniteScroll()
+tableView.fty.infiniteScroll.end()
 ```
-If you want to stop refreshing:
+
+#### Remote infinite-scrolling
 
 ```Swift
-tableView.endInfiniteScrolling()
+tableView.fty.infiniteScroll.remove()
 ```
-If you want to start infinity-scrolling programmatically:
+
+#### Trigger infinite-scrolling
 
 ```Swift
-tableView.beginInfiniteScrolling()
+tableView.fty.infiniteScroll.begin()
 ```
 
 ### Best Practice
@@ -111,24 +122,30 @@ tableView.beginInfiniteScrolling()
 - `removePullToRefresh`/`removeInfiniteScroll` in `deinit` of `UIViewController`
 
 
+
 ```Swift
 	override func viewDidLoad() {
         super.viewDidLoad()
 
         let animator = DefaultRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
-	self.tableView.addPullToRefresh(animator: animator, action: { [weak self] () -> Void in
-			self?.tableView?.endRefreshing()
-		})
+				tableView.fty.pullToRefresh.add(animator: animator) { [unowned self] in
+					// 耗时操作（数据库读取，网络读取）
+					self.tableView.fty.pullToRefresh.end()	// 调用此方法来停止刷新的动画
+				}
 
         let animator = DefaultInfiniteAnimator(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-		self.tableView.addInfiniteScroll(animator: animator, action: { [weak self] () -> Void in
-			self?.tableView?.endInfiniteScrolling()
-		})
+				tableView.fty.infiniteScroll.add(animator: animator) { [unowned self] in
+					// 耗时操作（数据库读取，网络读取）
+					self.tableView.fty.infiniteScroll.end()
+				}
     }
 
     deinit {
-        self.tableView.removePullToRefresh()
-        self.tableView.removeInfiniteScroll()
+			tableView.fty.pullToRefresh.remove()
+			tableView.fty.infiniteScroll.remove()
+
+			// 或者使用下面这句代码，和上面代码效果相同
+			tableView.fty.clear()
     }
 ```
 
@@ -137,24 +154,22 @@ tableView.beginInfiniteScrolling()
 
 `automaticallyAdjustsScrollViewInsets` property on UIViewController which is by default to true bother the `Infinity` control UIScrollView, so it will be automatically set to false when add pull-to-refresh.
 
-You need to adjsut the contentInset of UIScrollView by your self. `Infinity` offers some frequently used conentInset for you:
-
 ```Swift
-tableView.setInsetType(withTop: .NavigationBar, bottom: .None)
+tableView.automaticallyAdjustsScrollViewInsets = false
+tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
 ```
-
 ## Bind VS Add
 
 Let's see the definition of add/bind operations:
 
 ```Swift
 // PullToRefresh
-public func addPullToRefresh(height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator, action:(()->Void)?)
-public func bindPullToRefresh(height: CGFloat = 60.0, toAnimator: CustomPullToRefreshAnimator, action:(()->Void)?)
+public func add(height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator, action:(()->Void)?)
+public func bind(height: CGFloat = 60.0, toAnimator: CustomPullToRefreshAnimator, action:(()->Void)?)
 
 //InfinityScroll
-public func addInfinityScroll(height: CGFloat = 80.0, animator: CustomInfinityScrollAnimator, action: (() -> Void)?)
-public func bindInfinityScroll(height: CGFloat = 80.0, toAnimator: CustomInfinityScrollAnimator, action: (() -> Void)?)
+public func add(height: CGFloat = 80.0, animator: CustomInfinityScrollAnimator, action: (() -> Void)?)
+public func bind(height: CGFloat = 80.0, toAnimator: CustomInfinityScrollAnimator, action: (() -> Void)?)
 ```
 
 The parameters of bind operation is the same as parameters of add operation, following is the differences:
@@ -205,11 +220,10 @@ class TextAnimator: UIView, CustomPullToRefreshAnimator {
 }
 // add TextAniamtor to UIScrollView
 let animator = TextAnimator(frame: CGRect(x: 0, y: 0, width: 200, height: 24))
-self.tableView.addPullToRefresh(animator: animator, action: { () -> Void in
-	// ...
-	self.tableView?.endRefreshing()
-})
-
+tableView.fty.pullToRefresh.add(animator: animator){ [unowned self] in
+	// 耗时操作（数据库读取，网络读取）
+	self.tableView.fty.pullToRefresh.end()
+}
 ```
 
 
