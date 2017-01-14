@@ -4,7 +4,7 @@
 
 ## Introduction
 
-`Infinity` is a simple to use library written in Swift2.1. there are some advantages:
+`Infinity` is a simple to use library written in Swift3.0. there are some advantages:
 
 1. Flexibility: You  can write your animations.
 2. Easy to use: One line code make UIScrollView support pull-to-refresh or infinity-scrolling
