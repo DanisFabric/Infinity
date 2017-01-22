@@ -108,6 +108,7 @@ class AddSamplesTableViewController: UITableViewController {
                 }
             }
         }
+        tableView.fty.pullToRefresh.animatorOffset = UIOffset(horizontal: 100, vertical: 0)
     }
     // MARK: - Add InfiniteScroll
     func addInfiniteScroll(type: AnimatorType) {

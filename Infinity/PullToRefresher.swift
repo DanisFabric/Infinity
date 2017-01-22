@@ -48,7 +48,7 @@ class PullToRefresher: NSObject {
                 
                 containerView.scrollView = scrollView
                 scrollView.addSubview(containerView)
-                containerView.frame = CGRect(x: 0, y: -defaultHeightToTrigger, width: scrollView.frame.width, height: defaultHeightToTrigger)
+                containerView.frame = CGRect(x: 0 + animatorOffset.horizontal, y: -defaultHeightToTrigger + animatorOffset.vertical, width: scrollView.frame.width, height: defaultHeightToTrigger)
             }
         }
     }
@@ -57,6 +57,13 @@ class PullToRefresher: NSObject {
     var action:(()->Void)?
     var enable = true
     
+    var animatorOffset: UIOffset = UIOffset() {
+        didSet {
+            if let scrollView = scrollView {
+                containerView.frame = CGRect(x: 0 + animatorOffset.horizontal, y: -defaultHeightToTrigger + animatorOffset.vertical, width: scrollView.frame.width, height: defaultHeightToTrigger)
+            }
+        }
+    }
     // Values
     var defaultContentInset: UIEdgeInsets = UIEdgeInsets()
     var defaultHeightToTrigger: CGFloat = 0

@@ -82,6 +82,17 @@ public class Infinity {
                 scrollView.isScrollingToTopImmediately = newValue
             }
         }
+        public var animatorOffset: UIOffset {
+            get {
+                if let offset = scrollView.pullToRefresher?.animatorOffset {
+                    return offset
+                }
+                return UIOffset()
+            }
+            set {
+                scrollView.pullToRefresher?.animatorOffset = newValue
+            }
+        }
     }
     public class InfiniteScrollWrapper {
         let scrollView: UIScrollView
