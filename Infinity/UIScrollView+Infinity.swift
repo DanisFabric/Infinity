@@ -33,10 +33,13 @@ extension UIScrollView {
 
 }
 
+public enum InfinityScrollDirection{
+    case vertical, horizontal
+}
+
 public class Infinity {
     public let pullToRefresh: PullToRefreshWrapper
     public let infiniteScroll: InfiniteScrollWrapper
-    
     let scrollView: UIScrollView
     
     init(scrollView: UIScrollView) {
@@ -51,11 +54,11 @@ public class Infinity {
             self.scrollView = scrollView
         }
         
-        public func add(height: CGFloat = 60, animator: CustomPullToRefreshAnimator, action: (() -> Void)?) {
-            scrollView.addPullToRefresh(height, animator: animator, action: action)
+        public func add(height: CGFloat = 60, direction: InfinityScrollDirection, animator: CustomPullToRefreshAnimator, action: (() -> Void)?) {
+            scrollView.addPullToRefresh(height, direction: direction, animator: animator, action: action)
         }
-        public func bind(height: CGFloat = 60, animator: CustomPullToRefreshAnimator, action: (() -> Void)?) {
-            scrollView.bindPullToRefresh(height, toAnimator: animator, action: action)
+        public func bind(height: CGFloat = 60, direction: InfinityScrollDirection, animator: CustomPullToRefreshAnimator, action: (() -> Void)?) {
+            scrollView.bindPullToRefresh(height, direction: direction, toAnimator: animator, action: action)
         }
         public func remove() {
             scrollView.removePullToRefresh()
@@ -99,11 +102,11 @@ public class Infinity {
         init(scrollView: UIScrollView) {
             self.scrollView = scrollView
         }
-        public func add(height: CGFloat = 60, animator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
-            scrollView.addInfiniteScroll(height, animator: animator, action: action)
+        public func add(height: CGFloat = 60, direction: InfinityScrollDirection, animator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
+            scrollView.addInfiniteScroll(height, direction: direction, animator: animator, action: action)
         }
-        public func bind(height: CGFloat = 60, animator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
-            scrollView.bindInfiniteScroll(height, toAnimator: animator, action: action)
+        public func bind(height: CGFloat = 60, direction: InfinityScrollDirection, animator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
+            scrollView.bindInfiniteScroll(height, direction: direction, toAnimator: animator, action: action)
         }
         public func remove() {
             scrollView.removeInfiniteScroll()
@@ -141,9 +144,9 @@ public class Infinity {
 
 extension UIScrollView {
     
-    func addPullToRefresh(_ height: CGFloat = 60.0, animator: CustomPullToRefreshAnimator, action:(()->Void)?) {
+    func addPullToRefresh(_ height: CGFloat = 60.0, direction: InfinityScrollDirection, animator: CustomPullToRefreshAnimator, action:(()->Void)?) {
         
-        bindPullToRefresh(height, toAnimator: animator, action: action)
+        bindPullToRefresh(height, direction:  direction, toAnimator: animator, action: action)
         self.pullToRefresher?.scrollbackImmediately = false
         
         if let animatorView = animator as? UIView {
@@ -151,10 +154,10 @@ extension UIScrollView {
         }
         
     }
-    func bindPullToRefresh(_ height: CGFloat = 60.0, toAnimator: CustomPullToRefreshAnimator, action:(()->Void)?) {
+    func bindPullToRefresh(_ height: CGFloat = 60.0, direction: InfinityScrollDirection, toAnimator: CustomPullToRefreshAnimator, action:(()->Void)?) {
         removePullToRefresh()
         
-        self.pullToRefresher = PullToRefresher(height: height, animator: toAnimator)
+        self.pullToRefresher = PullToRefresher(height: height, direction:  direction, animator: toAnimator)
         self.pullToRefresher?.scrollView = self
         self.pullToRefresher?.action = action
     }
@@ -199,17 +202,17 @@ extension UIScrollView {
 // MARK: - InfiniteScroll
 extension UIScrollView {
     
-    func addInfiniteScroll(_ height: CGFloat = 80.0, animator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
-        bindInfiniteScroll(height, toAnimator: animator, action: action)
+    func addInfiniteScroll(_ height: CGFloat = 80.0, direction: InfinityScrollDirection, animator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
+        bindInfiniteScroll(height, direction: direction,toAnimator: animator, action: action)
         
         if let animatorView = animator as? UIView {
             self.infiniteScroller?.containerView.addSubview(animatorView)
         }
     }
-    func bindInfiniteScroll(_ height: CGFloat = 80.0, toAnimator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
+    func bindInfiniteScroll(_ height: CGFloat = 80.0, direction: InfinityScrollDirection, toAnimator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
         removeInfiniteScroll()
         
-        self.infiniteScroller = InfiniteScroller(height: height, animator: toAnimator)
+        self.infiniteScroller = InfiniteScroller(height: height, direction: direction, animator: toAnimator)
         self.infiniteScroller?.scrollView = self
         self.infiniteScroller?.action = action
     }
