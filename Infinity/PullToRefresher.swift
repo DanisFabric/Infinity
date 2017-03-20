@@ -102,8 +102,7 @@ class PullToRefresher: NSObject {
                     return
                 }
                 let point = (change![.newKey]! as AnyObject).cgPointValue!
-                let topOffset = direction == .horizontal ? point.x + defaultContentInset.left : point.y + defaultContentInset.top
-                print("topOffset: \(topOffset)")
+                let topOffset = direction == .horizontal ? point.x + defaultContentInset.left : point.y + defaultContentInset.top                
                 switch topOffset {
                 case 0 where state != .loading:
                     state = .none

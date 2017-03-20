@@ -53,11 +53,7 @@ class InfiniteScroller: NSObject {
     var containerView: FooterContainerView
     var direction: InfinityScrollDirection
     var action: (() -> Void)?
-    var enable = true{
-        didSet{
-            print("ENABLED INFINITY \(enable)")
-        }
-    }
+    var enable = true
     
     // Values
     var defaultContentInset = UIEdgeInsets()
@@ -133,7 +129,7 @@ class InfiniteScroller: NSObject {
                     distance = scrollView!.contentSize.width + self.defaultContentInset.right - point.x - scrollView!.frame.width
                     default: return
                 }
-print("DISTANCE \(distance)")
+
                 // 要保证scrollView里面是有内容的, 且保证是在上滑
                 if self.state != .loading{
                     var verticalShouldLoad: Bool = distance < 0 && scrollView!.contentSize.height > 0 && point.y > lastOffset.y
