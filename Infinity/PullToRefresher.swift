@@ -61,6 +61,7 @@ class PullToRefresher: NSObject {
         didSet {
             if let scrollView = scrollView {
                 containerView.frame = CGRect(x: 0 + animatorOffset.horizontal, y: -defaultHeightToTrigger + animatorOffset.vertical, width: scrollView.frame.width, height: defaultHeightToTrigger)
+                print(containerView.frame)
             }
         }
     }

@@ -25,7 +25,7 @@ class AddSamplesTableViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
         
         automaticallyAdjustsScrollViewInsets = false
-        tableView.contentInset = UIEdgeInsets(top: navigationController!.navigationBar.bounds.height, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: navigationController!.navigationBar.bounds.height + 20, left: 0, bottom: 0, right: 0)
         
         addPullToRefresh(type: type)
         addInfiniteScroll(type: type)
@@ -108,7 +108,7 @@ class AddSamplesTableViewController: UITableViewController {
                 }
             }
         }
-        tableView.fty.pullToRefresh.animatorOffset = UIOffset(horizontal: 100, vertical: 0)
+//        tableView.fty.pullToRefresh.animatorOffset = UIOffset(horizontal: 100, vertical: 0)
     }
     // MARK: - Add InfiniteScroll
     func addInfiniteScroll(type: AnimatorType) {
