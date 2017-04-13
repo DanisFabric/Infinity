@@ -80,8 +80,8 @@ class BindSamplesTableViewController: UITableViewController {
         }
     }
     func bindPullToRefreshWithAnimator(animator: CustomPullToRefreshAnimator) {
-        tableView.fty.pullToRefresh.bind(animator: animator) { [unowned self] in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        tableView.fty.pullToRefresh.bind(animator: animator) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [unowned self] in
                 self.tableView.fty.pullToRefresh.end()
             }
         }
@@ -112,8 +112,8 @@ class BindSamplesTableViewController: UITableViewController {
         }
     }
     func addInfiniteScrollWithAnimator(animator: CustomInfiniteScrollAnimator) {
-        tableView.fty.infiniteScroll.add(animator: animator) { [unowned self] in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        tableView.fty.infiniteScroll.add(animator: animator) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [unowned self] in
                 self.items += 15
                 self.tableView.reloadData()
                 self.tableView.fty.infiniteScroll.end()
