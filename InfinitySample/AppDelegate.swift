@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Infinity
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     private func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        Infinity.debugModeEnabled = true
         // Override point for customization after application launch.
         return true
     }

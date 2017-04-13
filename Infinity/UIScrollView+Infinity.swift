@@ -34,6 +34,9 @@ extension UIScrollView {
 }
 
 public class Infinity {
+    /// Will output some debug information if `true`.
+    /// Default value: `false`
+    public static var debugModeEnabled = false
     public let pullToRefresh: PullToRefreshWrapper
     public let infiniteScroll: InfiniteScrollWrapper
     
