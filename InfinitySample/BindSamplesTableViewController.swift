@@ -16,19 +16,14 @@ class BindSamplesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        edgesForExtendedLayout = []
         view.backgroundColor = .white
         title = type.description
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
-        
-        self.automaticallyAdjustsScrollViewInsets = false
-        tableView.contentInset = UIEdgeInsets(top: navigationController!.navigationBar.bounds.height + 20 , left: 0, bottom: tabBarController!.tabBar.bounds.height, right: 0)
-        
-        
+      
         bindPullToRefresh(type: type)
         addInfiniteScroll(type: type)
-        
     }
     
     deinit {

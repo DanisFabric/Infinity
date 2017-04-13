@@ -16,16 +16,13 @@ class AddSamplesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        edgesForExtendedLayout = []
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "refresh", style: .plain, target: self, action: #selector(startRefreshing(sender:)))
         
         view.backgroundColor = .white
         title = type.description
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
-        
-        automaticallyAdjustsScrollViewInsets = false
-        tableView.contentInset = UIEdgeInsets(top: navigationController!.navigationBar.bounds.height + 20, left: 0, bottom: 0, right: 0)
         
         addPullToRefresh(type: type)
         addInfiniteScroll(type: type)
