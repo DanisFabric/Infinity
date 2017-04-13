@@ -49,7 +49,7 @@ open class ArrowRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         circleFrontLayer.lineCap = kCALineCapRound
         circleFrontLayer.strokeStart = 0
         circleFrontLayer.strokeEnd = 0
-        circleFrontLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: CGFloat(-M_PI_2)))
+        circleFrontLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: -CGFloat.pi/2))
         
         let arrowWidth = min(frame.width, frame.height) / 2
         let arrowHeight = arrowWidth * 0.5
@@ -97,7 +97,7 @@ open class ArrowRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         CATransaction.begin()
         CATransaction.setDisableActions(true)
         circleFrontLayer.strokeEnd = progress * progress
-        arrowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: CGFloat(M_PI * 2) * progress * progress))
+        arrowLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: CGFloat.pi * 2 * progress * progress))
         CATransaction.commit()
     }
     func startAnimating() {

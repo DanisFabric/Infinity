@@ -29,7 +29,7 @@ open class SnakeRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         let ovalDiametor = frame.width / 4
         let lineHeight = frame.height - ovalDiametor
         
-        snakeLengthByCycle = 2 - (ovalDiametor/2 * CGFloat(M_PI)) / ((lineHeight + ovalDiametor/2 * CGFloat(M_PI)) * 2)
+        snakeLengthByCycle = 2 - (ovalDiametor/2 * CGFloat.pi) / ((lineHeight + ovalDiametor/2 * CGFloat.pi) * 2)
         pathLength = ovalDiametor * 2 * CGFloat(cycleCount)
         
         let snakePath = UIBezierPath()
@@ -37,9 +37,9 @@ open class SnakeRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         for index in 0...cycleCount {
             let cycleStartX = CGFloat(index) * ovalDiametor * 2
             snakePath.addLine(to: CGPoint(x: cycleStartX, y: ovalDiametor / 2))
-            snakePath.addArc(withCenter: CGPoint(x: cycleStartX + ovalDiametor / 2, y: ovalDiametor / 2), radius: ovalDiametor / 2, startAngle: CGFloat(M_PI), endAngle: 0, clockwise: true)
+            snakePath.addArc(withCenter: CGPoint(x: cycleStartX + ovalDiametor / 2, y: ovalDiametor / 2), radius: ovalDiametor / 2, startAngle: CGFloat.pi, endAngle: 0, clockwise: true)
             snakePath.addLine(to: CGPoint(x: cycleStartX + ovalDiametor, y: frame.height - ovalDiametor / 2))
-            snakePath.addArc(withCenter: CGPoint(x: cycleStartX + ovalDiametor / 2 * 3, y: frame.height - ovalDiametor/2), radius: ovalDiametor/2, startAngle: CGFloat(M_PI), endAngle: 0, clockwise: false)
+            snakePath.addArc(withCenter: CGPoint(x: cycleStartX + ovalDiametor / 2 * 3, y: frame.height - ovalDiametor/2), radius: ovalDiametor/2, startAngle: CGFloat.pi, endAngle: 0, clockwise: false)
         }
         snakeLayer.path = snakePath.cgPath
         snakeLayer.fillColor = nil

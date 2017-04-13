@@ -31,7 +31,7 @@ open class SparkInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
             self.circles.append(circleLayer)
             self.layer.addSublayer(circleLayer)
             
-            let angle = CGFloat(M_PI * 2) / CGFloat(count) * CGFloat(index)
+            let angle = CGFloat.pi * 2 / CGFloat(count) * CGFloat(index)
             
             let radius = min(frame.width, frame.height) * 0.4
             let position = CGPoint(x: bounds.midX + sin(angle) * radius, y: bounds.midY - cos(angle) * radius)

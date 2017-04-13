@@ -23,7 +23,7 @@ open class DefaultRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         circleLayer.strokeColor = UIColor.gray.cgColor
         circleLayer.fillColor = UIColor.clear.cgColor
         circleLayer.lineWidth = 3
-        circleLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: CGFloat(-M_PI/2)))
+        circleLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: -CGFloat.pi/2))
         circleLayer.strokeStart = 0
         circleLayer.strokeEnd = 0
         
