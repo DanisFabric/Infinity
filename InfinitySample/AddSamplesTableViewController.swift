@@ -88,8 +88,6 @@ class AddSamplesTableViewController: UITableViewController {
         case .Spark:
             let animator = SparkRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
             addPullToRefreshWithAnimator(animator: animator)
-        default:
-            break
         }
     }
     func addPullToRefreshWithAnimator(animator: CustomPullToRefreshAnimator) {
