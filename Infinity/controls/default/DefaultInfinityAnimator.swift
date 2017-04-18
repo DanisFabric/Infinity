@@ -36,7 +36,9 @@ open class DefaultInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
         }
     }
     open func animateState(_ state: InfiniteScrollState) {
-        print(state)
+        if Infinity.debugModeEnabled {
+          print(state)
+        }
         switch state {
         case .none:
             stopAnimating()

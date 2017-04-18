@@ -16,16 +16,13 @@ class AddSamplesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        edgesForExtendedLayout = []
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "refresh", style: .plain, target: self, action: #selector(startRefreshing(sender:)))
         
         view.backgroundColor = .white
         title = type.description
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
-        
-        automaticallyAdjustsScrollViewInsets = false
-        tableView.contentInset = UIEdgeInsets(top: navigationController!.navigationBar.bounds.height + 20, left: 0, bottom: 0, right: 0)
         
         addPullToRefresh(type: type)
         addInfiniteScroll(type: type)
@@ -88,13 +85,11 @@ class AddSamplesTableViewController: UITableViewController {
         case .Spark:
             let animator = SparkRefreshAnimator(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
             addPullToRefreshWithAnimator(animator: animator)
-        default:
-            break
         }
     }
     func addPullToRefreshWithAnimator(animator: CustomPullToRefreshAnimator) {
-        tableView.fty.pullToRefresh.add(animator: animator) { [unowned self] in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        tableView.fty.pullToRefresh.add(animator: animator) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [unowned self] in
                 print("end refreshing")
                 
                 self.items += 3
@@ -138,8 +133,8 @@ class AddSamplesTableViewController: UITableViewController {
         }
     }
     func addInfiniteScrollWithAnimator(animator: CustomInfiniteScrollAnimator) {
-        tableView.fty.infiniteScroll.add(animator: animator) { [unowned self] in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        tableView.fty.infiniteScroll.add(animator: animator) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [unowned self] in
                 self.items += 15
                 self.tableView.reloadData()
                 self.tableView.fty.infiniteScroll.end()

@@ -16,19 +16,14 @@ class BindSamplesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        edgesForExtendedLayout = []
         view.backgroundColor = .white
         title = type.description
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SampleCell")
-        
-        self.automaticallyAdjustsScrollViewInsets = false
-        tableView.contentInset = UIEdgeInsets(top: navigationController!.navigationBar.bounds.height + 20 , left: 0, bottom: tabBarController!.tabBar.bounds.height, right: 0)
-        
-        
+      
         bindPullToRefresh(type: type)
         addInfiniteScroll(type: type)
-        
     }
     
     deinit {
@@ -80,8 +75,8 @@ class BindSamplesTableViewController: UITableViewController {
         }
     }
     func bindPullToRefreshWithAnimator(animator: CustomPullToRefreshAnimator) {
-        tableView.fty.pullToRefresh.bind(animator: animator) { [unowned self] in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        tableView.fty.pullToRefresh.bind(animator: animator) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [unowned self] in
                 self.tableView.fty.pullToRefresh.end()
             }
         }
@@ -112,8 +107,8 @@ class BindSamplesTableViewController: UITableViewController {
         }
     }
     func addInfiniteScrollWithAnimator(animator: CustomInfiniteScrollAnimator) {
-        tableView.fty.infiniteScroll.add(animator: animator) { [unowned self] in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        tableView.fty.infiniteScroll.add(animator: animator) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [unowned self] in
                 self.items += 15
                 self.tableView.reloadData()
                 self.tableView.fty.infiniteScroll.end()

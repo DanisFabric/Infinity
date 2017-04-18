@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Infinity"
-  s.version          = "3.0.2"
+  s.version          = "3.2.0"
   s.summary          = "A simple way to make UIScrollView support pull-to-refresh & infinity-scroll"
   s.homepage         = "https://github.com/danisfabric/Infinity"
   s.license          = 'MIT'
