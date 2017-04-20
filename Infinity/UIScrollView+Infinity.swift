@@ -33,6 +33,93 @@ extension UIScrollView {
 
 }
 
+public class PullToRefreshWrapper {
+    let scrollView: UIScrollView
+    init(scrollView: UIScrollView) {
+        self.scrollView = scrollView
+    }
+    
+    public func add(height: CGFloat = 60, animator: CustomPullToRefreshAnimator, action: (() -> Void)?) {
+        scrollView.addPullToRefresh(height, animator: animator, action: action)
+    }
+    public func bind(height: CGFloat = 60, animator: CustomPullToRefreshAnimator, action: (() -> Void)?) {
+        scrollView.bindPullToRefresh(height, toAnimator: animator, action: action)
+    }
+    public func remove() {
+        scrollView.removePullToRefresh()
+    }
+    public func begin() {
+        scrollView.beginRefreshing()
+    }
+    public func end() {
+        scrollView.endRefreshing()
+    }
+    public var isEnabled: Bool {
+        get {
+            return scrollView.isPullToRefreshEnabled
+        }
+        set {
+            scrollView.isPullToRefreshEnabled = newValue
+        }
+    }
+    public var isScrollingToTopImmediately: Bool {
+        get {
+            return scrollView.isScrollingToTopImmediately
+        }
+        set {
+            scrollView.isScrollingToTopImmediately = newValue
+        }
+    }
+    public var animatorOffset: UIOffset {
+        get {
+            if let offset = scrollView.pullToRefresher?.animatorOffset {
+                return offset
+            }
+            return UIOffset()
+        }
+        set {
+            scrollView.pullToRefresher?.animatorOffset = newValue
+        }
+    }
+}
+public class InfiniteScrollWrapper {
+    let scrollView: UIScrollView
+    init(scrollView: UIScrollView) {
+        self.scrollView = scrollView
+    }
+    public func add(height: CGFloat = 60, animator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
+        scrollView.addInfiniteScroll(height, animator: animator, action: action)
+    }
+    public func bind(height: CGFloat = 60, animator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
+        scrollView.bindInfiniteScroll(height, toAnimator: animator, action: action)
+    }
+    public func remove() {
+        scrollView.removeInfiniteScroll()
+    }
+    public func begin() {
+        scrollView.beginInfiniteScrolling()
+    }
+    public func end() {
+        scrollView.endInfiniteScrolling()
+    }
+    public var isEnabled: Bool {
+        get {
+            return scrollView.isInfiniteScrollEnabled
+        }
+        set {
+            scrollView.isInfiniteScrollEnabled = newValue
+        }
+    }
+    public var isStickToContent: Bool {
+        get {
+            return scrollView.isInfiniteStickToContent
+        }
+        set {
+            scrollView.isInfiniteStickToContent = newValue
+        }
+    }
+}
+
 public class Infinity {
     /// Will output some debug information if `true`.
     /// Default value: `false`
@@ -48,92 +135,6 @@ public class Infinity {
         infiniteScroll = InfiniteScrollWrapper(scrollView: scrollView)
     }
     
-    public class PullToRefreshWrapper {
-        let scrollView: UIScrollView
-        init(scrollView: UIScrollView) {
-            self.scrollView = scrollView
-        }
-        
-        public func add(height: CGFloat = 60, animator: CustomPullToRefreshAnimator, action: (() -> Void)?) {
-            scrollView.addPullToRefresh(height, animator: animator, action: action)
-        }
-        public func bind(height: CGFloat = 60, animator: CustomPullToRefreshAnimator, action: (() -> Void)?) {
-            scrollView.bindPullToRefresh(height, toAnimator: animator, action: action)
-        }
-        public func remove() {
-            scrollView.removePullToRefresh()
-        }
-        public func begin() {
-            scrollView.beginRefreshing()
-        }
-        public func end() {
-            scrollView.endRefreshing()
-        }
-        public var isEnabled: Bool {
-            get {
-                return scrollView.isPullToRefreshEnabled
-            }
-            set {
-                scrollView.isPullToRefreshEnabled = newValue
-            }
-        }
-        public var isScrollingToTopImmediately: Bool {
-            get {
-                return scrollView.isScrollingToTopImmediately
-            }
-            set {
-                scrollView.isScrollingToTopImmediately = newValue
-            }
-        }
-        public var animatorOffset: UIOffset {
-            get {
-                if let offset = scrollView.pullToRefresher?.animatorOffset {
-                    return offset
-                }
-                return UIOffset()
-            }
-            set {
-                scrollView.pullToRefresher?.animatorOffset = newValue
-            }
-        }
-    }
-    public class InfiniteScrollWrapper {
-        let scrollView: UIScrollView
-        init(scrollView: UIScrollView) {
-            self.scrollView = scrollView
-        }
-        public func add(height: CGFloat = 60, animator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
-            scrollView.addInfiniteScroll(height, animator: animator, action: action)
-        }
-        public func bind(height: CGFloat = 60, animator: CustomInfiniteScrollAnimator, action: (() -> Void)?) {
-            scrollView.bindInfiniteScroll(height, toAnimator: animator, action: action)
-        }
-        public func remove() {
-            scrollView.removeInfiniteScroll()
-        }
-        public func begin() {
-            scrollView.beginInfiniteScrolling()
-        }
-        public func end() {
-            scrollView.endInfiniteScrolling()
-        }
-        public var isEnabled: Bool {
-            get {
-                return scrollView.isInfiniteScrollEnabled
-            }
-            set {
-                scrollView.isInfiniteScrollEnabled = newValue
-            }
-        }
-        public var isStickToContent: Bool {
-            get {
-                return scrollView.isInfiniteStickToContent
-            }
-            set {
-                scrollView.isInfiniteStickToContent = newValue
-            }
-        }
-    }
     
     public func clear() {
         pullToRefresh.remove()
