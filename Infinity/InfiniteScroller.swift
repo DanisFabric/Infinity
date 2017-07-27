@@ -223,7 +223,6 @@ class FooterContainerView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         for view in subviews {
             view.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
         }
