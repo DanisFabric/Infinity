@@ -133,7 +133,9 @@ class PullToRefresher: NSObject {
     var state: PullToRefreshState = .none {
         didSet {
             self.animator.animateState(state)
-            
+            print("Scrollview refresher state: \(state)")
+            print("Scrollview refresher old state: \(oldValue)")
+            print("Scroll Enabled: \(self.scrollView?.isScrollEnabled)")
             DispatchQueue.main.async {
                 switch self.state {
                 case .none where oldValue == .loading:
@@ -144,6 +146,8 @@ class PullToRefresher: NSObject {
                                 self.updatingState = false
                             })
                         } else {
+                            print("Restoring default content inset: \(self.defaultContentInset)")
+                            
                             self.scrollView?.setContentInset(self.defaultContentInset, completion: { [unowned self] (finished) -> Void in
                                 self.updatingState = false
                             })
