@@ -37,11 +37,11 @@ public func == (left: PullToRefreshState, right: PullToRefreshState) -> Bool {
 
 class PullToRefresher: NSObject {
     func containerFrame(scrollView: UIScrollView) -> CGRect{
-            let horizontalFrame = CGRect(x: -defaultDistanceToTrigger + animatorOffset.horizontal, y: animatorOffset.vertical, width: defaultDistanceToTrigger, height: scrollView.frame.height)
-            let verticalFrame = CGRect(x: 0 + animatorOffset.horizontal, y: -defaultDistanceToTrigger + animatorOffset.vertical, width: scrollView.frame.width, height: defaultDistanceToTrigger)
-            return direction == .horizontal ? horizontalFrame : verticalFrame
+        let horizontalFrame = CGRect(x: -defaultDistanceToTrigger + animatorOffset.horizontal, y: animatorOffset.vertical, width: defaultDistanceToTrigger, height: scrollView.frame.height)
+        let verticalFrame = CGRect(x: 0 + animatorOffset.horizontal, y: -defaultDistanceToTrigger + animatorOffset.vertical, width: scrollView.frame.width, height: defaultDistanceToTrigger)
+        return direction == .horizontal ? horizontalFrame : verticalFrame
     }
-
+    
     weak var scrollView: UIScrollView? {
         willSet {
             removeScrollViewObserving(scrollView)
@@ -94,7 +94,7 @@ class PullToRefresher: NSObject {
         scrollView?.removeObserver(self, forKeyPath: "contentOffset", context: &KVOContext)
         scrollView?.removeObserver(self, forKeyPath: "contentInset", context: &KVOContext)
     }
-
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if context == &KVOContext {
             if keyPath == "contentOffset" {
@@ -102,7 +102,8 @@ class PullToRefresher: NSObject {
                     return
                 }
                 let point = (change![.newKey]! as AnyObject).cgPointValue!
-                let topOffset = direction == .horizontal ? point.x + defaultContentInset.left : point.y + defaultContentInset.top                
+                let topOffset = direction == .horizontal ? point.x + defaultContentInset.left : point.y + defaultContentInset.top
+                        print("TOP topOffset: \(topOffset)")
                 switch topOffset {
                 case 0 where state != .loading:
                     state = .none
@@ -132,43 +133,33 @@ class PullToRefresher: NSObject {
     var updatingState = false
     var state: PullToRefreshState = .none {
         didSet {
-            self.animator.animateState(state)
-            print("Scrollview refresher state: \(state)")
-            print("Scrollview refresher old state: \(oldValue)")
-            print("Scroll Enabled: \(self.scrollView?.isScrollEnabled)")
             DispatchQueue.main.async {
+                self.animator.animateState(self.state)
                 switch self.state {
-                case .none where oldValue == .loading:
+                case .none:
+                    guard scrollView?.contentInset != self.defaultContentInset else { return }
                     if !self.scrollbackImmediately {
                         self.updatingState = true
-                        if self.scrollView is UICollectionView {
-                            self.scrollView?.setContentInset(self.defaultContentInset, completion: { [unowned self] (finished) -> Void in
-                                self.updatingState = false
-                            })
-                        } else {
-                            print("Restoring default content inset: \(self.defaultContentInset)")
-                            
-                            self.scrollView?.setContentInset(self.defaultContentInset, completion: { [unowned self] (finished) -> Void in
-                                self.updatingState = false
-                            })
-                        }
+                        self.scrollView?.setContentInset(self.defaultContentInset, completion: { [unowned self] (finished) -> Void in
+                            self.updatingState = false
+                        })
                     }
                     
                 case .loading where oldValue != .loading:
-                        if !self.scrollbackImmediately {
-                            self.updatingState = true
-                            var inset = self.defaultContentInset
-                            if self.direction == .horizontal{
-                                inset.left += self.defaultDistanceToTrigger
-                            }
-                            else{
-                                inset.top += self.defaultDistanceToTrigger
-                            }
-                            self.scrollView?.setContentInset(inset, completion: { [unowned self] (finished) -> Void in
-                                self.updatingState = false
-                            })
-                            self.action?()
+                    if !self.scrollbackImmediately {
+                        self.updatingState = true
+                        var inset = self.defaultContentInset
+                        if self.direction == .horizontal{
+                            inset.left += self.defaultDistanceToTrigger
                         }
+                        else{
+                            inset.top += self.defaultDistanceToTrigger
+                        }
+                        self.scrollView?.setContentInset(inset, completion: { [unowned self] (finished) -> Void in
+                            self.updatingState = false
+                        })
+                        self.action?()
+                    }
                 default:
                     break
                 }
