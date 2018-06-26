@@ -36,7 +36,7 @@ class AddSamplesTableViewController: UITableViewController {
     }
     
     
-    func startRefreshing(sender: AnyObject) {
+    @objc func startRefreshing(sender: AnyObject) {
         tableView.fty.pullToRefresh.begin()
     }
     

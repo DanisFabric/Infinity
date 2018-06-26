@@ -129,25 +129,23 @@ class InfiniteScroller: NSObject {
     var state: InfiniteScrollState = .none {
         didSet {
             self.animator.animateState(state)
-            DispatchQueue.main.async {
-                switch self.state {
-                case .loading where oldValue == .none:
-                    
-                    self.updatingState = true
-                    let jumpToBottom = self.defaultHeightToTrigger + self.defaultContentInset.bottom
-                    let inset = UIEdgeInsets(top: self.defaultContentInset.top, left: self.defaultContentInset.left, bottom: jumpToBottom, right: self.defaultContentInset.right)
-                    self.scrollView?.setContentInset(inset, completion: { [unowned self] (finished) -> Void in
-                        self.updatingState = false
-                    })
-                    self.action?()
-                case .none where oldValue == .loading:
-                    self.updatingState = true
-                    self.scrollView?.setContentInset(self.defaultContentInset, completion: { (finished) -> Void in
-                        self.updatingState = false
-                    })
-                default:
-                    break
-                }
+            switch self.state {
+            case .loading where oldValue == .none:
+                
+                self.updatingState = true
+                let jumpToBottom = self.defaultHeightToTrigger + self.defaultContentInset.bottom
+                let inset = UIEdgeInsets(top: self.defaultContentInset.top, left: self.defaultContentInset.left, bottom: jumpToBottom, right: self.defaultContentInset.right)
+                self.scrollView?.setContentInset(inset, completion: { [unowned self] (finished) -> Void in
+                    self.updatingState = false
+                })
+                self.action?()
+            case .none where oldValue == .loading:
+                self.updatingState = true
+                self.scrollView?.setContentInset(self.defaultContentInset, completion: { (finished) -> Void in
+                    self.updatingState = false
+                })
+            default:
+                break
             }
         }
     }
