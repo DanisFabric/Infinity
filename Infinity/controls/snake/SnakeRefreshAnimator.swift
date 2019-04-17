@@ -47,7 +47,7 @@ open class SnakeRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         snakeLayer.strokeStart = 0
         snakeLayer.strokeEnd = snakeLengthByCycle / CGFloat(cycleCount)
         snakeLayer.lineWidth = 3
-        snakeLayer.lineCap = kCALineCapRound
+        snakeLayer.lineCap = CAShapeLayerLineCap.round
         
         snakeLayer.frame = self.bounds
         self.layer.addSublayer(snakeLayer)

@@ -58,17 +58,17 @@ open class CircleInfiniteAnimator: UIView, CustomInfiniteScrollAnimator {
         
         scaleAnim.fromValue = 0
         scaleAnim.toValue = 1.0
-        scaleAnim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        scaleAnim.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         
         opacityAnim.fromValue = 1
         opacityAnim.toValue = 0
-        opacityAnim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        opacityAnim.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
         
         animGroup.duration = 1.0
         animGroup.repeatCount = 1000
         animGroup.animations = [scaleAnim,opacityAnim]
         animGroup.isRemovedOnCompletion = false
-        animGroup.fillMode = kCAFillModeForwards
+        animGroup.fillMode = CAMediaTimingFillMode.forwards
         
         self.circle.add(animGroup, forKey: CircleAnimationKey)
     }
