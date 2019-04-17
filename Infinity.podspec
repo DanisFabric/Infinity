@@ -11,6 +11,6 @@ Pod::Spec.new do |s|
   s.source_files = 'Infinity/**/*'
   s.exclude_files = "Infinity/**/*.plist"
   s.swift_version = '4.2'
-  s.ios.deployment_target  = '11.0'
+  s.ios.deployment_target  = '10.0'
 
 end
