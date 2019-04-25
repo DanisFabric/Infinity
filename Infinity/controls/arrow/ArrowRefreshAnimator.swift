@@ -32,7 +32,7 @@ open class ArrowRefreshAnimator: UIView, CustomPullToRefreshAnimator {
     fileprivate var circleFrontLayer: CAShapeLayer = CAShapeLayer()
     fileprivate var circleBackLayer: CAShapeLayer = CAShapeLayer()
     
-    fileprivate var activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    fileprivate var activityIndicatorView: UIActivityIndicatorView = UIActivityIndicatorView(style: .gray)
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,7 +46,7 @@ open class ArrowRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         circleFrontLayer.fillColor = nil
         circleFrontLayer.strokeColor = color.cgColor
         circleFrontLayer.lineWidth = 3
-        circleFrontLayer.lineCap = kCALineCapRound
+        circleFrontLayer.lineCap = CAShapeLayerLineCap.round
         circleFrontLayer.strokeStart = 0
         circleFrontLayer.strokeEnd = 0
         circleFrontLayer.transform = CATransform3DMakeAffineTransform(CGAffineTransform(rotationAngle: -CGFloat.pi/2))
@@ -63,8 +63,8 @@ open class ArrowRefreshAnimator: UIView, CustomPullToRefreshAnimator {
         arrowLayer.fillColor = nil
         arrowLayer.strokeColor = color.cgColor
         arrowLayer.lineWidth = 3
-        arrowLayer.lineJoin = kCALineJoinRound
-        arrowLayer.lineCap = kCALineCapButt
+        arrowLayer.lineJoin = CAShapeLayerLineJoin.round
+        arrowLayer.lineCap = CAShapeLayerLineCap.butt
         
         circleBackLayer.frame = self.bounds
         circleFrontLayer.frame = self.bounds
